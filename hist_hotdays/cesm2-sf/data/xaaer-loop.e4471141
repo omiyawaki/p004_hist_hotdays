@@ -1,0 +1,34 @@
+  0%|          | 0/10 [00:00<?, ?it/s]  0%|          | 0/10 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 201, in _acquire_with_cache_info
+    file = self._cache[self._key]
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/lru_cache.py", line 55, in __getitem__
+    value = self._cache[key]
+KeyError: [<class 'netCDF4._netCDF4.Dataset'>, ('/glade/campaign/cesm/collections/CESM2-SF/timeseries/atm/proc/tseries/day_1/TREFHT/b.e21.BHISTcmip6.f09_g17.CESM2-SF-xAER.001.cam.h1.TREFHT.20250101-20341231.nc',), 'r', (('clobber', True), ('diskless', False), ('format', 'NETCDF4'), ('persist', False))]
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/var/spool/pbs/mom_priv/jobs/4471141.casper-pbs.SC", line 55, in <module>
+    ds = xr.open_dataset(fn)
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/api.py", line 531, in open_dataset
+    backend_ds = backend.open_dataset(
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 555, in open_dataset
+    store = NetCDF4DataStore.open(
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 384, in open
+    return cls(manager, group=group, mode=mode, lock=lock, autoclose=autoclose)
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 332, in __init__
+    self.format = self.ds.data_model
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 393, in ds
+    return self._acquire()
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/netCDF4_.py", line 387, in _acquire
+    with self._manager.acquire_context(needs_lock) as root:
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/contextlib.py", line 135, in __enter__
+    return next(self.gen)
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 189, in acquire_context
+    file, cached = self._acquire_with_cache_info(needs_lock)
+  File "/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/backends/file_manager.py", line 207, in _acquire_with_cache_info
+    file = self._opener(*self._args, **kwargs)
+  File "src/netCDF4/_netCDF4.pyx", line 2463, in netCDF4._netCDF4.Dataset.__init__
+  File "src/netCDF4/_netCDF4.pyx", line 2026, in netCDF4._netCDF4._ensure_nc_success
+FileNotFoundError: [Errno 2] No such file or directory: b'/glade/campaign/cesm/collections/CESM2-SF/timeseries/atm/proc/tseries/day_1/TREFHT/b.e21.BHISTcmip6.f09_g17.CESM2-SF-xAER.001.cam.h1.TREFHT.20250101-20341231.nc'

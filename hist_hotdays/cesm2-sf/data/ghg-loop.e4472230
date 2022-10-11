@@ -1,0 +1,5 @@
+  0%|          | 0/10 [00:00<?, ?it/s] 10%|█         | 1/10 [00:02<00:20,  2.32s/it] 20%|██        | 2/10 [00:02<00:08,  1.04s/it] 30%|███       | 3/10 [00:02<00:04,  1.60it/s] 30%|███       | 3/10 [00:02<00:06,  1.16it/s]
+Traceback (most recent call last):
+  File "/var/spool/pbs/mom_priv/jobs/4472230.casper-pbs.SC", line 46, in <module>
+    [ht2m0, gr] = pickle.load(open('%s/ht2m_%s.%s.%s.pickle' % (mdir(se,'his',fo),his,mem,se), 'rb'))
+FileNotFoundError: [Errno 2] No such file or directory: '/glade/work/miyawaki/data/p004/hist_hotdays/cesm2-sf/ann/his/xaaer/ht2m_1920-1940.004.ann.pickle'
