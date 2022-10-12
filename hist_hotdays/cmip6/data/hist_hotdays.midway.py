@@ -8,11 +8,13 @@
 import os
 import sys
 sys.path.append('.')
+sys.path.append('/project2/tas1/miyawaki/common')
 import pickle
 import numpy as np
 import xarray as xr
 from tqdm import tqdm
-from cmip6util import mods,emem,simu,grid,year
+from cmip6util import mods,emem,simu,year
+from glade_utils import grid
 
 # this script creates a histogram of daily temperature for a given year
 # at each gridir point. 

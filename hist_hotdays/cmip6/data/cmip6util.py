@@ -100,6 +100,9 @@ def year(cl,md,byr):
             # one file
             if md in ['CanESM5','CNRM-CM6-1','CNRM-ESM2-1','KACE-1-0-G']:
                 lyr=['20150101-21001231']
+            # one file (360 day)
+            if md in ['KACE-1-0-G']:
+                lyr=['20150101-21001230']
             # 50 year inc
             elif md in ['ACCESS-CM2','ACCESS-ESM1-5','MRI-ESM2-0']:
                 lyr=['20650101-21001231']
