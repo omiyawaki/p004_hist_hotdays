@@ -14,7 +14,8 @@ def mods(fo):
     # lmd  : LIST of model names for that forcing
 
     if fo in ['ssp245','ssp370']:
-        lmd=['ACCESS-CM2', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'CanESM5', 'CESM2-WACCM', 'CNRM-CM6-1', 'CNRM-ESM2-1', 'GFDL-CM4', 'GFDL-ESM4', 'HadGEM3-GC31-LL', 'INM-CM4-8', 'INM-CM5-0', 'KACE-1-0-G', 'MIROC-ES2L', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM', 'UKESM1-0-LL'] 
+        lmd=['CESM2-WACCM'] 
+        # lmd=['ACCESS-CM2', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'CanESM5', 'CESM2-WACCM', 'CNRM-CM6-1', 'CNRM-ESM2-1', 'GFDL-CM4', 'GFDL-ESM4', 'HadGEM3-GC31-LL', 'INM-CM4-8', 'INM-CM5-0', 'KACE-1-0-G', 'MIROC-ES2L', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM', 'UKESM1-0-LL'] 
 
     return lmd
 
@@ -55,25 +56,6 @@ def simu(fo,cl):
 
     return sim
 
-
-def grid(fo,cl,md):
-    # DESCRIPTION
-    # Returns the grid name applicable for the type of run, model
-
-    # INPUT
-    # fo    : STRING describing the forcing (e.g., ssp245)
-    # cl    : STRING describing the climatology (fut=future, his=historical)
-    # md    : STRING describing the model (e.g., ACCESS-CM1)
-    
-    # OUTPUT 
-    # grid   : STRING of grid name
-    
-    if md in ['ACCESS-CM2','ACCESS-ESM1-5','BCC-CSM2-MR','CanESM5','CESM2-WACCM','HadGEM3-GC31-LL','MIROC-ES2L','MPI-ESM1-2-LR','MRI-ESM2-0','NorESM2-LM','UKESM1-0-LL']:
-        grd='gn'
-    elif md in ['CNRM-CM6-1','CNRM-ESM2-1','KACE-1-0-G']:
-        grd='gr'
-
-    return grd
 
 def year(cl,md,byr):
     # DESCRIPTION
