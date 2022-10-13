@@ -2,6 +2,7 @@
 
 import sys
 sys.path.append('/home/miyawaki/scripts/common/CASanalysis/CASutils')
+sys.path.append('/glade/u/home/miyawaki/scripts/common/CASanalysis/CASutils')
 from lensread_utils import lens2memnamegen_first50
 
 def emem(fo):
