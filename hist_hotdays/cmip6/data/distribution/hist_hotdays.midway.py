@@ -7,7 +7,7 @@
 
 import os
 import sys
-sys.path.append('.')
+sys.path.append('../')
 sys.path.append('/project2/tas1/miyawaki/common')
 import pickle
 import numpy as np
@@ -24,8 +24,8 @@ freq='day' # data frequency e.g., day, mon
 varn='tas' # variable name
 
 lfo = ['ssp245'] # forcing (e.g., ssp245)
-lse = ['ann'] # season (ann, djf, mam, jja, son)
-# lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
+# lse = ['ann'] # season (ann, djf, mam, jja, son)
+lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 lcl = ['fut'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
 # lcl = ['fut','his'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
 byr_his=[1980,2000] # output year bounds
