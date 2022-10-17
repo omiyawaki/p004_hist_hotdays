@@ -21,7 +21,7 @@ from cmip6util import mods,simu
 
 lfo = ['ssp245'] # forcing (e.g., ssp245)
 # lse = ['ann'] # season (ann, djf, mam, jja, son)
-lse = ['son','djf','mam'] # season (ann, djf, mam, jja, son)
+lse = ['ann','jja','son','djf','mam'] # season (ann, djf, mam, jja, son)
 cl='fut-his' # climatology (difference between future and historical)
 his = '1980-2000' # historical analysis period
 fut = '2080-2100' # future analysis period
@@ -82,6 +82,8 @@ for fo in lfo:
                 lati=fint(egr['lat'])
                 fint=interp1d(igr[md]['lon'],lati,axis=2,fill_value='extrapolate')
                 edt2m[imd,...]=fint(egr['lon'])
+            else:
+                edt2m[imd,...]=idt2m[md]
 
         # compute ensemble statistics
         avgt2m = np.empty([len(egr['lat']),len(egr['lon'])]) # ensemble average
