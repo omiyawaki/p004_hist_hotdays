@@ -9,15 +9,14 @@ from tqdm import tqdm
 # at each gridir point. 
 
 varn='t2m'
-# lse = ['jja'] # season (ann, djf, mam, jja, son)
-lse = ['ann','djf','mam','son'] # season (ann, djf, mam, jja, son)
+lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 
 y0=1950 # first year
 y1=2021 # last year+1
 
 lyr=[str(y) for y in np.arange(y0,y1)]
 
-bn=np.arange(200.5,350.5,1) # bins
+pc = [1e-3,1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,82,85,87,90,92,95,97,99] # percentiles to compute
 
 for se in lse:
     idir = '/project/mojave/observations/ERA5_daily/T2m'
@@ -29,7 +28,7 @@ for se in lse:
     for yr in lyr:
         fn = '%s/t2m_%s.nc' % (idir,yr)
         ds = xr.open_dataset(fn)
-        t2m = ds['t2m'].load()
+        t2m = ds['t2m']
         if se != 'ann':
             t2m=t2m.sel(time=t2m['time.season']==se.upper())
         gr = {}
@@ -37,12 +36,12 @@ for se in lse:
         gr['lat'] = ds['lat']
 
         # initialize array to store data
-        ft2m = np.empty([len(bn)-1, gr['lat'].size, gr['lon'].size])
+        ht2m = np.empty([len(pc), gr['lat'].size, gr['lon'].size])
 
         # loop through gridir points to compute percentiles
         for ln in tqdm(range(gr['lon'].size)):
             for la in range(gr['lat'].size):
                 lt = t2m[:,la,ln]
-                [ft2m[:,la,ln],_]=np.histogram(lt,bn)	
+                ht2m[:,la,ln]=np.percentile(lt,pc)	
 
-        pickle.dump([ft2m, gr], open('%s/f%s_%s.%s.pickle' % (odir,varn,yr,se), 'wb'), protocol=5)	
+        pickle.dump([ht2m, gr], open('%s/h%s_%s.%s.pickle' % (odir,varn,yr,se), 'wb'), protocol=5)	

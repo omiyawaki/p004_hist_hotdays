@@ -14,7 +14,7 @@ import constants as c
 # at each gridir point. 
 
 varn='m2m'
-lse = ['djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
+lse = ['jja','djf','mam','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 
 y0=1950 # first year
@@ -35,15 +35,15 @@ for se in lse:
         # load 2 m T
         fn = '%s/T2m/t2m_%s.nc' % (idir,yr)
         ds = xr.open_dataset(fn)
-        t2m = ds['t2m']*units.kelvin
+        t2m = ds['t2m'].load()*units.kelvin
         # load 2 m dew point T
         fn = '%s/TD2m/td2m_%s.nc' % (idir,yr)
         ds = xr.open_dataset(fn)
-        td2m = ds['td2m']*units.kelvin
+        td2m = ds['td2m'].load()*units.kelvin
         # load surface pressure
         fn = '%s/PS/ps_%s.nc' % (idir,yr)
         ds = xr.open_dataset(fn)
-        ps = ds['ps']*units.pascal
+        ps = ds['ps'].load()*units.pascal
         # calculate specific humidity
         q2m = td2q(ps,td2m)
         # compute MSE

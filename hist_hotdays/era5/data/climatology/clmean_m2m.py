@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 from scipy.stats import linregress
 from tqdm import tqdm
 
-lse = ['ann'] # season (ann, djf, mam, jja, son)
+varn='m2m'
+lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 y0 = 1950 # begin analysis year
 y1 = 2021 # end analysis year
@@ -17,7 +18,7 @@ lyr=[str(y) for y in tyr]
 lpc = [1e-3,1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,82,85,87,90,92,95,97,99] # available percentiles
 
 for se in lse:
-    odir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s' % (se)
+    odir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s/%s' % (se,varn)
 
     # load data
     c0=0 # first loop counter
