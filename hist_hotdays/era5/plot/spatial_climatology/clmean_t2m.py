@@ -8,13 +8,14 @@ import matplotlib.colors as mcolors
 from scipy.stats import linregress
 from tqdm import tqdm
 
-lse = ['jja','ann','djf','mam','son'] # season (ann, djf, mam, jja, son)
+varn='t2m'
+lse = ['jja','ann'] # season (ann, djf, mam, jja, son)
 lpc = [1,5,50,95,99] # percentile (choose from lpc below)
 
 for se in lse:
     print(se.upper())
-    idir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s' % (se)
-    odir = '/project/amp/miyawaki/plots/p004/hist_hotdays/era5/%s' % (se)
+    idir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s/%s' % (se,varn)
+    odir = '/project/amp/miyawaki/plots/p004/hist_hotdays/era5/%s/%s' % (se,varn)
 
     if not os.path.exists(odir):
         os.makedirs(odir)
@@ -32,6 +33,20 @@ for se in lse:
 
     [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
+    # plot skewness (ratio of hot to cold diff) in climatology
+    ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
+    vmin=-1
+    vmax=1
+    # transparent colormap
+    colors = [(0.5,0.5,0.5,c) for c in np.linspace(0,1,100)]
+    clf=ax.contourf(mlon, mlat, (clima['95']+clima['5']-2*clima['50'])/(clima['95']-clima['5']), np.arange(vmin,vmax+0.1,0.1),extend='both', vmax=vmax, vmin=vmin, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+    ax.coastlines()
+    ax.set_title(r'%s ERA5 ($1950-2020$)' % (se.upper()))
+    cb=plt.colorbar(clf,location='bottom')
+    cb.set_label(r'$\frac{T^{95}_\mathrm{2\,m}+T^{5}_\mathrm{2\,m}-2T^{50}_\mathrm{2\,m}}{T^{95}_\mathrm{2\,m}-T^{5}_\mathrm{2\,m}}$ (unitless)')
+    plt.savefig('%s/skewness_clima.%s.pdf' % (odir,se), format='pdf', dpi=300)
+    plt.close()
+
     # plot climatological t2m
     for pc in tqdm(lpc):
         ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
@@ -39,7 +54,7 @@ for se in lse:
         vmin=220
         vmax=320
         clf=ax.contourf(mlon, mlat, clima[str(pc)], np.arange(vmin,vmax,5),extend='both', vmax=vmax, vmin=vmin, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-        ax.contour(mlon, mlat, clima[str(pc)], 273.15,colors='gray', transform=ccrs.PlateCarree())
+        ax.contour(mlon, mlat, clima[str(pc)], 340,colors='gray', transform=ccrs.PlateCarree())
         ax.coastlines()
         ax.set_title(r'%s ERA5 ($1950-2020$)' % (se.upper()))
         cb=plt.colorbar(clf,location='bottom')
@@ -74,5 +89,34 @@ for se in lse:
         cb=plt.colorbar(clf,location='bottom')
         cb.set_label(r'$\frac{T^{%s}_\mathrm{2\,m}}{T^{50}_\mathrm{2\,m}}$ (unitless)' % pc)
         plt.savefig('%s/ratioT50_clima_t%02d.%s.pdf' % (odir,pc,se), format='pdf', dpi=300)
+        plt.close()
+
+    # plot diff of hot to average day in climatology
+    for pc in tqdm(lpc):
+        if pc == 50:
+            continue
+        ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
+        # transparent colormap
+        if se=='ann':
+            vmin=-20
+            vmax=20
+            if pc>50:
+                lvs=np.arange(0,vmax+1,1)
+            else:
+                lvs=np.arange(vmin,1,1)
+        else:
+            vmin=-20
+            vmax=20
+            if pc>50:
+                lvs=np.arange(0,vmax+1,1)
+            else:
+                lvs=np.arange(vmin,1,1)
+        colors = [(0.5,0.5,0.5,c) for c in np.linspace(0,1,100)]
+        clf=ax.contourf(mlon, mlat, clima[str(pc)]-clima['50'], lvs,extend='both', vmax=vmax, vmin=vmin, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+        ax.coastlines()
+        ax.set_title(r'%s ERA5 ($1950-2020$)' % (se.upper()))
+        cb=plt.colorbar(clf,location='bottom')
+        cb.set_label(r'$T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m}$ (J g$^{-1}$)' % pc)
+        plt.savefig('%s/diffT50_clima_t%02d.%s.pdf' % (odir,pc,se), format='pdf', dpi=300)
         plt.close()
 

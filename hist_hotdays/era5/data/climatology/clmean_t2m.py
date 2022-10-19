@@ -6,6 +6,7 @@ import matplotlib.pyplot as plt
 from scipy.stats import linregress
 from tqdm import tqdm
 
+varn='t2m'
 lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 y0 = 1950 # begin analysis year
 y1 = 2021 # end analysis year
