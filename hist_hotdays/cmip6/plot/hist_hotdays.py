@@ -12,7 +12,7 @@ from cmip6util import mods
 
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
-lse = ['jja'] # season (ann, djf, mam, jja, son)
+lse = ['mam'] # season (ann, djf, mam, jja, son)
 lfo=['ssp245'] # forcings 
 cl='fut-his'
 his='1980-2000'

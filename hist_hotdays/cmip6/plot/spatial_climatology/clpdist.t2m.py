@@ -13,17 +13,19 @@ from cmip6util import mods
 varn='t2m'
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
-lse = ['ann'] # season (ann, djf, mam, jja, son)
-lfo=['ssp245'] # forcings 
-cl='fut' # his, fut
+lse = ['jja'] # season (ann, djf, mam, jja, son)
+# lfo=['ssp245'] # forcings 
+# cl='fut' # his, fut
+lfo=['historical'] # forcings 
+cl='his' # his, fut
 if cl=='his':
     yr='1980-2000'
 elif cl=='fut':
     yr='2080-2100'
 # lpc = [1,5,50,95,99] # percentile (choose from lpc below)
 lpc=[95]
-# mmm=True # multimodel mean?
-mmm=False # multimodel mean?
+mmm=True # multimodel mean?
+# mmm=False # multimodel mean?
 
 for pc in lpc:
     for se in lse:
