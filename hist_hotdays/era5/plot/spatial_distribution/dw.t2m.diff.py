@@ -9,42 +9,36 @@ from scipy.stats import linregress
 from tqdm import tqdm
 
 varn='t2m'
-# lse = ['jja','ann','djf','mam','son'] # season (ann, djf, mam, jja, son)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
-lpc = [1,5,95,99] # percentile (choose from lpc below)
+lpc=[95]
+by0=[1950,1970]
+by1=[2000,2020]
 
 for se in lse:
-    print(se.upper())
     idir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s/%s' % (se,varn)
     odir = '/project/amp/miyawaki/plots/p004/hist_hotdays/era5/%s/%s' % (se,varn)
 
     if not os.path.exists(odir):
         os.makedirs(odir)
 
+    c = 0
     for ipc in range(len(lpc)):
         pc = lpc[ipc]
-        [dt2m, gr] = pickle.load(open('%s/cldist.%02d.%s.pickle' % (idir,pc,se), 'rb'))
+        [dw0, gr] = pickle.load(open('%s/clmean.dw%s.%02d.%g.%g.%s.pickle' % (idir,varn,pc,by0[0],by0[1],se), 'rb'))
+        [dw1, gr] = pickle.load(open('%s/clmean.dw%s.%02d.%g.%g.%s.pickle' % (idir,varn,pc,by1[0],by1[1],se), 'rb'))
         # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
         gr['lon'] = np.append(gr['lon'].data,360)
-        dt2m = np.append(dt2m, dt2m[:,0][:,None],axis=1)
+        dw0 = np.append(dw0, dw0[:,0][:,None],axis=1)
+        dw1 = np.append(dw1, dw1[:,0][:,None],axis=1)
 
         [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
-        # plot climatological distance from 95th to 50th prc
         ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
-        # vmax=np.max(slope[str(pc)])
-        vlim=10
-        if pc < 50:
-            vmin=-vlim
-            vmax=0+1
-        else:
-            vmin=0
-            vmax=vlim+1
-        clf=ax.contourf(mlon, mlat, dt2m, np.arange(vmin,vmax,1),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+        clf=ax.contourf(mlon, mlat, dw1/dw0, np.arange(0.5,1.5,0.05),extend='both', vmax=1.5, vmin=0.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
         ax.coastlines()
-        ax.set_title(r'%s ERA5 ($1950-2020$)' % (se.upper()))
+        ax.set_title(r'%s ERA5' % (se.upper()))
         cb=plt.colorbar(clf,location='bottom')
-        cb.set_label(r'Climatological $T^{%s}_\mathrm{2\,m} - T^{50}_\mathrm{2\,m}$  (K)' % pc)
-        plt.savefig('%s/cldist_t%02d.%s.pdf' % (odir,pc,se), format='pdf', dpi=300)
+        cb.set_label(r'$\frac{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_{%g-%g}}{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_{%g-%g}}$ (unitless)' % (pc,by1[1],by1[0],pc,by0[1],by0[0]))
+        plt.savefig('%s/rdist_t%02d.%s.pdf' % (odir,pc,se), format='pdf', dpi=300)
         plt.close()
 

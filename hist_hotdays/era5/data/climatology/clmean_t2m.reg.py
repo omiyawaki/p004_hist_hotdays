@@ -7,11 +7,11 @@ from scipy.stats import linregress
 from tqdm import tqdm
 
 varn='t2m'
-lre=['sea']
+lre=['swus']
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
-y0 = 2000 # begin analysis year
-y1 = 2020 # end analysis year
+y0 = 1950 # begin analysis year
+y1 = 1970 # end analysis year
 
 tyr=np.arange(y0,y1+1)
 lyr=[str(y) for y in tyr]

@@ -7,7 +7,7 @@
 
 import os
 import sys
-sys.path.append('.')
+sys.path.append('../')
 import pickle
 import numpy as np
 import xarray as xr
@@ -18,12 +18,12 @@ from sfutil import emem,conf,simu,sely
 # at each gridir point. 
 
 lfo = ['lens'] # forcing (ghg=greenhouse gases, aaer=anthropogenic aerosols, bmb=biomass burning, ee=everything else, xaaer=all forcing except anthropogenic aerosols)
-lse = ['ann'] # season (ann, djf, mam, jja, son)
-# lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
-lcl = ['fut'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
+# lse = ['ann'] # season (ann, djf, mam, jja, son)
+lse = ['jja'] # season (ann, djf, mam, jja, son)
+lcl = ['his'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
 # lcl = ['fut','his'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
-byr_his=[1920,1940] # output year bounds
-byr_fut=[2030,2050]
+byr_his=[1980,2000] # output year bounds
+byr_fut=[2080,2100]
 
 # percentiles to compute (follows Byrne [2021])
 pc = [1e-3,1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,82,85,87,90,92,95,97,99] 

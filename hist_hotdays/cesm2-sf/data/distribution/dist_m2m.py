@@ -23,7 +23,7 @@ import constants as c
 # at each gridir point. 
 
 lfo = ['lens'] # forcing (ghg=greenhouse gases, aaer=anthropogenic aerosols, bmb=biomass burning, ee=everything else, xaaer=all forcing except anthropogenic aerosols)
-lse = ['ann'] # season (ann, djf, mam, jja, son)
+lse = ['djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lcl = ['fut'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
 lcl = ['fut','his'] # climatology (fut=future [2030-2050], his=historical [1920-1940])

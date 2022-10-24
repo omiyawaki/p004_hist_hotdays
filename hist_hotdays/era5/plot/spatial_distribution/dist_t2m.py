@@ -8,7 +8,7 @@ import matplotlib.colors as mcolors
 from scipy.stats import linregress
 from tqdm import tqdm
 
-lse = ['ann','djf','mam','son','jja'] # season (ann, djf, mam, jja, son)
+lse = ['jja'] # season (ann, djf, mam, jja, son)
 lpc = [1,5,50,95,99] # percentile (choose from lpc below)
 
 for se in lse:

@@ -7,7 +7,7 @@
 
 import os
 import sys
-sys.path.append('.')
+sys.path.append('../')
 import pickle
 import numpy as np
 import cartopy.crs as ccrs
@@ -18,11 +18,13 @@ from sfutil import emem
 
 # collect warmings across the ensembles
 
-lfo = ['xaaer'] # forcing (ghg=greenhouse gases, aaer=anthropogenic aerosols, bmb=biomass burning, ee=everything else, xaaer=all forcing except anthropogenic aerosols)
-lse = ['ann','mam','jja','son','djf'] # season (ann, djf, mam, jja, son)
+lfo = ['lens'] # forcing (ghg=greenhouse gases, aaer=anthropogenic aerosols, bmb=biomass burning, ee=everything else, xaaer=all forcing except anthropogenic aerosols)
+lse = ['jja'] # season (ann, djf, mam, jja, son)
+# lse = ['ann','mam','jja','son','djf'] # season (ann, djf, mam, jja, son)
 cl='fut-his' # climatology (difference between future and historical)
-his = '1920-1940' # historical analysis period
-fut = '2030-2050' # future analysis period
+his = '1950-1970' # historical analysis period
+fut = '2000-2014' # future analysis period
+# fut = '2030-2050' # future analysis period
 
 lpc = [1e-3,1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,82,85,87,90,92,95,97,99] # available percentiles
 
@@ -32,7 +34,10 @@ for fo in lfo:
 
         # function that returns directory names where files are located
         def mdir(se,cl,fo):
-            rdir = '/glade/work/miyawaki/data/p004/hist_hotdays/cesm2-sf/%s/%s/%s' % (se,cl,fo)
+            if fo=='lens':
+                rdir='/project/amp/miyawaki/data/p004/hist_hotdays/cesm2-sf/%s/%s/%s' % (se,cl,fo)
+            else:
+                rdir = '/glade/work/miyawaki/data/p004/hist_hotdays/cesm2-sf/%s/%s/%s' % (se,cl,fo)
             return rdir
 
         odir=mdir(se,cl,fo)
@@ -44,7 +49,10 @@ for fo in lfo:
         for imem in tqdm(range(len(lmem))):
             mem = lmem[imem]
             [ht2m0, gr] = pickle.load(open('%s/ht2m_%s.%s.%s.pickle' % (mdir(se,'his',fo),his,mem,se), 'rb'))
-            [ht2m1, gr] = pickle.load(open('%s/ht2m_%s.%s.%s.pickle' % (mdir(se,'fut',fo),fut,mem,se), 'rb'))
+            if fut=='2000-2014':
+                [ht2m1, gr] = pickle.load(open('%s/ht2m_%s.%s.%s.pickle' % (mdir(se,'his',fo),fut,mem,se), 'rb'))
+            else:
+                [ht2m1, gr] = pickle.load(open('%s/ht2m_%s.%s.%s.pickle' % (mdir(se,'fut',fo),fut,mem,se), 'rb'))
             dt2m=ht2m1-ht2m0 # take difference
 
             # store data

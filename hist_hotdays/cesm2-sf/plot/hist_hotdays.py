@@ -8,18 +8,20 @@ import matplotlib.colors as mcolors
 from scipy.stats import linregress
 from tqdm import tqdm
 
-lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
-lfo=['ghg','aaer','bmb','ee','xaaer'] # forcings 
-# lfo=['ghg'] # forcings 
+varn='t2m'
+# lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
+lse = ['jja'] # season (ann, djf, mam, jja, son)
+# lfo=['ghg','aaer','bmb','ee','xaaer'] # forcings 
+lfo=['lens'] # forcings 
 cl='fut-his'
-his='1920-1940'
-fut='2030-2050'
+his='1950-1970'
+fut='2000-2014'
 lpc = [1,5,50,95,99] # percentile (choose from lpc below)
 
 for se in lse:
     for fo in lfo:
         idir = '/project/amp/miyawaki/data/p004/hist_hotdays/cesm2-sf/%s/%s/%s' % (se,cl,fo)
-        odir = '/project/amp/miyawaki/plots/p004/hist_hotdays/cesm2-sf/%s/%s/%s' % (se,cl,fo)
+        odir = '/project/amp/miyawaki/plots/p004/hist_hotdays/cesm2-sf/%s/%s/%s/%s/%s_%s' % (se,cl,fo,varn,his,fut)
 
         if not os.path.exists(odir):
             os.makedirs(odir)

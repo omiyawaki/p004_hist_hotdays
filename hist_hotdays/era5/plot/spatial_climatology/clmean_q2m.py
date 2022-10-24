@@ -8,10 +8,9 @@ import matplotlib.colors as mcolors
 from scipy.stats import linregress
 from tqdm import tqdm
 
-varn='t2m'
-# lse = ['jja','ann','djf','mam','son'] # season (ann, djf, mam, jja, son)
+varn='q2m'
 lse = ['jja'] # season (ann, djf, mam, jja, son)
-lpc = [1,5,95,99] # percentile (choose from lpc below)
+lpc = [1,5,50,95,99] # percentile (choose from lpc below)
 
 for se in lse:
     print(se.upper())
@@ -21,30 +20,31 @@ for se in lse:
     if not os.path.exists(odir):
         os.makedirs(odir)
 
+    c = 0
+    clima={}
     for ipc in range(len(lpc)):
         pc = lpc[ipc]
-        [dt2m, gr] = pickle.load(open('%s/cldist.%02d.%s.pickle' % (idir,pc,se), 'rb'))
+        [mq2m, gr] = pickle.load(open('%s/clmean_%02d.%s.pickle' % (idir,pc,se), 'rb'))
         # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
         gr['lon'] = np.append(gr['lon'].data,360)
-        dt2m = np.append(dt2m, dt2m[:,0][:,None],axis=1)
+        mq2m = np.append(mq2m, mq2m[:,0][:,None],axis=1)
 
-        [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
+        clima[str(pc)] = mq2m 
 
-        # plot climatological distance from 95th to 50th prc
+    [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
+
+    # plot climatological q2m
+    for pc in tqdm(lpc):
         ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
         # vmax=np.max(slope[str(pc)])
-        vlim=10
-        if pc < 50:
-            vmin=-vlim
-            vmax=0+1
-        else:
-            vmin=0
-            vmax=vlim+1
-        clf=ax.contourf(mlon, mlat, dt2m, np.arange(vmin,vmax,1),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+        vmin=1e-3
+        vmax=3e-2
+        clf=ax.contourf(mlon, mlat, clima[str(pc)], np.arange(vmin,vmax,1e-3),extend='both', vmax=vmax, vmin=vmin, transform=ccrs.PlateCarree(), cmap='gist_earth_r')
+        ax.contour(mlon, mlat, clima[str(pc)], [3.3e-3],colors='tab:red',transform=ccrs.PlateCarree())
         ax.coastlines()
         ax.set_title(r'%s ERA5 ($1950-2020$)' % (se.upper()))
         cb=plt.colorbar(clf,location='bottom')
-        cb.set_label(r'Climatological $T^{%s}_\mathrm{2\,m} - T^{50}_\mathrm{2\,m}$  (K)' % pc)
-        plt.savefig('%s/cldist_t%02d.%s.pdf' % (odir,pc,se), format='pdf', dpi=300)
+        cb.set_label(r'Climatological $q^{%s}_\mathrm{2\,m}$ (kg kg$^{-1}$)' % pc)
+        plt.savefig('%s/clima.%s.%02d.%s.pdf' % (odir,varn,pc,se), format='pdf', dpi=300)
         plt.close()
 
