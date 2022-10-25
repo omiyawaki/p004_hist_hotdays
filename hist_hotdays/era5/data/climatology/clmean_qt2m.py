@@ -10,18 +10,19 @@ from regions import rbin
 
 varn='qt2m'
 lpc=['95'] # evaluate kde for values exceeding the gt percentile
-lre=['sea'] # can be empty
+lre=['swus','sea'] # can be empty
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
-y0 = 2000 # begin analysis year
-y1 = 2020 # end analysis year
+y0 = 1950 # begin analysis year
+y1 = 1970 # end analysis year
 
 tyr=np.arange(y0,y1+1)
 lyr=[str(y) for y in tyr]
 
 for pc in lpc:
     for re in lre:
-        mt,mq=rbin(re)
+        # mt,mq=rbin(re)
+        mt,mq=np.mgrid[280:320:250j,0:2.5e-2:250j]
         abm=np.vstack([mt.ravel(),mq.ravel()])
         for se in lse:
             odir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s/%s' % (se,varn)

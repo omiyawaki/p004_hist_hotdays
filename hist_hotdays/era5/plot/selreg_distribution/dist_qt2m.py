@@ -8,14 +8,15 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from scipy.stats import gaussian_kde
 from tqdm import tqdm
-from regions import rbin
+from regions import rbin,rlev,rtlm
 
 varn='qt2m'
-lpc=['95']
-lre=['swus']
+lpc=['','95']
+lre=['sea','swus']
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','son','jja'] # season (ann, djf, mam, jja, son)
-by=[2000,2020]
+by=[1950,1970]
+# by=[2000,2020]
 
 for pc in lpc:
     for re in lre:
@@ -33,14 +34,15 @@ for pc in lpc:
                 [pdf,mt,mq] = pickle.load(open('%s/clmean.k%s.gt%s.%s.%g.%g.%s.pickle' % (idir,varn,pc,re,by[0],by[1],se), 'rb'))
             
             fig,ax=plt.subplots(figsize=(4,3))
-            ax.contour(mt,mq,pdf)
-            if pc=='':
-                ax.set_xlim([285,310])
-            else:
-                ax.set_xlim([300,310])
+            print(pdf.max())
+            ax.contour(mt,mq,pdf,rlev(re,pc))
+            ax.set_xlim(rtlm(re,pc))
             ax.set_xlabel(r'$T_{2\,m}$ (K)')
             ax.set_ylabel(r'$q_{2\,m}$ (kg kg$^{-1}$)')
-            ax.set_title(r'%s ERA5 %s' % (se.upper(),re.upper()))
+            if pc=='':
+                ax.set_title(r'%s ERA5 %s %g-%g (all days)' % (se.upper(),re.upper(),by[0],by[1]))
+            else:
+                ax.set_title(r'%s ERA5 %s %g-%g ($>T^{%s}_{2\,m}$ days)' % (se.upper(),re.upper(),by[0],by[1],pc))
             fig.tight_layout()
             if pc=='':
                 plt.savefig('%s/kde.%s.%s.%g.%g.%s.pdf' % (odir,varn,re,by[0],by[1],se), format='pdf', dpi=300)
