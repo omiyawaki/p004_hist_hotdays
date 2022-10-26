@@ -12,7 +12,7 @@ from cmip6util import mods
 
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
-lse = ['mam'] # season (ann, djf, mam, jja, son)
+lse = ['jja'] # season (ann, djf, mam, jja, son)
 lfo=['ssp245'] # forcings 
 cl='fut-his'
 his='1980-2000'
@@ -56,18 +56,18 @@ for se in lse:
 
             [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
-            # # plot spatial map of warming 
-            # for pc in lpc:
-            #     ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
-            #     # vmax=np.max(dt[str(pc)])
-            #     vmax=10
-            #     clf=ax.contourf(mlon, mlat, dt[str(pc)], np.arange(-vmax,vmax,0.25),extend='both', vmax=vmax, vmin=-vmax, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-            #     ax.coastlines()
-            #     ax.set_title(r'%s %s %s' % (se.upper(),md.upper(), fo.upper()))
-            #     cb=plt.colorbar(clf,location='bottom')
-            #     cb.set_label(r'$\Delta T^{%s}_\mathrm{2\,m}$ (K)' % pc)
-            #     plt.savefig('%s/warming_t%02d.%s.%s.pdf' % (odir,pc,fo,se), format='pdf', dpi=300)
-            #     plt.close()
+            # plot spatial map of warming 
+            for pc in lpc:
+                ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
+                # vmax=np.max(dt[str(pc)])
+                vmax=5
+                clf=ax.contourf(mlon, mlat, dt[str(pc)], np.arange(-vmax,vmax,0.25),extend='both', vmax=vmax, vmin=-vmax, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                ax.coastlines()
+                ax.set_title(r'%s %s %s' % (se.upper(),md.upper(), fo.upper()))
+                cb=plt.colorbar(clf,location='bottom')
+                cb.set_label(r'$\Delta T^{%s}_\mathrm{2\,m}$ (K)' % pc)
+                plt.savefig('%s/warming_t%02d.%s.%s.pdf' % (odir,pc,fo,se), format='pdf', dpi=300)
+                plt.close()
 
             # plot warming ratios
             for pc in lpc:
@@ -89,4 +89,26 @@ for se in lse:
                 cb=plt.colorbar(clf,location='bottom')
                 cb.set_label(r'$\frac{\Delta T^{%s}_\mathrm{2\,m}}{\Delta T^{50}_\mathrm{2\,m}}$ (unitless)' % pc)
                 plt.savefig('%s/ratioT50_t%02d.%s.%s.pdf' % (odir,pc,fo,se), format='pdf', dpi=300)
+                plt.close()
+
+            # plot warming difference 
+            for pc in lpc:
+                if pc == 50:
+                    continue
+                cooling = np.zeros_like(dt['50'])
+                cooling[np.where(dt['50']<=0)] = 99
+                ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
+                # transparent colormap
+                colors = [(0.5,0.5,0.5,c) for c in np.linspace(0,1,100)]
+                Greys_alpha = mcolors.LinearSegmentedColormap.from_list('mycmap', colors, N=5)
+                clf=ax.contourf(mlon, mlat, dt[str(pc)]-dt['50'], np.arange(-2.5,2.5,0.25),extend='both', vmax=2.5, vmin=-2.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                # plt.rcParams['hatch.color']=[0.5,0.5,0.5]
+                # ax.contour(mlon, mlat, dt['50'], 0, linewidth=1, colors='w', transform=ccrs.PlateCarree())
+                # ax.contourf(mlon, mlat, cooling, 3, transform=ccrs.PlateCarree(),cmap=Greys_alpha)
+                # ax.set_extent([xm.min(), xm.max(), ym.min(), ym.max()])
+                ax.coastlines()
+                ax.set_title(r'%s %s %s' % (se.upper(),md.upper(),fo.upper()))
+                cb=plt.colorbar(clf,location='bottom')
+                cb.set_label(r'$\Delta T^{%s}_\mathrm{2\,m}-\Delta T^{50}_\mathrm{2\,m}$ (K)' % pc)
+                plt.savefig('%s/diffT50_t%02d.%s.%s.pdf' % (odir,pc,fo,se), format='pdf', dpi=300)
                 plt.close()

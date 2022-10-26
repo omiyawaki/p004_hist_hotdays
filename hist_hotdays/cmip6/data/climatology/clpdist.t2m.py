@@ -26,7 +26,8 @@ lpc=[1e-3,1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,82,85,87,90,92,95,97,
 imed=np.where(np.array(lpc)==50)[0][0] # index of median
 
 lfo = ['ssp245'] # forcing (e.g., ssp245)
-lse = ['ann','jja','djf','son','mam'] # season (ann, djf, mam, jja, son)
+# lse = ['ann','jja','djf','son','mam'] # season (ann, djf, mam, jja, son)
+lse = ['jja'] # season (ann, djf, mam, jja, son)
 cl='fut-his' # climatology (difference between future and historical)
 his = '1980-2000' # historical analysis period
 fut = '2080-2100' # future analysis period
@@ -61,6 +62,7 @@ for xpc in lxpc:
                 dt2m0=ht2m0[ixpc,...]-ht2m0[imed,...] # take difference from median in historical
                 dt2m1=ht2m1[ixpc,...]-ht2m1[imed,...] # take difference from median in future
                 cct2m=dt2m1/dt2m0 # take ratio of distribution widths in future to historical
+                dwt2m=dt2m1-dt2m0 # take difference of distribution widths in future to historical
 
                 # store data
                 if c0 == 0:
@@ -68,18 +70,22 @@ for xpc in lxpc:
                     idt2m0={}
                     idt2m1={}
                     icct2m={}
+                    idwt2m={}
                     c0 = 1
 
                 igr[md]=gr
                 idt2m0[md]=dt2m0
                 idt2m1[md]=dt2m1
                 icct2m[md]=cct2m
+                idwt2m[md]=dwt2m
 
                 # save climatological percentile distance
                 pickle.dump([dt2m0, gr], open('%s/cldist.%02d.%s.%s.pickle' % (hdir,xpc,his,se), 'wb'), protocol=5)	
                 pickle.dump([dt2m1, gr], open('%s/cldist.%02d.%s.%s.pickle' % (fdir,xpc,fut,se), 'wb'), protocol=5)	
-                # save ratio
+                # save width ratio
                 pickle.dump([cct2m, gr], open('%s/rdist.%02d.%s.%s.%s.pickle' % (odir,xpc,his,fut,se), 'wb'), protocol=5)	
+                # save width difference
+                pickle.dump([dwt2m, gr], open('%s/ddist.%02d.%s.%s.%s.pickle' % (odir,xpc,his,fut,se), 'wb'), protocol=5)	
 
                 # save CESM grid for ensemble mean
                 if md=='CESM2-WACCM':
@@ -102,6 +108,7 @@ for xpc in lxpc:
             edt2m0=np.empty([len(lmd),len(egr['lat']),len(egr['lon'])])
             edt2m1=np.empty([len(lmd),len(egr['lat']),len(egr['lon'])])
             ecct2m=np.empty([len(lmd),len(egr['lat']),len(egr['lon'])])
+            edwt2m=np.empty([len(lmd),len(egr['lat']),len(egr['lon'])])
             for imd in tqdm(range(len(lmd))):
                 md=lmd[imd]
                 if md!='CESM2-WACCM':
@@ -119,10 +126,16 @@ for xpc in lxpc:
                     lati=fint(egr['lat'])
                     fint=interp1d(igr[md]['lon'],lati,axis=1,fill_value='extrapolate')
                     ecct2m[imd,...]=fint(egr['lon'])
+
+                    fint=interp1d(igr[md]['lat'],idwt2m[md],axis=0,fill_value='extrapolate')
+                    lati=fint(egr['lat'])
+                    fint=interp1d(igr[md]['lon'],lati,axis=1,fill_value='extrapolate')
+                    edwt2m[imd,...]=fint(egr['lon'])
                 else:
                     edt2m0[imd,...]=idt2m0[md]
                     edt2m1[imd,...]=idt2m1[md]
                     ecct2m[imd,...]=icct2m[md]
+                    edwt2m[imd,...]=idwt2m[md]
 
             # compute ensemble statistics
             avgt2m = np.empty([len(egr['lat']),len(egr['lon'])]) # ensemble average
@@ -206,4 +219,28 @@ for xpc in lxpc:
             stats['range'] = ptpt2m
 
             pickle.dump([stats, egr], open('%s/rdist.%s.%02d.%s.%s.%s.pickle' % (edir,varn,xpc,his,fut,se), 'wb'), protocol=5)	
+
+            # ratio (future/historical)
+            for ilo in tqdm(range(len(egr['lon']))):
+                for ila in range(len(egr['lat'])):
+                    avgt2m[ila,ilo] = np.mean(      edwt2m[:,ila,ilo],axis=0)
+                    stdt2m[ila,ilo] = np.std(       edwt2m[:,ila,ilo],axis=0)
+                    p50t2m[ila,ilo] = np.percentile(edwt2m[:,ila,ilo],50,axis=0)
+                    p25t2m[ila,ilo] = np.percentile(edwt2m[:,ila,ilo],25,axis=0)
+                    p75t2m[ila,ilo] = np.percentile(edwt2m[:,ila,ilo],75,axis=0)
+                    mint2m[ila,ilo] = np.amin(      edwt2m[:,ila,ilo],axis=0)
+                    maxt2m[ila,ilo] = np.amax(      edwt2m[:,ila,ilo],axis=0)
+                    ptpt2m[ila,ilo] = np.ptp(       edwt2m[:,ila,ilo],axis=0)
+
+            stats={}
+            stats['mean'] = avgt2m
+            stats['stdev'] = stdt2m
+            stats['median'] = p50t2m
+            stats['prc25'] = p25t2m
+            stats['prc75'] = p75t2m
+            stats['min'] = mint2m
+            stats['max'] = maxt2m
+            stats['range'] = ptpt2m
+
+            pickle.dump([stats, egr], open('%s/ddist.%s.%02d.%s.%s.%s.pickle' % (edir,varn,xpc,his,fut,se), 'wb'), protocol=5)	
 

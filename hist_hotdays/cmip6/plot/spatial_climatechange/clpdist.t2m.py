@@ -20,8 +20,8 @@ his='1980-2000'
 fut='2080-2100'
 # lpc = [1,5,50,95,99] # percentile (choose from lpc below)
 lpc=[1,5,95,99]
-mmm=True # multimodel mean?
-# mmm=False # multimodel mean?
+# mmm=True # multimodel mean?
+mmm=False # multimodel mean?
 
 for pc in lpc:
     for se in lse:
@@ -49,22 +49,45 @@ for pc in lpc:
                         stats[stat] = np.append(stats[stat], stats[stat][:,0][:,None],axis=1)
 
                     rdist = stats['mean'] 
+
+                    [stats, gr] = pickle.load(open('%s/ddist.%s.%02d.%s.%s.%s.pickle' % (idir,varn,pc,his,fut,se), 'rb'))
+                    # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
+                    gr['lon'] = np.append(gr['lon'].data,360)
+                    for stat in stats:
+                        stats[stat] = np.append(stats[stat], stats[stat][:,0][:,None],axis=1)
+
+                    ddist = stats['mean'] 
                 else:
                     [rdist, gr] = pickle.load(open('%s/rdist.%02d.%s.%s.%s.pickle' % (idir,pc,his,fut,se), 'rb'))
                     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
                     gr['lon'] = np.append(gr['lon'].data,360)
                     rdist = np.append(rdist, rdist[:,0][:,None],axis=1)
 
+                    [ddist, gr] = pickle.load(open('%s/ddist.%02d.%s.%s.%s.pickle' % (idir,pc,his,fut,se), 'rb'))
+                    # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
+                    gr['lon'] = np.append(gr['lon'].data,360)
+                    ddist = np.append(ddist, ddist[:,0][:,None],axis=1)
+
                 [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
                 # plot warming ratios
-                for pc in lpc:
-                    ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
-                    # transparent colormap
-                    clf=ax.contourf(mlon, mlat, rdist, np.arange(0.5,1.5,0.05),extend='both', vmax=1.5, vmin=0.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-                    ax.coastlines()
-                    ax.set_title(r'%s %s %s' % (se.upper(),md.upper(),fo.upper()))
-                    cb=plt.colorbar(clf,location='bottom')
-                    cb.set_label(r'$\frac{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}}{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}}$ (unitless)' % (pc,fut,pc,his))
-                    plt.savefig('%s/rdist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
-                    plt.close()
+                ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
+                # transparent colormap
+                clf=ax.contourf(mlon, mlat, rdist, np.arange(0.5,1.5,0.05),extend='both', vmax=1.5, vmin=0.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                ax.coastlines()
+                ax.set_title(r'%s %s %s' % (se.upper(),md.upper(),fo.upper()))
+                cb=plt.colorbar(clf,location='bottom')
+                cb.set_label(r'$\frac{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}}{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}}$ (unitless)' % (pc,fut,pc,his))
+                plt.savefig('%s/rdist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
+                plt.close()
+
+                # plot warming differences
+                ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
+                # transparent colormap
+                clf=ax.contourf(mlon, mlat, ddist, np.arange(-2.5,2.5,0.25),extend='both', vmax=2.5, vmin=-2.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                ax.coastlines()
+                ax.set_title(r'%s %s %s' % (se.upper(),md.upper(),fo.upper()))
+                cb=plt.colorbar(clf,location='bottom')
+                cb.set_label(r'$(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}-(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}$ (K)' % (pc,fut,pc,his))
+                plt.savefig('%s/ddist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
+                plt.close()

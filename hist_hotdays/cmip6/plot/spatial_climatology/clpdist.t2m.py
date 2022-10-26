@@ -14,10 +14,10 @@ varn='t2m'
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
-# lfo=['ssp245'] # forcings 
+lfo=['ssp245'] # forcings 
 # cl='fut' # his, fut
-lfo=['historical'] # forcings 
-cl='his' # his, fut
+# lfo=['historical'] # forcings 
+cl='fut' # his, fut
 if cl=='his':
     yr='1980-2000'
 elif cl=='fut':
@@ -63,7 +63,7 @@ for pc in lpc:
                 for pc in lpc:
                     ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
 
-                    vlim=20
+                    vlim=10
                     if pc<50:
                         vmin=-vlim
                         vmax=0+1
