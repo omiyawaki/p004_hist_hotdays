@@ -11,9 +11,9 @@ from regions import rinfo
 # at each gridir point. 
 
 varn='t2m'
-lre=['swus']
-lse = ['jja'] # season (ann, djf, mam, jja, son)
-# lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
+lre=['swus','sea']
+# lse = ['jja'] # season (ann, djf, mam, jja, son)
+lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 
 y0=1950 # first year
 y1=2020 # last year+1

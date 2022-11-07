@@ -14,10 +14,10 @@ from regions import rinfo
 
 varn='qt2m'
 xpc='95'
-lre=['swus']
+lre=['swus','sea']
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
-by=[1950,2020] # year bounds for evaluating climatological xpc th percentile
+by=[1950,1970] # year bounds for evaluating climatological xpc th percentile
 
 y0=1950 # first year
 y1=2020 # last year+1

@@ -1,14 +1,7 @@
-#!/glade/work/miyawaki/conda-envs/g/bin/python
-#PBS -l select=1:ncpus=1:mpiprocs=1
-#PBS -l walltime=06:00:00
-#PBS -q casper
-#PBS -A P54048000
-#PBS -N xaaer-loop
-
 import os
 import sys
 sys.path.append('../')
-sys.path.append('/project2/tas1/miyawaki/common')
+sys.path.append('/home/miyawaki/scripts/common')
 import pickle
 import numpy as np
 import xarray as xr
@@ -41,31 +34,29 @@ for se in lse:
         # years and simulation names
         for imd in tqdm(range(len(lmd))):
             md=lmd[imd]
-            ens=emem(md)
             sim=simu(fo,cl)
             grd=grid(fo,cl,md)
-            lyr=year()
 
-            idir='/project2/tas1/miyawaki/projects/000_hotdays/data/raw/%s/%s' % (sim,md)
-            odir='/project2/tas1/miyawaki/projects/000_hotdays/data/cmip6/%s/%s/%s/%s' % (se,cl,fo,md)
+            idir='/project/cmip6/%s/%s/%s/%s/%s/%s' % (sim,freq,varn,md,ens,grd)
+            odir='/project/amp/miyawaki/data/p004/hist_hotdays/cmip6/%s/%s/%s/%s' % (se,cl,fo,md)
 
             if not os.path.exists(odir):
                 os.makedirs(odir)
 
             c=0 # counter
-            for yr in lyr:
-                if se=='ann':
-                    fn = '%s/%s_%s_%s_%s_%s_%s_%s.nc' % (idir,varn,freq,md,sim,ens,grd,yr)
-                else:
-                    fn = '%s/%s_%s_%s_%s_%s_%s_%s.%s.nc' % (idir,varn,freq,md,sim,ens,grd,yr,se)
+            fn = '%s/%s_%s_%s_%s_%s_%s_*.nc' % (idir,varn,freq,md,sim,ens,grd)
 
-                ds = xr.open_dataset(fn)
-                if c==0:
-                    t2m = ds[varn]
-                else:
-                    t2m = xr.concat((t2m,ds[varn]),'time')
-                c=c+1
-                
+            ds = xr.open_mfdataset(fn)
+            t2m = ds[varn]
+
+            # select data within time of interest
+            t2m=t2m.sel(time=t2m['time.year']>=byr[0])
+            t2m=t2m.sel(time=t2m['time.year']<=byr[1])
+
+            # select seasonal data if applicable
+            if se != 'ann':
+                t2m=t2m.sel(time=t2m['time.season']==se.upper())
+                        
             # save grid info
             gr = {}
             gr['lon'] = ds['lon']
