@@ -11,12 +11,12 @@ from tqdm import tqdm
 from regions import rbin,rlev,rtlm
 
 varn='qt2m'
-lpc=['','95']
+lpc=['95']
 lre=['sea','swus']
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','son','jja'] # season (ann, djf, mam, jja, son)
-by=[1950,1970]
-# by=[2000,2020]
+# by=[1950,1970]
+by=[2000,2020]
 
 for pc in lpc:
     for re in lre:

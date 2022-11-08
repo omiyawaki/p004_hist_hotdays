@@ -3,7 +3,7 @@
 import sys
 sys.path.append('/home/miyawaki/scripts/common/CASanalysis/CASutils')
 sys.path.append('/glade/u/home/miyawaki/scripts/common/CASanalysis/CASutils')
-from lensread_utils import lens2memnamegen_first50
+from lensread_utils import lens2memnamegen
 
 def emem(fo):
     # DESCRIPTION
@@ -17,8 +17,7 @@ def emem(fo):
 
     # list of ensemble member numbers
     if fo=='lens':
-        # lmem=['%03d' % (e) for e in range(1,50+1)] 
-        lmem=['%03d' % (e) for e in range(30,50+1)] 
+        lmem=['%03d' % (e) for e in range(1,50+1)] 
     elif fo=='ee':
         lmem=['%03d' % (e) for e in range(101,115+1)] 
     elif fo=='xaaer':

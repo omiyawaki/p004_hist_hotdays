@@ -1,7 +1,7 @@
 # This script contains a set of utilities for the CESM2-SF (single forcing) runs
 
 import sys
-sys.path.append('/home/miyawaki/scripts/commdn/CASanalysis/CASutils')
+sys.path.append('/home/miyawaki/scripts/common/CASanalysis/CASutils')
 
 def mods(fo):
     # DESCRIPTION
@@ -14,8 +14,13 @@ def mods(fo):
     # lmd  : LIST of model names for that forcing
 
     if fo in ['historical','ssp245','ssp370']:
+<<<<<<< HEAD
         # lmd=['BCC-CSM2-MR']
-        lmd=['ACCESS-CM2', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'CanESM5', 'CESM2-WACCM', 'CNRM-CM6-1', 'CNRM-ESM2-1', 'GFDL-CM4', 'GFDL-ESM4', 'HadGEM3-GC31-LL', 'INM-CM4-8', 'INM-CM5-0', 'KACE-1-0-G', 'MIROC-ES2L', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM', 'UKESM1-0-LL']
+=======
+        lmd=['ACCESS-CM2']
+        # lmd=['ACCESS-CM2', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'CanESM5', 'CESM2-WACCM', 'CNRM-CM6-1', 'CNRM-ESM2-1', 'GFDL-CM4', 'GFDL-ESM4', 'HadGEM3-GC31-LL', 'INM-CM4-8', 'INM-CM5-0', 'KACE-1-0-G', 'MIROC-ES2L', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM', 'UKESM1-0-LL']
+        # lmd=['ACCESS-CM2', 'ACCESS-ESM1-5', 'AWI-CM-1-1-MR', 'BCC-CSM2-MR', 'BCC-ESM1', 'CanESM5', 'CESM2-WACCM', 'CMCC-CM2-SR5', 'CMCC-ESM2', 'CNRM-CM6-1', 'CNRM-ESM2-1', 'EC-Earth3','EC-Earth3-AerChem','EC-Earth3-Veg','EC-Earth3-Veg-LR', 'FGOALS-g3', 'GFDL-ESM4', 'IITM-ESM', 'INM-CM4-8', 'INM-CM5-0','IPSL-CM5A2-INCA','IPSL-CM6A-LR', 'KACE-1-0-G', 'MIROC-ES2L','MIROC6','MPI-ESM1-2-HAM','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM','NorESM2-MM','TaiESM1', 'UKESM1-0-LL']
+>>>>>>> 3c96ff44af1d2a6aea5962e85c7fccab9d24f369
 
     return lmd
 
@@ -38,13 +43,14 @@ def emem(md):
 
     return mem
 
-def simu(fo,cl):
+def simu(fo,cl,yr):
     # DESCRIPTION
     # Returns the simulation name applicable for the type of run 
 
     # INPUT
     # fo    : STRING describing the forcing (e.g., ssp245)
     # cl    : STRING describing the climatology (fut=future, his=historical)
+    # cl    : FLOAT describing the year (fut=future, his=historical)
     
     # OUTPUT 
     # sim   : STRING of simulation name
@@ -53,6 +59,11 @@ def simu(fo,cl):
         sim='historical'
     elif cl=='fut':
         sim=fo
+    elif cl=='tseries':
+        if yr<2015:
+            sim='historical'
+        else:
+            sim=fo
 
     return sim
 
@@ -93,7 +104,7 @@ def year(cl,md,byr):
             elif md in ['NorESM2-LM']:
                 lyr=['20210101-20301231','20310101-20401231','20410101-20501231']
             # 1 year inc
-            elif md in ['MIROC-ES2L']:
+            elif md in ['AWI-CM-1-1-MR','MIROC-ES2L']:
                 lyr=['%04d0101-%04d1231' % (yr,yr) for yr in range(byr[0],byr[1]+1)]
 
         elif byr[0]==2080 and byr[1]==2100:
@@ -122,7 +133,7 @@ def year(cl,md,byr):
             elif md in ['NorESM2-LM']:
                 lyr=['20710101-20801231','20810101-20901231','20910101-21001231']
             # 1 year inc
-            elif md in ['MIROC-ES2L']:
+            elif md in ['AWI-CM-1-1-MR','MIROC-ES2L']:
                 lyr=['%04d0101-%04d1231' % (yr,yr) for yr in range(byr[0],byr[1]+1)]
 
     elif cl=='his':
