@@ -25,13 +25,13 @@ realm='atmos' # data realm e.g., atmos, ocean, seaIce, etc
 freq='day' # data frequency e.g., day, mon
 varn='tas' # variable name
 
-lre=['swus']
-lfo = ['historical'] # data to use from 2015 onward (e.g., ssp245)
+lre=['swus','sea']
+lfo = ['ssp245'] # data to use from 2015 onward (e.g., ssp245)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['jja','mam','son','djf'] # season (ann, djf, mam, jja, son)
-lcl = ['his']
-byr=[1980,2000] # output year bounds
-# byr=[2080,2100] # output year bounds
+lcl = ['fut']
+# byr=[1980,2000] # output year bounds
+byr=[2080,2100] # output year bounds
 lyr=np.arange(byr[0],byr[1]+1)
 
 # percentiles to compute (follows Byrne [2021])

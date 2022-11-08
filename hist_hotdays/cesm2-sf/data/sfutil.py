@@ -17,7 +17,8 @@ def emem(fo):
 
     # list of ensemble member numbers
     if fo=='lens':
-        lmem=['%03d' % (e) for e in range(1,50+1)] 
+        # lmem=['%03d' % (e) for e in range(1,50+1)] 
+        lmem=['%03d' % (e) for e in range(30,50+1)] 
     elif fo=='ee':
         lmem=['%03d' % (e) for e in range(101,115+1)] 
     elif fo=='xaaer':

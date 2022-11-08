@@ -13,7 +13,7 @@ from regions import rbin
 from cmip6util import mods,simu
 
 varn='qt2m'
-lpc=['95'] # evaluate kde for values exceeding the gt percentile
+lpc=[''] # evaluate kde for values exceeding the gt percentile
 lfo=['historical']
 lcl=['his']
 lre=['sea'] # can be empty

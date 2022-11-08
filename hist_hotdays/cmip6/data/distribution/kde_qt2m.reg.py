@@ -20,14 +20,11 @@ from cmip6util import mods,emem,simu,year
 realm='atmos'
 freq='day'
 varn='qt2m'
-xpc='95'
 lre=['swus','sea']
-lfo=['ssp245']
-lcl=['fut']
+lfo=['historical']
+lcl=['his']
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
-byr_his=[1980,2000] # year bounds for evaluating climatological xpc th percentile
-byr_fut=[2080,2100] # year bounds for evaluating climatological xpc th percentile
 
 for re in lre:
     # file where selected region is provided
@@ -38,12 +35,6 @@ for re in lre:
             for cl in lcl:
                 # list of models
                 lmd=mods(fo)
-
-                # years and sim names
-                if cl == 'fut':
-                    byr=byr_fut
-                elif cl == 'his':
-                    byr=byr_his
 
                 for imd in tqdm(range(len(lmd))):
                     md=lmd[imd]
@@ -56,21 +47,10 @@ for re in lre:
                         lyr=['198001-200012']
 
                     idir='/project2/tas1/miyawaki/projects/000_hotdays/data/raw/%s/%s' % (sim,md)
-                    rdir='/project2/tas1/miyawaki/projects/000_hotdays/data/cmip6/%s/%s/%s/%s/%s' % (se,'his','historical',md,varn)
                     odir='/project2/tas1/miyawaki/projects/000_hotdays/data/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
 
                     if not os.path.exists(odir):
                         os.makedirs(odir)
-
-                    # Load climatology
-                    [ht2m0,lpc0]=pickle.load(open('%s/../%s/h%s_%g-%g.%s.%s.pickle' % (rdir,'tas','t2m',byr_his[0],byr_his[1],re,se), 'rb'))
-                    xpct2m=ht2m0[np.where(np.equal(lpc0,int(xpc)))[0][0]]
-                    # if sim=='historical':
-                    #     [ht2m0,lpc0]=pickle.load(open('%s/../%s/h%s_%g-%g.%s.%s.pickle' % (odir,'tas','t2m',byr_his[0],byr_his[1],re,se), 'rb'))
-                    #     xpct2m=ht2m0[np.where(np.equal(lpc0,int(xpc)))[0][0]]
-                    # elif sim=='ssp245':
-                    #     [ht2m1,lpc1]=pickle.load(open('%s/../%s/h%s_%g-%g.%s.%s.pickle' % (odir,'tas','t2m',byr_fut[0],byr_fut[1],re,se), 'rb'))
-                    #     xpct2m=ht2m1[np.where(np.equal(lpc1,int(xpc)))[0][0]]
 
                     c=0 # counter
                     for yr in lyr:
@@ -118,10 +98,8 @@ for re in lre:
                         rt2m[it,:]=lt[rloc] # regionally selected data
                         rq2m[it,:]=lq[rloc] # regionally selected data
 
-                    # select data above xpc temp
-                    ixt2m=np.where(rt2m>xpct2m)
-                    xt2m=rt2m[ixt2m]
-                    xq2m=rq2m[ixt2m]
-                    kqt2m=gaussian_kde(np.vstack([xt2m,xq2m]))
+                    rt2m=rt2m.flatten()
+                    rq2m=rq2m.flatten()
+                    kqt2m=gaussian_kde(np.vstack([rt2m,rq2m]))
 
-                    pickle.dump(kqt2m, open('%s/k%s_%s.gt%s.%s.%s.pickle' % (odir,varn,yr,xpc,re,se), 'wb'), protocol=5)	
+                    pickle.dump(kqt2m, open('%s/k%s_%s.%s.%s.pickle' % (odir,varn,yr,re,se), 'wb'), protocol=5)	

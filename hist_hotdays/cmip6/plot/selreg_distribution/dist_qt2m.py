@@ -10,19 +10,19 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from scipy.stats import gaussian_kde
 from tqdm import tqdm
-from regions import rbin
+from regions import rbin,rtlm
 from cmip6util import mods,simu
 
 varn='qt2m'
 lpc=['95']
-lre=['sea']
+lre=['swus']
 lfo=['ssp245']
 lcl=['fut']
 # lfo=['historical']
 # lcl=['his']
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','son','jja'] # season (ann, djf, mam, jja, son)
-mmm=False
+mmm=True
 
 for pc in lpc:
     for fo in lfo:
@@ -63,10 +63,7 @@ for pc in lpc:
                         
                         fig,ax=plt.subplots(figsize=(4,3))
                         ax.contour(mt,mq,pdf)
-                        if pc=='':
-                            ax.set_xlim([285,310])
-                        else:
-                            ax.set_xlim([295,315])
+                        ax.set_xlim(rtlm(re,pc))
                         ax.set_xlabel(r'$T_{2\,m}$ (K)')
                         ax.set_ylabel(r'$q_{2\,m}$ (kg kg$^{-1}$)')
                         ax.set_title(r'%s %s %s' % (se.upper(),md.upper(),re.upper()))
