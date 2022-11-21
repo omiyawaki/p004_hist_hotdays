@@ -14,16 +14,12 @@ varn='tas'
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
-# lfo=['ssp370'] # forcings 
-# cl='fut' # his, fut
-lfo=['historical'] # forcings 
-cl='his' # his, fut
-if cl=='his':
-    yr='1980-2000'
-elif cl=='fut':
-    yr='2080-2100'
+lfo=['ssp370'] # forcings 
+cl='fut-his'
+his='1980-2000'
+fut='2080-2100'
 # lpc = [1,5,50,95,99] # percentile (choose from lpc below)
-lpc=[95,99]
+lpc=[0,95,99]
 mmm=True # multimodel mean?
 # mmm=False # multimodel mean?
 
@@ -43,36 +39,35 @@ for pc in lpc:
                     os.makedirs(odir)
 
                 c = 0
+                dt={}
+
                 if md=='mmm':
-                    [stats, gr] = pickle.load(open('%s/cldist.%s.%02d.%s.%s.pickle' % (idir,varn,pc,yr,se), 'rb'))
+                    [stats, gr] = pickle.load(open('%s/diff_%02d.%s.%s.%s.pickle' % (idir,pc,his,fut,se), 'rb'))
                     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
                     gr['lon'] = np.append(gr['lon'].data,360)
                     for stat in stats:
                         stats[stat] = np.append(stats[stat], stats[stat][:,0][:,None],axis=1)
 
-                    cldist = stats['mean'] 
+                    diff = stats['mean'] 
                 else:
-                    [cldist, gr] = pickle.load(open('%s/cldist.%02d.%s.%s.pickle' % (idir,pc,yr,se), 'rb'))
+                    [diff, gr] = pickle.load(open('%s/diff_%02d.%s.%s.%s.pickle' % (idir,pc,his,fut,se), 'rb'))
                     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
                     gr['lon'] = np.append(gr['lon'].data,360)
-                    cldist = np.append(cldist, cldist[:,0][:,None],axis=1)
+                    diff = np.append(diff, diff[:,0][:,None],axis=1)
 
                 [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
-                # plot warming ratios
+                # plot warming differences
                 ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
-
+                # transparent colormap
                 vlim=10
-                if pc<50:
-                    vmin=-vlim
-                    vmax=0+1
-                else:
-                    vmin=0
-                    vmax=vlim+1
-                clf=ax.contourf(mlon, mlat, cldist, np.arange(vmin,vmax,1),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                clf=ax.contourf(mlon, mlat, diff, np.arange(-vlim,vlim,1),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
                 ax.coastlines()
-                ax.set_title(r'%s %s %s (%s)' % (se.upper(),md.upper(),fo.upper(),yr))
+                ax.set_title(r'%s %s %s' % (se.upper(),md.upper(),fo.upper()))
                 cb=plt.colorbar(clf,location='bottom')
-                cb.set_label(r'$T^{>%s}_\mathrm{2\,m}-\overline{T}_\mathrm{2\,m}$ (K)' % (pc))
-                plt.savefig('%s/cldist.%s.%02d.%s.%s.%s.pdf' % (odir,varn,pc,fo,yr,se), format='pdf', dpi=300)
+                if pc==0:
+                    cb.set_label(r'$\Delta \overline{T}_\mathrm{2\,m}$ (K)')
+                else:
+                    cb.set_label(r'$\Delta T^{>%s}_\mathrm{2\,m}$ (K)' % (pc))
+                plt.savefig('%s/diff.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
                 plt.close()

@@ -22,12 +22,11 @@ from cmip6util import mods,simu
 varn='tas'
 lfo = ['ssp370'] # forcing (e.g., ssp245)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
-# lse = ['ann','jja','son','djf','mam'] # season (ann, djf, mam, jja, son)
 cl='fut-his' # climatology (difference between future and historical)
 his = '1980-2000' # historical analysis period
 fut = '2080-2100' # future analysis period
 
-lpc = [1,5,50,95,99] # available percentiles
+lpc = [0,95,99] # available percentiles
 
 for fo in lfo:
     for se in lse:
@@ -45,8 +44,8 @@ for fo in lfo:
             if not os.path.exists(odir):
                 os.makedirs(odir)
 
-            [htas0, gr] = pickle.load(open('%s/htas_%s.%s.pickle' % (mdir(se,'his','historical',md,varn),his,se), 'rb'))
-            [htas1, gr] = pickle.load(open('%s/htas_%s.%s.pickle' % (mdir(se,'fut',fo,md,varn),fut,se), 'rb'))
+            [htas0, gr] = pickle.load(open('%s/ctas_%s.%s.pickle' % (mdir(se,'his','historical',md,varn),his,se), 'rb'))
+            [htas1, gr] = pickle.load(open('%s/ctas_%s.%s.pickle' % (mdir(se,'fut',fo,md,varn),fut,se), 'rb'))
             dtas=htas1-htas0 # take difference
 
             # store data
@@ -64,7 +63,7 @@ for fo in lfo:
                 pickle.dump([dtaspc, gr], open('%s/diff_%02d.%s.%s.%s.pickle' % (odir,lpc[ipc],his,fut,se), 'wb'), protocol=5)	
 
             # save CESM grid for ensemble mean
-            if md=='CESM2-WACCM':
+            if md=='CESM2':
                 egr=gr
 
 
@@ -78,7 +77,7 @@ for fo in lfo:
         edtas=np.empty([len(lmd),len(lpc),len(egr['lat']),len(egr['lon'])])
         for imd in tqdm(range(len(lmd))):
             md=lmd[imd]
-            if md!='CESM2-WACCM':
+            if md!='CESM2':
                 fint=interp1d(igr[md]['lat'],idtas[md],axis=1,fill_value='extrapolate')
                 lati=fint(egr['lat'])
                 fint=interp1d(igr[md]['lon'],lati,axis=2,fill_value='extrapolate')

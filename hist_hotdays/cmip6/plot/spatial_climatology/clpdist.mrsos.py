@@ -10,7 +10,7 @@ from scipy.stats import linregress
 from tqdm import tqdm
 from cmip6util import mods
 
-varn='tas'
+varn='mrsos'
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
@@ -62,17 +62,11 @@ for pc in lpc:
                 # plot warming ratios
                 ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
 
-                vlim=10
-                if pc<50:
-                    vmin=-vlim
-                    vmax=0+1
-                else:
-                    vmin=0
-                    vmax=vlim+1
-                clf=ax.contourf(mlon, mlat, cldist, np.arange(vmin,vmax,1),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                vlim=30
+                clf=ax.contourf(mlon, mlat, cldist, np.arange(-vlim,vlim,5),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
                 ax.coastlines()
                 ax.set_title(r'%s %s %s (%s)' % (se.upper(),md.upper(),fo.upper(),yr))
                 cb=plt.colorbar(clf,location='bottom')
-                cb.set_label(r'$T^{>%s}_\mathrm{2\,m}-\overline{T}_\mathrm{2\,m}$ (K)' % (pc))
+                cb.set_label(r'$SM^{>%s}_\mathrm{2\,m}-\overline{SM}_\mathrm{2\,m}$ (kg m$^{-2}$)' % (pc))
                 plt.savefig('%s/cldist.%s.%02d.%s.%s.%s.pdf' % (odir,varn,pc,fo,yr,se), format='pdf', dpi=300)
                 plt.close()

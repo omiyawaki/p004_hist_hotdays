@@ -22,8 +22,8 @@ freq='day'
 varn='qt2m'
 xpc='95'
 lre=['swus','sea']
-lfo=['ssp245']
-lcl=['fut']
+lfo=['historical']
+lcl=['his']
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 byr_his=[1980,2000] # year bounds for evaluating climatological xpc th percentile
@@ -48,22 +48,24 @@ for re in lre:
                 for imd in tqdm(range(len(lmd))):
                     md=lmd[imd]
                     ens=emem(md)
-                    sim=simu(fo,cl)
+                    sim=simu(fo,cl,None)
                     grd=grid(fo,cl,md)
-                    if sim=='ssp245':
+                    if sim=='ssp370':
                         lyr=['208001-210012']
                     elif sim=='historical':
                         lyr=['198001-200012']
 
-                    idir='/project2/tas1/miyawaki/projects/000_hotdays/data/raw/%s/%s' % (sim,md)
-                    rdir='/project2/tas1/miyawaki/projects/000_hotdays/data/cmip6/%s/%s/%s/%s/%s' % (se,'his','historical',md,varn)
-                    odir='/project2/tas1/miyawaki/projects/000_hotdays/data/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
+                    idirt='/project/amp/miyawaki/temp/cmip6/%s/%s/%s/%s/%s/%s' % (sim,freq,'tas',md,ens,grd)
+                    idirq='/project/amp/miyawaki/temp/cmip6/%s/%s/%s/%s/%s/%s' % (sim,freq,'huss',md,ens,grd)
+                    rdir='/project/amp/miyawaki/data/p004/hist_hotdays/cmip6/%s/%s/%s/%s/%s' % (se,'his','historical',md,varn)
+                    rdirt='/project/amp/miyawaki/data/p004/hist_hotdays/cmip6/%s/%s/%s/%s/%s' % (se,'his','historical',md,'tas')
+                    odir='/project/amp/miyawaki/data/p004/hist_hotdays/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
 
                     if not os.path.exists(odir):
                         os.makedirs(odir)
 
                     # Load climatology
-                    [ht2m0,lpc0]=pickle.load(open('%s/../%s/h%s_%g-%g.%s.%s.pickle' % (rdir,'tas','t2m',byr_his[0],byr_his[1],re,se), 'rb'))
+                    [ht2m0,lpc0]=pickle.load(open('%s/h%s_%g-%g.%s.%s.pickle' % (rdirt,'t2m',byr_his[0],byr_his[1],re,se), 'rb'))
                     xpct2m=ht2m0[np.where(np.equal(lpc0,int(xpc)))[0][0]]
                     # if sim=='historical':
                     #     [ht2m0,lpc0]=pickle.load(open('%s/../%s/h%s_%g-%g.%s.%s.pickle' % (odir,'tas','t2m',byr_his[0],byr_his[1],re,se), 'rb'))
@@ -73,24 +75,24 @@ for re in lre:
                     #     xpct2m=ht2m1[np.where(np.equal(lpc1,int(xpc)))[0][0]]
 
                     c=0 # counter
-                    for yr in lyr:
-                        if se=='ann':
-                            fnt = '%s/%s_%s_%s_%s_%s_%s_%s.nc' % (idir,'tas',freq,md,sim,ens,grd,yr)
-                            fnq = '%s/%s_%s_%s_%s_%s_%s_%s.nc' % (idir,'huss',freq,md,sim,ens,grd,yr)
-                        else:
-                            fnt = '%s/%s_%s_%s_%s_%s_%s_%s.%s.nc' % (idir,'tas',freq,md,sim,ens,grd,yr,se)
-                            fnq = '%s/%s_%s_%s_%s_%s_%s_%s.%s.nc' % (idir,'huss',freq,md,sim,ens,grd,yr,se)
+                    fnt = '%s/%s_%s_%s_%s_%s_%s_*.nc' % (idirt,'tas',freq,md,sim,ens,grd)
+                    fnq = '%s/%s_%s_%s_%s_%s_%s_*.nc' % (idirq,'huss',freq,md,sim,ens,grd)
+                    dst = xr.open_mfdataset(fnt)
+                    dsq = xr.open_mfdataset(fnq)
+                    t2m = dst['tas']
+                    q2m = dsq['huss']
 
-                        dst = xr.open_dataset(fnt)
-                        dsq = xr.open_dataset(fnq)
-                        if c==0:
-                            t2m = dst['tas']
-                            q2m = dsq['huss']
-                        else:
-                            t2m = xr.concat((t2m,dst['tas']),'time')
-                            q2m = xr.concat((q2m,dst['huss']),'time')
-                        c=c+1
-                        
+                    # select data within time of interest
+                    t2m=t2m.sel(time=t2m['time.year']>=byr[0])
+                    t2m=t2m.sel(time=t2m['time.year']<=byr[1])
+                    q2m=q2m.sel(time=q2m['time.year']>=byr[0])
+                    q2m=q2m.sel(time=q2m['time.year']<=byr[1])
+
+                    # select seasonal data if applicable
+                    if se != 'ann':
+                        t2m=t2m.sel(time=t2m['time.season']==se.upper())
+                        q2m=q2m.sel(time=q2m['time.season']==se.upper())
+
                     # save grid info
                     gr = {}
                     gr['lon'] = dst['lon']
@@ -124,4 +126,4 @@ for re in lre:
                     xq2m=rq2m[ixt2m]
                     kqt2m=gaussian_kde(np.vstack([xt2m,xq2m]))
 
-                    pickle.dump(kqt2m, open('%s/k%s_%s.gt%s.%s.%s.pickle' % (odir,varn,yr,xpc,re,se), 'wb'), protocol=5)	
+                    pickle.dump(kqt2m, open('%s/k%s_%g-%g.gt%s.%s.%s.pickle' % (odir,varn,byr[0],byr[1],xpc,re,se), 'wb'), protocol=5)	

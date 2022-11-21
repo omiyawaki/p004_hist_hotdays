@@ -14,13 +14,17 @@ def mods(fo):
     # lmd  : LIST of model names for that forcing
 
     if fo in ['historical','ssp245','ssp370']:
-<<<<<<< HEAD
-        # lmd=['BCC-CSM2-MR']
-=======
-        lmd=['ACCESS-CM2']
+        # lmd=['CESM2']
+        # lmd=['EC-Earth3-Veg','EC-Earth3-Veg-LR', 'FGOALS-g3', 'GFDL-ESM4', 'IITM-ESM', 'INM-CM4-8', 'INM-CM5-0', 'KACE-1-0-G', 'MIROC-ES2L','MIROC6','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM','NorESM2-MM','TaiESM1', 'UKESM1-0-LL']
+
+        # ALL AVAILABLE SSP370 MRSOS
+        lmd=['ACCESS-CM2', 'ACCESS-ESM1-5','CanESM5','CESM2', 'CMCC-CM2-SR5', 'CMCC-ESM2', 'EC-Earth3', 'IITM-ESM', 'INM-CM4-8', 'INM-CM5-0','KACE-1-0-G', 'MIROC6','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM','NorESM2-MM','UKESM1-0-LL']
+
+        # ALL AVAILABLE SSP370 TAS and HUSS
+        # lmd=['ACCESS-CM2', 'ACCESS-ESM1-5', 'CanESM5','CESM2','CMCC-CM2-SR5', 'CMCC-ESM2', 'CNRM-CM6-1', 'CNRM-ESM2-1', 'EC-Earth3','EC-Earth3-AerChem','EC-Earth3-Veg','EC-Earth3-Veg-LR', 'FGOALS-g3', 'GFDL-ESM4', 'IITM-ESM', 'INM-CM4-8', 'INM-CM5-0', 'KACE-1-0-G', 'MIROC-ES2L','MIROC6','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM','NorESM2-MM','TaiESM1', 'UKESM1-0-LL']
+
+        # BYRNE LIST
         # lmd=['ACCESS-CM2', 'ACCESS-ESM1-5', 'BCC-CSM2-MR', 'CanESM5', 'CESM2-WACCM', 'CNRM-CM6-1', 'CNRM-ESM2-1', 'GFDL-CM4', 'GFDL-ESM4', 'HadGEM3-GC31-LL', 'INM-CM4-8', 'INM-CM5-0', 'KACE-1-0-G', 'MIROC-ES2L', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM', 'UKESM1-0-LL']
-        # lmd=['ACCESS-CM2', 'ACCESS-ESM1-5', 'AWI-CM-1-1-MR', 'BCC-CSM2-MR', 'BCC-ESM1', 'CanESM5', 'CESM2-WACCM', 'CMCC-CM2-SR5', 'CMCC-ESM2', 'CNRM-CM6-1', 'CNRM-ESM2-1', 'EC-Earth3','EC-Earth3-AerChem','EC-Earth3-Veg','EC-Earth3-Veg-LR', 'FGOALS-g3', 'GFDL-ESM4', 'IITM-ESM', 'INM-CM4-8', 'INM-CM5-0','IPSL-CM5A2-INCA','IPSL-CM6A-LR', 'KACE-1-0-G', 'MIROC-ES2L','MIROC6','MPI-ESM1-2-HAM','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'MRI-ESM2-0', 'NorESM2-LM','NorESM2-MM','TaiESM1', 'UKESM1-0-LL']
->>>>>>> 3c96ff44af1d2a6aea5962e85c7fccab9d24f369
 
     return lmd
 
@@ -38,6 +42,8 @@ def emem(md):
         mem='r1i1p1f2'
     elif md in ['HadGEM3-GC31-LL']:
         mem='r1i1p1f3'
+    elif md in ['CESM2']:
+        mem='r11i1p1f1'
     else:
         mem='r1i1p1f1'
 

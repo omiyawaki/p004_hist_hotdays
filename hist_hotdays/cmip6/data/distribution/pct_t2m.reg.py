@@ -8,6 +8,7 @@
 import os
 import sys
 sys.path.append('../')
+sys.path.append('/home/miyawaki/scripts/common')
 sys.path.append('/project2/tas1/miyawaki/common')
 import pickle
 import numpy as np
@@ -26,16 +27,17 @@ freq='day' # data frequency e.g., day, mon
 varn='tas' # variable name
 
 lre=['swus','sea']
-lfo = ['ssp245'] # data to use from 2015 onward (e.g., ssp245)
+lfo = ['historical'] # data to use from 2015 onward (e.g., ssp245)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['jja','mam','son','djf'] # season (ann, djf, mam, jja, son)
-lcl = ['fut']
-# byr=[1980,2000] # output year bounds
-byr=[2080,2100] # output year bounds
+lcl = ['his']
+byr=[1980,2000] # output year bounds
+# byr=[2080,2100] # output year bounds
 lyr=np.arange(byr[0],byr[1]+1)
 
 # percentiles to compute (follows Byrne [2021])
-pc = [1e-3,1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,82,85,87,90,92,95,97,99] 
+# pc = [1e-3,1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,82,85,87,90,92,95,97,99] 
+pc = [1,5,50,95,99] 
 
 for re in lre:
     # file where selected region is provided
@@ -51,32 +53,36 @@ for re in lre:
                 for imd in tqdm(range(len(lmd))):
                     md=lmd[imd]
                     ens=emem(md)
-                    sim=simu(fo,cl)
+                    sim=simu(fo,cl,None)
                     grd=grid(fo,cl,md)
                     if sim=='ssp245':
                         lyr=['208001-210012']
                     elif sim=='historical':
                         lyr=['198001-200012']
 
-                    idir='/project2/tas1/miyawaki/projects/000_hotdays/data/raw/%s/%s' % (sim,md)
-                    odir='/project2/tas1/miyawaki/projects/000_hotdays/data/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
+                    idir='/project/amp/miyawaki/temp/cmip6/%s/%s/%s/%s/%s/%s' % (sim,freq,varn,md,ens,grd)
+                    odir='/project/amp/miyawaki/data/p004/hist_hotdays/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
 
                     if not os.path.exists(odir):
                         os.makedirs(odir)
 
                     c=0 # counter
-                    for yr in lyr:
-                        if se=='ann':
-                            fn = '%s/%s_%s_%s_%s_%s_%s_%s.nc' % (idir,varn,freq,md,sim,ens,grd,yr)
-                        else:
-                            fn = '%s/%s_%s_%s_%s_%s_%s_%s.%s.nc' % (idir,varn,freq,md,sim,ens,grd,yr,se)
+                    fnt = '%s/%s_%s_%s_%s_%s_%s_*.nc' % (idir,varn,freq,md,sim,ens,grd)
+                    ds = xr.open_mfdataset(fnt)
+                    t2m = ds[varn]
 
-                        ds = xr.open_dataset(fn)
-                        if c==0:
-                            t2m = ds[varn]
-                        else:
-                            t2m = xr.concat((t2m,ds[varn]),'time')
-                        c=c+1
+                    # for yr in lyr:
+                    #     if se=='ann':
+                    #         fn = '%s/%s_%s_%s_%s_%s_%s_%s.nc' % (idir,varn,freq,md,sim,ens,grd,yr)
+                    #     else:
+                    #         fn = '%s/%s_%s_%s_%s_%s_%s_%s.%s.nc' % (idir,varn,freq,md,sim,ens,grd,yr,se)
+
+                    #     ds = xr.open_dataset(fn)
+                    #     if c==0:
+                    #         t2m = ds[varn]
+                    #     else:
+                    #         t2m = xr.concat((t2m,ds[varn]),'time')
+                    #     c=c+1
                         
                     # save grid info
                     gr = {}

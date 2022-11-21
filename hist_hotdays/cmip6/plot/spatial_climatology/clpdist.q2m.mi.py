@@ -10,14 +10,18 @@ from scipy.stats import linregress
 from tqdm import tqdm
 from cmip6util import mods
 
-varn='tas'
+varn='huss'
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
-lfo=['ssp370'] # forcings 
-cl='fut-his'
-his='1980-2000'
-fut='2080-2100'
+# lfo=['ssp370'] # forcings 
+# cl='fut' # his, fut
+lfo=['historical'] # forcings 
+cl='his' # his, fut
+if cl=='his':
+    yr='1980-2000'
+elif cl=='fut':
+    yr='2080-2100'
 # lpc = [1,5,50,95,99] # percentile (choose from lpc below)
 lpc=[95,99]
 
@@ -31,7 +35,7 @@ for pc in lpc:
             lmd=mods(fo)
             
             for pc in lpc:
-                fig,ax=plt.subplots(nrows=6,ncols=5,subplot_kw={'projection':ccrs.Robinson(central_longitude=240)},figsize=(11,11))
+                fig,ax=plt.subplots(nrows=4,ncols=5,subplot_kw={'projection':ccrs.Robinson(central_longitude=240)},figsize=(11,8.5))
                 ax=ax.flatten()
                 fig.suptitle(r'%s %s' % (se.upper(),fo.upper()))
                 for imd in range(len(lmd)):
@@ -41,19 +45,20 @@ for pc in lpc:
                     c = 0
                     dt={}
 
-                    [rdist, gr] = pickle.load(open('%s/rdist.%s.%02d.%s.%s.%s.pickle' % (idir,varn,pc,his,fut,se), 'rb'))
+                    [cldist, gr] = pickle.load(open('%s/cldist.%s.%02d.%s.%s.pickle' % (idir,varn,pc,yr,se), 'rb'))
                     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
                     gr['lon'] = np.append(gr['lon'].data,360)
-                    rdist = np.append(rdist, rdist[:,0][:,None],axis=1)
+                    cldist = np.append(cldist, cldist[:,0][:,None],axis=1)
 
                     [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
                     # plot warming ratios
-                    clf=ax[imd].contourf(mlon, mlat, rdist, np.arange(0.5,1.5,0.05),extend='both', vmax=1.5, vmin=0.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                    vlim=10
+                    clf=ax[imd].contourf(mlon, mlat, 1e3*cldist, np.arange(-vlim,vlim,1),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
                     ax[imd].coastlines()
                     ax[imd].set_title(r'%s' % (md.upper()))
-                    plt.savefig('%s/rdist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
+                    plt.savefig('%s/cldist.%s.%02d.%s.%s.%s.pdf' % (odir,varn,pc,fo,yr,se), format='pdf', dpi=128)
                 cb=fig.colorbar(clf,ax=ax,location='bottom')
-                cb.set_label(r'$\frac{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}}{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}}$ (unitless)' % (pc,fut,pc,his))
-                plt.savefig('%s/rdist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=128)
+                cb.set_label(r'$q^{>%s}_\mathrm{2\,m}-\overline{q}_\mathrm{2\,m}$ (g kg$^{-1}$)' % (pc))
+                plt.savefig('%s/cldist.%s.%02d.%s.%s.%s.pdf' % (odir,varn,pc,fo,yr,se), format='pdf', dpi=128)
                 plt.close()

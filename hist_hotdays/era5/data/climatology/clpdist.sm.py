@@ -8,10 +8,10 @@ from tqdm import tqdm
 
 # computes the distance between x percentile and 50th percentile values for the climatology
 
-varn='t2m'
+varn='sm'
 lxpc=[95,99] # percentile value from which to take the distance of the median
 # choose from:
-lse = ['jja'] # season (ann, djf, mam, jja, son)
+lse = ['djf'] # season (ann, djf, mam, jja, son)
 # lse = ['ann'] # season (ann, djf, mam, jja, son)
 # byr = [1959,2020] # begin analysis year
 byr = [1980,2000] # begin analysis year

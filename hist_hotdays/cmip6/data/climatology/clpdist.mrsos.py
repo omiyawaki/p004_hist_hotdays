@@ -19,7 +19,7 @@ from cmip6util import mods,simu
 
 # collect warmings across the ensembles
 
-varn='tas'
+varn='mrsos'
 lxpc=[95,99] # percentile value from which to take the distance of the median
 
 lfo = ['ssp370'] # forcing (e.g., ssp245)

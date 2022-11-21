@@ -20,11 +20,11 @@ fo='historical'
 lse = ['jja'] # season (ann, djf, mam, jja, son)
 # lse = ['jja','mam','son','djf'] # season (ann, djf, mam, jja, son)
 lcl = ['tseries']
-byr=[1950,2015] # output year bounds
+byr=[2015,2100] # output year bounds
 lyr=np.arange(byr[0],byr[1]+1)
 
 # percentiles to compute (follows Byrne [2021])
-pc = [1e-3,1,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,82,85,87,90,92,95,97,99] 
+pc = [1,5,50,95,99] 
 
 for cl in lcl:
     for se in lse:
@@ -51,8 +51,7 @@ for cl in lcl:
 
             for yr in tqdm(lyr):
                 # select data within time of interest
-                t2ms=t2m.sel(time=t2m['time.year']>=byr[0])
-                t2ms=t2m.sel(time=t2m['time.year']<=byr[1])
+                t2ms=t2m.sel(time=t2m['time.year']==yr)
 
                 # select seasonal data if applicable
                 if se != 'ann':
@@ -74,4 +73,4 @@ for cl in lcl:
                         lt = t2ms[:,la,ln]
                         ht2ms[:,la,ln]=np.percentile(lt,pc)	
 
-                pickle.dump([ht2ms, gr], open('%s/ht2ms_%g-%g.%s.pickle' % (odir,byr[0],byr[1],se), 'wb'), protocol=5)	
+                pickle.dump([ht2ms, gr], open('%s/ht2m_%g.%s.pickle' % (odir,yr,se), 'wb'), protocol=5)	

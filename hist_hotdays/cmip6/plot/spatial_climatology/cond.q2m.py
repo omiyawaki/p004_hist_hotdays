@@ -10,22 +10,22 @@ from scipy.stats import linregress
 from tqdm import tqdm
 from cmip6util import mods
 
-varn='tas'
+varn='huss'
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
-# lfo=['ssp370'] # forcings 
+lfo=['ssp370'] # forcings 
 # cl='fut' # his, fut
-lfo=['historical'] # forcings 
-cl='his' # his, fut
+# lfo=['historical'] # forcings 
+cl='fut' # his, fut
 if cl=='his':
     yr='1980-2000'
 elif cl=='fut':
     yr='2080-2100'
 # lpc = [1,5,50,95,99] # percentile (choose from lpc below)
-lpc=[95,99]
-mmm=True # multimodel mean?
-# mmm=False # multimodel mean?
+lpc=[0,95,99]
+# mmm=True # multimodel mean?
+mmm=False # multimodel mean?
 
 for pc in lpc:
     for se in lse:
@@ -44,35 +44,39 @@ for pc in lpc:
 
                 c = 0
                 if md=='mmm':
-                    [stats, gr] = pickle.load(open('%s/cldist.%s.%02d.%s.%s.pickle' % (idir,varn,pc,yr,se), 'rb'))
+                    [stats, gr] = pickle.load(open('%s/c%s_%s.%s.pickle' % (idir,varn,yr,se), 'rb'))
                     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
                     gr['lon'] = np.append(gr['lon'].data,360)
                     for stat in stats:
                         stats[stat] = np.append(stats[stat], stats[stat][:,0][:,None],axis=1)
 
-                    cldist = stats['mean'] 
+                    cond = stats['mean'] 
                 else:
-                    [cldist, gr] = pickle.load(open('%s/cldist.%02d.%s.%s.pickle' % (idir,pc,yr,se), 'rb'))
+                    [cond, gr] = pickle.load(open('%s/c%s_%s.%s.pickle' % (idir,varn,yr,se), 'rb'))
                     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
                     gr['lon'] = np.append(gr['lon'].data,360)
-                    cldist = np.append(cldist, cldist[:,0][:,None],axis=1)
+                    cond = np.append(cond, cond[:,:,0][:,:,None],axis=2)
 
                 [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
-                # plot warming ratios
-                ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
+                # plot varn conditioned on t2m
+                for pc in lpc:
+                    if pc==0:
+                        cpc=cond[0,...]
+                    elif pc==95:
+                        cpc=cond[1,...]
+                    elif pc==99:
+                        cpc=cond[2,...]
+                    ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
 
-                vlim=10
-                if pc<50:
-                    vmin=-vlim
-                    vmax=0+1
-                else:
+                    vlim=0.03
+                    vint=0.005
                     vmin=0
-                    vmax=vlim+1
-                clf=ax.contourf(mlon, mlat, cldist, np.arange(vmin,vmax,1),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-                ax.coastlines()
-                ax.set_title(r'%s %s %s (%s)' % (se.upper(),md.upper(),fo.upper(),yr))
-                cb=plt.colorbar(clf,location='bottom')
-                cb.set_label(r'$T^{>%s}_\mathrm{2\,m}-\overline{T}_\mathrm{2\,m}$ (K)' % (pc))
-                plt.savefig('%s/cldist.%s.%02d.%s.%s.%s.pdf' % (odir,varn,pc,fo,yr,se), format='pdf', dpi=300)
-                plt.close()
+                    vmax=vlim+vint
+                    clf=ax.contourf(mlon, mlat, cpc, np.arange(vmin,vmax,vint),extend='both', vmax=vmax, vmin=vmin, transform=ccrs.PlateCarree(), cmap='gist_earth_r')
+                    ax.coastlines()
+                    ax.set_title(r'%s %s %s (%s)' % (se.upper(),md.upper(),fo.upper(),yr))
+                    cb=plt.colorbar(clf,location='bottom')
+                    cb.set_label(r'$q\mathrm{2\,m}(T^{>%s}_\mathrm{2\,m})$ (kg kg$^{-1}$)' % (pc))
+                    plt.savefig('%s/cond.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
+                    plt.close()

@@ -10,7 +10,7 @@ from scipy.stats import linregress
 from tqdm import tqdm
 from cmip6util import mods
 
-varn='tas'
+varn='mrsos'
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','jja'] # season (ann, djf, mam, jja, son)
 lse = ['jja'] # season (ann, djf, mam, jja, son)
@@ -70,24 +70,14 @@ for pc in lpc:
 
                 [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
-                # plot warming ratios
-                ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
-                # transparent colormap
-                clf=ax.contourf(mlon, mlat, rdist, np.arange(0.5,1.5,0.05),extend='both', vmax=1.5, vmin=0.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-                ax.coastlines()
-                ax.set_title(r'%s %s %s' % (se.upper(),md.upper(),fo.upper()))
-                cb=plt.colorbar(clf,location='bottom')
-                cb.set_label(r'$\frac{(T^{>%s}_\mathrm{2\,m}-\overline{T}_\mathrm{2\,m})_\mathrm{%s}}{(T^{>%s}_\mathrm{2\,m}-\overline{T}_\mathrm{2\,m})_\mathrm{%s}}$ (unitless)' % (pc,fut,pc,his))
-                plt.savefig('%s/rdist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
-                plt.close()
-
                 # plot warming differences
                 ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
                 # transparent colormap
-                clf=ax.contourf(mlon, mlat, ddist, np.arange(-2.5,2.5,0.25),extend='both', vmax=2.5, vmin=-2.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                vlim=2
+                clf=ax.contourf(mlon, mlat, ddist, np.arange(-vlim,vlim,vlim/10),extend='both', vmax=vlim, vmin=-vlim, transform=ccrs.PlateCarree(), cmap='RdBu_r')
                 ax.coastlines()
                 ax.set_title(r'%s %s %s' % (se.upper(),md.upper(),fo.upper()))
                 cb=plt.colorbar(clf,location='bottom')
-                cb.set_label(r'$(T^{>%s}_\mathrm{2\,m}-\overline{T}_\mathrm{2\,m})_\mathrm{%s}-(T^{>%s}_\mathrm{2\,m}-\overline{T}_\mathrm{2\,m})_\mathrm{%s}$ (K)' % (pc,fut,pc,his))
+                cb.set_label(r'$(SM^{>%s}_\mathrm{2\,m}-\overline{SM}_\mathrm{2\,m})_\mathrm{%s}-(SM^{>%s}_\mathrm{2\,m}-\overline{SM}_\mathrm{2\,m})_\mathrm{%s}$ (kg m$^{-2}$)' % (pc,fut,pc,his))
                 plt.savefig('%s/ddist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
                 plt.close()

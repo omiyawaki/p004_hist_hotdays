@@ -41,19 +41,19 @@ for pc in lpc:
                     c = 0
                     dt={}
 
-                    [rdist, gr] = pickle.load(open('%s/rdist.%s.%02d.%s.%s.%s.pickle' % (idir,varn,pc,his,fut,se), 'rb'))
+                    [ddist, gr] = pickle.load(open('%s/ddist.%s.%02d.%s.%s.%s.pickle' % (idir,varn,pc,his,fut,se), 'rb'))
                     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
                     gr['lon'] = np.append(gr['lon'].data,360)
-                    rdist = np.append(rdist, rdist[:,0][:,None],axis=1)
+                    ddist = np.append(ddist, ddist[:,0][:,None],axis=1)
 
                     [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
                     # plot warming ratios
-                    clf=ax[imd].contourf(mlon, mlat, rdist, np.arange(0.5,1.5,0.05),extend='both', vmax=1.5, vmin=0.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+                    clf=ax[imd].contourf(mlon, mlat, ddist, np.arange(0.5,1.5,0.05),extend='both', vmax=1.5, vmin=0.5, transform=ccrs.PlateCarree(), cmap='RdBu_r')
                     ax[imd].coastlines()
                     ax[imd].set_title(r'%s' % (md.upper()))
-                    plt.savefig('%s/rdist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
+                    plt.savefig('%s/ddist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=300)
                 cb=fig.colorbar(clf,ax=ax,location='bottom')
-                cb.set_label(r'$\frac{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}}{(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}}$ (unitless)' % (pc,fut,pc,his))
-                plt.savefig('%s/rdist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=128)
+                cb.set_label(r'$(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}-(T^{%s}_\mathrm{2\,m}-T^{50}_\mathrm{2\,m})_\mathrm{%s}$ (K)' % (pc,fut,pc,his))
+                plt.savefig('%s/ddist.%s.%02d.%s.%s.pdf' % (odir,varn,pc,fo,se), format='pdf', dpi=128)
                 plt.close()

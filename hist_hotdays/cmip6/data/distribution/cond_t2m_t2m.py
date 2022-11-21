@@ -16,18 +16,16 @@ realm='atmos' # data realm e.g., atmos, ocean, seaIce, etc
 freq='day' # data frequency e.g., day, mon
 varn='tas' # variable name
 
-lse = ['djf'] # season (ann, djf, mam, jja, son)
-# lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 lfo = ['historical'] # forcing (e.g., ssp245)
+lse = ['jja'] # season (ann, djf, mam, jja, son)
+# lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 lcl = ['his'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
-# lfo = ['ssp370'] # forcing (e.g., ssp245)
-# lcl = ['fut'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
 # lcl = ['fut','his'] # climatology (fut=future [2030-2050], his=historical [1920-1940])
 byr_his=[1980,2000] # output year bounds
 byr_fut=[2080,2100]
 
 # percentiles to compute (follows Byrne [2021])
-pc = [1,5,50,95,99] 
+pc = [0,95,99] 
 
 for se in lse:
     for fo in lfo:
@@ -48,25 +46,19 @@ for se in lse:
                 grd=grid(fo,cl,md)
                 # lyr=year(cl,md,byr)
 
-                idir='/project/amp/miyawaki/temp/cmip6/%s/%s/%s/%s/%s/%s' % (sim,freq,varn,md,ens,grd)
+                idirv='/project/amp/miyawaki/temp/cmip6/%s/%s/%s/%s/%s/%s' % (sim,freq,varn,md,ens,grd)
+                idirt='/project/amp/miyawaki/temp/cmip6/%s/%s/%s/%s/%s/%s' % (sim,freq,'tas',md,ens,grd)
+                odirt='/project/amp/miyawaki/data/p004/hist_hotdays/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,'tas')
                 odir='/project/amp/miyawaki/data/p004/hist_hotdays/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
 
                 if not os.path.exists(odir):
                     os.makedirs(odir)
 
                 c=0 # counter
-                # for yr in lyr:
-                #     fn = '%s/%s_%s_%s_%s_%s_%s_%s.nc' % (idir,varn,freq,md,sim,ens,grd,yr)
-
-                #     ds = xr.open_dataset(fn)
-                #     if c==0:
-                #         t2m = ds[varn]
-                #     else:
-                #         t2m = xr.concat((t2m,ds[varn]),'time')
-                #     c=c+1
-                fn = '%s/%s_%s_%s_%s_%s_%s_*.nc' % (idir,varn,freq,md,sim,ens,grd)
+                # load temp
+                fn = '%s/%s_%s_%s_%s_%s_%s_*.nc' % (idirt,'tas',freq,md,sim,ens,grd)
                 ds = xr.open_mfdataset(fn)
-                t2m=ds[varn].load()
+                t2m=ds['tas'].load()
                     
                 # select data within time of interest
                 t2m=t2m.sel(time=t2m['time.year']>=byr[0])
@@ -81,13 +73,23 @@ for se in lse:
                 gr['lon'] = ds['lon']
                 gr['lat'] = ds['lat']
 
-                # initialize array to store histogram data
-                ht2m = np.empty([len(pc), gr['lat'].size, gr['lon'].size])
+                # load percentile values
+                ht2m,_=pickle.load(open('%s/h%s_%g-%g.%s.pickle' % (odirt,'tas',byr[0],byr[1],se), 'rb'))	
+                ht2m95=ht2m[-2,...]
+                ht2m99=ht2m[-1,...]
+
+                # initialize array to store subsampled means data
+                ct2m = np.empty([len(pc), gr['lat'].size, gr['lon'].size])
 
                 # loop through gridir points to compute percentiles
                 for ln in tqdm(range(gr['lon'].size)):
                     for la in range(gr['lat'].size):
                         lt = t2m[:,la,ln]
-                        ht2m[:,la,ln]=np.percentile(lt,pc)	
+                        lv = t2m[:,la,ln]
+                        lt95 = ht2m95[la,ln]
+                        lt99 = ht2m99[la,ln]
+                        ct2m[0,la,ln]=np.nanmean(lv)
+                        ct2m[1,la,ln]=np.nanmean(lv[np.where(lt>lt95)])
+                        ct2m[2,la,ln]=np.nanmean(lv[np.where(lt>lt99)])
 
-                pickle.dump([ht2m, gr], open('%s/h%s_%g-%g.%s.pickle' % (odir,varn,byr[0],byr[1],se), 'wb'), protocol=5)	
+                pickle.dump([ct2m, gr], open('%s/c%s_%g-%g.%s.pickle' % (odir,varn,byr[0],byr[1],se), 'wb'), protocol=5)	
