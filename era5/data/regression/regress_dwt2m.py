@@ -9,7 +9,7 @@ from tqdm import tqdm
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 varn='t2m'
 xpc=95
-lse = ['ann'] # season (ann, djf, mam, jja, son)
+lse = ['djf'] # season (ann, djf, mam, jja, son)
 y0 = 1950 # begin analysis year
 y1 = 2021 # end analysis year
 
@@ -17,7 +17,7 @@ tyr=np.arange(y0,y1)
 lyr=[str(y) for y in tyr]
 
 for se in lse:
-    odir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s/%s' % (se,varn)
+    odir = '/project/amp/miyawaki/data/p004/era5/%s/%s' % (se,varn)
 
     # load data
     c0=0 # first loop counter

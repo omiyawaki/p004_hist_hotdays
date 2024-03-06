@@ -10,10 +10,11 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from scipy.stats import linregress
 from tqdm import tqdm
-from cmip6util import mods
+from util import mods
 from utils import corr
 
 nt=7 # window size in days
+p=95
 pref1='ddp'
 varn1='tas'
 pref2='ddp'
@@ -34,18 +35,53 @@ cfil='%s/f.e11.F1850C5CNTVSST.f09_f09.002.cam.h0.PHIS.040101-050012.nc'%rgdir
 cdat=xr.open_dataset(cfil)
 gr=xr.Dataset({'lat': (['lat'], cdat['lat'].data)}, {'lon': (['lon'], cdat['lon'].data)})
 
+def load_data(md,varn):
+    idir1 = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo1,md,varn)
+    idir2 = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo2,md,varn)
+
+    c = 0
+    dt={}
+
+    # prc conditioned on temp
+    ds1=xr.open_dataset('%s/pc.%s_%s.%s.nc' % (idir1,varn,his,se))
+    try:
+        pvn1=ds1[varn]
+    except:
+        pvn1=ds1['__xarray_dataarray_variable__']
+    ds2=xr.open_dataset('%s/pc.%s_%s.%s.nc' % (idir2,varn,fut,se))
+    try:
+        pvn2=ds2[varn]
+    except:
+        pvn2=ds2['__xarray_dataarray_variable__']
+
+    # warming
+    dvn=pvn2[:,0,:]-pvn1[:,0,:] # mean
+    pvn1=pvn1.sel(percentile=p)
+    pvn2=pvn2.sel(percentile=p)
+    dpvn=pvn2-pvn1
+    ddpvn=dpvn-dvn
+    # ddpvn=dpvn-np.transpose(dvn.data[...,None],[0,2,1])
+
+    return ddpvn
+
+lmd=mods(fo1)
+for i,md in enumerate(tqdm(lmd)):
+    print(md)
+    ddpvn1=load_data(md,varn1)
+    ddpvn2=load_data(md,varn2)
+
+    # save individual model data
+    if i==0:
+        i1=np.empty(np.insert(np.asarray(ddpvn1.shape),0,len(lmd)))
+        i2=np.empty(np.insert(np.asarray(ddpvn2.shape),0,len(lmd)))
+
+    i1[i,...]=ddpvn1
+    i2[i,...]=ddpvn2
+
 md='mi'
-idir1 = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn1)
-idir2 = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn2)
-odir = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
+odir = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,varn)
 if not os.path.exists(odir):
     os.makedirs(odir)
-
-# i1=pickle.load(open('%s/%s%s_%s_%s.%s.doy.pickle' % (idir1,pref1,varn1,his,fut,se), 'rb'))
-# i2=pickle.load(open('%s/%s%s_%s.%02d.%s.doy.pickle' % (idir2,pref2,varn2,his,p,se), 'rb'))
-i1=pickle.load(open('%s/%s%s_%s_%s.%s.pickle' % (idir1,pref1,varn1,his,fut,se), 'rb'))
-i2=pickle.load(open('%s/%s%s_%s_%s.%s.pickle' % (idir2,pref2,varn2,his,fut,se), 'rb'))
-# i2=pickle.load(open('%s/%s%s_%s.%02d.%s.pickle' % (idir2,pref2,varn2,his,p,se), 'rb'))
 
 oname='%s/ms.rsq.%s_%s_%s.%s' % (odir,varn,his,fut,se)
 if ann:
@@ -53,8 +89,9 @@ if ann:
     i1=np.nanmean(i1,axis=1)
     i2=np.nanmean(i2,axis=1)
 
-r=corr(i1,i2,0)
+print(oname)
 
-print(r.shape)
+r=corr(i1,i2,0)
+print(np.nanmax(r))
 
 pickle.dump(r,open('%s.pickle'%oname, 'wb'),protocol=5)

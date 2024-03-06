@@ -8,7 +8,7 @@ from tqdm import tqdm
 
 varn='t2m'
 xpc=95 # percentile to take the distance from
-lse = ['ann'] # season (ann, djf, mam, jja, son)
+lse = ['djf'] # season (ann, djf, mam, jja, son)
 # lse = ['ann','djf','mam','jja','son'] # season (ann, djf, mam, jja, son)
 y0 = 1950 # begin analysis year
 y1 = 2020 # end analysis year
@@ -21,7 +21,7 @@ ixpc=np.where(np.equal(lpc,xpc))[0][0]
 imed=np.where(np.equal(lpc,50))[0][0]
 
 for se in lse:
-    odir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s/%s' % (se,varn)
+    odir = '/project/amp/miyawaki/data/p004/era5/%s/%s' % (se,varn)
 
     # load data
     c0=0 # first loop counter

@@ -9,12 +9,12 @@ from scipy.stats import linregress
 from tqdm import tqdm
 
 varn='t2m'
-lse = ['ann'] # season (ann, djf, mam, jja, son)
+lse = ['jja'] # season (ann, djf, mam, jja, son)
 lpc=[95]
 
 for se in lse:
-    idir = '/project/amp/miyawaki/data/p004/hist_hotdays/era5/%s/%s' % (se,varn)
-    odir = '/project/amp/miyawaki/plots/p004/hist_hotdays/era5/%s/%s' % (se,varn)
+    idir = '/project/amp/miyawaki/data/p004/era5/%s/%s' % (se,varn)
+    odir = '/project/amp/miyawaki/plots/p004/era5/%s/%s' % (se,varn)
 
     if not os.path.exists(odir):
         os.makedirs(odir)
@@ -40,9 +40,9 @@ for se in lse:
     for pc in lpc:
         ax = plt.axes(projection=ccrs.Robinson(central_longitude=240))
         # vmax=np.max(slope[str(pc)])
-        vmax=0.75
+        vmax=0.3
         clf=ax.contourf(mlon, mlat, slope[str(pc)], np.arange(-vmax,vmax,0.05),extend='both', vmax=vmax, vmin=-vmax, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-        ax.contourf(mlon, mlat, sig[str(pc)], 3, hatches=['','....'], alpha=0, transform=ccrs.PlateCarree())
+        # ax.contourf(mlon, mlat, sig[str(pc)], 3, hatches=['','....'], alpha=0, transform=ccrs.PlateCarree())
         ax.coastlines()
         ax.set_title(r'%s ERA5 ($1950-2020$)' % (se.upper()))
         cb=plt.colorbar(clf,location='bottom')

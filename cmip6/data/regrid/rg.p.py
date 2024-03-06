@@ -1,41 +1,27 @@
-import os
-import sys
+import os,sys
 sys.path.append('../')
 sys.path.append('/home/miyawaki/scripts/common')
-import dask
-from dask.diagnostics import ProgressBar
-import dask.multiprocessing
-import logging
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
 import pickle
 import numpy as np
-import xesmf as xe
 import xarray as xr
 import constants as c
-from winpct import get_window_indices,get_our_pct
 from tqdm import tqdm
-from util import mods,simu,emem,load_raw
 from glade_utils import grid
-np.set_printoptions(threshold=sys.maxsize)
+from util import mods,simu,emem,load_raw
+from concurrent.futures import ProcessPoolExecutor as Pool
 
-# collect warmings across the ensembles
-
-nt=7 # number of days for window (nt days before and after)
-lpc=np.concatenate((np.arange(0,50,10),np.arange(50,75,5),np.arange(75,95,2.5),np.arange(95,100,1)))
+lmn=1+np.arange(12)
+lpc=np.arange(5,95+5,5)
 varn='tas' # input1
 ty='2d'
 checkexist=False
 
-# fo = 'historical' # forcing (e.g., ssp245)
-# byr=[1980,2000]
+fo = 'historical' # forcing (e.g., ssp245)
+byr=[1980,2000]
 
 # fo = 'ssp370' # forcing (e.g., ssp245)
-# byr=[2080,2100]
-
-fo = 'ssp370' # forcing (e.g., ssp245)
-byr='gwl2.0'
-dyr=10
+# byr='gwl2.0'
+# dyr=10
 
 freq='day'
 se='sc'
@@ -59,9 +45,9 @@ def calc_pvn(md):
         os.makedirs(odir)
 
     if 'gwl' in byr:
-        oname='%s/p.%s%03d_%s.%s.nc' % (odir,varn,nt,byr,se)
+        oname='%s/p.%s_%s.%s.nc' % (odir,varn,byr,se)
     else:
-        oname='%s/p.%s%03d_%g-%g.%s.nc' % (odir,varn,nt,byr[0],byr[1],se)
+        oname='%s/p.%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se)
 
     if checkexist:
         if os.path.isfile(oname):
@@ -69,19 +55,7 @@ def calc_pvn(md):
             return
 
     ds=load_raw(odir,varn,byr,se)
-    vn = ds[varn].load()
-
-    time_ndx = vn.dims.index('time')
-    if 'long_name' in vn.attrs:
-        var_lon_name = vn.attrs['long_name']
-    else:
-        var_lon_name = vn.name
-    if 'units' in vn.attrs:
-        var_units = vn.attrs['units']
-    else:
-        logging.warning('NO UNITS ATTACHED TO VARIABLE.')
-        var_units = 'N/A'
-    ds=None
+    vn=ds[varn]
 
     if 'gwl' in byr:
         idirg='/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % ('ts','historical+%s'%fo,md,'tas')
@@ -106,34 +80,23 @@ def calc_pvn(md):
         print('\n Done.')
 
     time=vn['time']
-    tday=time.dt.dayofyear.values
-    vn=vn.data
     ngp=vn.shape[1]
 
-    # compute daily climatology
-    print('\n Computing percentile from larger sample...')
+    ovn=np.empty([len(lmn),len(lpc),vn.shape[1]])
+    # compute monthly climatology
+    print('\n Computing percentiles...')
 
-    doy=set(tday)
-    doy_list=list(doy)
-    doy_dict=dict()
-    ndays=len(doy_list)-1
-    for i,day in enumerate(tqdm(doy_list)):
-        use_days=get_window_indices(doy_list,i,nt,nt)
-        use_inds=np.concatenate([np.nonzero(tday==j)[0] for j in use_days])
-        doy_dict[day]=vn[use_inds,...]
+    for i,mn in enumerate(tqdm(lmn)):
+        svn=vn.sel(time=vn['time.month']==mn)
+        ovn[i,...]=np.nanpercentile(svn.data,lpc,axis=0)
 
-    ovn=np.empty([len(doy_list),len(lpc),ngp])
-    for day,aggvn in tqdm(doy_dict.items()):
-        ovn[day-1,...]=get_our_pct(aggvn,lpc)
-
-    ovn=xr.DataArray(ovn,coords={'doy':doy_list,'percentile':lpc,'gpi':np.arange(ngp)},dims=('doy','percentile','gpi'))
+    ovn=xr.DataArray(ovn,coords={'month':lmn,'percentile':lpc,'gpi':np.arange(ngp)},dims=('month','percentile','gpi'))
 
     ovn.to_netcdf(oname,format='NETCDF4')
 
-calc_pvn('MPI-ESM1-2-LR')
+# calc_pvn('CESM2')
+# [calc_pvn(md) for md in tqdm(lmd)]
 
-# if __name__=='__main__':
-#     with ProgressBar():
-#         tasks=[dask.delayed(calc_pvn)(md) for md in lmd]
-#         dask.compute(*tasks,scheduler='processes')
-#         # dask.compute(*tasks,scheduler='single-threaded')
+if __name__=='__main__':
+    with Pool(max_workers=len(lmd)) as p:
+        p.map(calc_pvn,lmd)

@@ -4,28 +4,29 @@ sys.path.append('../')
 sys.path.append('/home/miyawaki/scripts/common')
 import dask
 from dask.diagnostics import ProgressBar
+from dask.distributed import Client
 import dask.multiprocessing
+from concurrent.futures import ProcessPoolExecutor as Pool
 import pickle
 import numpy as np
 import xesmf as xe
 import xarray as xr
 import constants as c
 from tqdm import tqdm
-from cmip6util import mods,simu,emem
+from util import mods,simu,emem
 from glade_utils import grid
 
 # colldsect warmings across the ensembles
 
-lvn=['tas'] # input1
-# lvn=['huss','pr','mrsos','hfss','hfls','rsds','rsus','rlds','rlus'] # input1
+# ld=np.concatenate((np.arange(20,80+20,20),np.arange(150,850+100,100)))
+# lvn=['mrso%g'%d for d in ld] # input1
+lvn=['zg850']
 ty='2d'
 checkexist=False
+doy=False
 
-# fo = 'historical' # forcing (e.g., ssp245)
-# byr=[1980,2000]
-
-fo = 'ssp370' # forcing (e.g., ssp245)
-byr=[2080,2100]
+fo = 'historical' # forcing (e.g., ssp245)
+byr=[1980,2000]
 
 # fo = 'ssp370' # forcing (e.g., ssp245)
 # byr='gwl2.0'
@@ -51,35 +52,44 @@ def calc_mvn(md):
 
     for varn in lvn:
 
-        idir='/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s/%s' % (se,fo,md,varn)
-        odir='/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s/%s' % (se,fo,md,varn)
+        idir='/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,varn)
+        odir='/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,varn)
         if not os.path.exists(odir):
             os.makedirs(odir)
 
-        if checkexist:
+        if doy:
             if 'gwl' in byr:
-                if os.path.isfile('%s/m%s_%s.%s.nc' % (odir,varn,byr,se)):
-                    print('Output file already exists, skipping...')
-                    continue
+                oname='%s/m.doy.%s_%s.%s.nc'%(odir,varn,byr,se)
             else:
-                if os.path.isfile('%s/m%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se)):
-                    print('Output file already exists, skipping...')
-                    continue
+                oname='%s/m.doy.%s_%g-%g.%s.nc'%(odir,varn,byr[0],byr[1],se)
+        else:
+            if 'gwl' in byr:
+                oname='%s/m.%s_%s.%s.nc'%(odir,varn,byr,se)
+            else:
+                oname='%s/m.%s_%g-%g.%s.nc'%(odir,varn,byr[0],byr[1],se)
+
+        if checkexist:
+            if os.path.isfile(oname):
+                print('Output file already exists, skipping...')
+                continue
 
         # load raw data
         if 'gwl' in byr:
-            fn='%s/lm.%s_%s.%s.nc' % (odir,varn,byr,se)
+            fn='%s/lm.%s_%s.%s.nc' % (idir,varn,byr,se)
         else:
-            fn='%s/lm.%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se)
+            fn='%s/lm.%s_%g-%g.%s.nc' % (idir,varn,byr[0],byr[1],se)
         print('\n Loading raw data...')
         ds = xr.open_mfdataset(fn)
-        vn = ds[varn].load()
+        try:
+            vn = ds[varn]
+        except:
+            vn = ds['plh']
         print('\n Done.')
-        # save grid info
-        gr = {}
-        gr['lon'] = ds['lon']
-        gr['lat'] = ds['lat']
-        ds=None
+        # # save grid info
+        # gr = {}
+        # gr['lon'] = ds['lon']
+        # gr['lat'] = ds['lat']
+        # ds=None
 
         # select data within time of interest
         if 'gwl' in byr:
@@ -103,32 +113,36 @@ def calc_mvn(md):
             otime=vn['time'].sel(time=vn['time.year']==byr[0])
             print('\n Done.')
 
-        # compute daily climatology
-        print('\n Computing daily climatology...')
-        mvn=vn.groupby('time.dayofyear').mean('time')
-        mvn=mvn.rename({'dayofyear':'time'})
-        mvn['time']=otime
-        print('\n Done.')
-
-        # regrid data
-        if md!='CESM2':
-            print('\n Regridding...')
-            # path to weight file
-            wf='%s/wgt.cmip6.%s.%s.cesm2.nc'%(rgdir,md,ty)
-            # build regridder with existing weights
-            rgd = xe.Regridder(mvn,ogr, 'bilinear', periodic=True, reuse_weights=True, filename=wf)
-            # regrid
-            mvn=rgd(mvn)
+        if doy:
+            # compute daily climatology
+            print('\n Computing daily climatology...')
+            mvn=vn.groupby('time.dayofyear').mean('time')
+            mvn=mvn.rename({'dayofyear':'time'})
+            mvn['time']=otime
+            print('\n Done.')
+        else:
+            # compute monthly climatology
+            print('\n Computing monthly climatology...')
+            mvn=vn.groupby('time.month').mean('time')
             print('\n Done.')
 
-        if 'gwl' in byr:
-            mvn.to_netcdf('%s/m.%s_%s.%s.nc' % (odir,varn,byr,se),format='NETCDF4')
-        else:
-            mvn.to_netcdf('%s/m%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se),format='NETCDF4')
+        # # regrid data
+        # if md!='CESM2':
+        #     print('\n Regridding...')
+        #     # path to weight file
+        #     wf='%s/wgt.cmip6.%s.%s.cesm2.nc'%(rgdir,md,ty)
+        #     # build regridder with existing weights
+        #     rgd = xe.Regridder(mvn,ogr, 'bilinear', periodic=True, reuse_weights=True, filename=wf)
+        #     # regrid
+        #     mvn=rgd(mvn)
+        #     print('\n Done.')
 
-# calc_mvn('TaiESM1')
+        mvn.to_netcdf(oname,format='NETCDF4')
 
-if __name__=='__main__':
-    with ProgressBar():
-        tasks=[dask.delayed(calc_mvn)(md) for md in lmd]
-        dask.compute(*tasks,scheduler='processes')
+# calc_mvn('CESM2')
+[calc_mvn(md) for md in tqdm(lmd)]
+
+# if __name__=='__main__':
+#     with Pool(max_workers=len(lmd)) as p:
+#         p.map(calc_mvn,lmd)
+

@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from scipy.stats import linregress
 from tqdm import tqdm
-from cmip6util import mods
+from util import mods
 from utils import monname
 
 nt=7 # window size in days
@@ -29,15 +29,24 @@ skip5075=True
 
 md='mi'
 
-idir = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
-idir1 = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,'mmm',varn1)
-odir = '/project/amp/miyawaki/plots/p004/cmip6/%s/%s/%s/%s/%s' % (se,cl,fo,md,varn)
+idir = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,varn)
+idir1 = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,'mmm',varn1)
+odir = '/project/amp/miyawaki/plots/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,varn)
 
 if not os.path.exists(odir):
     os.makedirs(odir)
 
+# load land indices
+lmi,omi=pickle.load(open('/project/amp/miyawaki/data/share/lomask/cesm2/lomi.pickle','rb'))
+
+# grid
+rgdir='/project/amp/miyawaki/data/share/regrid'
+# open CESM data to get output grid
+cfil='%s/f.e11.F1850C5CNTVSST.f09_f09.002.cam.h0.PHIS.040101-050012.nc'%rgdir
+cdat=xr.open_dataset(cfil)
+gr=xr.Dataset({'lat': (['lat'], cdat['lat'].data)}, {'lon': (['lon'], cdat['lon'].data)})
+
 # correlation
-_,_,gr=pickle.load(open('%s/d%s_%s_%s.%s.pickle' % (idir1,'tas',his,fut,se), 'rb'))	
 r=pickle.load(open('%s/rsq.%s_%s_%s.%s.pickle' % (idir,varn,his,fut,se), 'rb'))	
 
 r=np.nanmean(r,0) # MMM

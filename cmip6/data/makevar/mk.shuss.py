@@ -5,13 +5,14 @@ sys.path.append('/home/miyawaki/scripts/common')
 import dask
 from dask.diagnostics import ProgressBar
 import dask.multiprocessing
+from concurrent.futures import ProcessPoolExecutor as Pool
 import pickle
 import numpy as np
 import xesmf as xe
 import xarray as xr
 import constants as c
 from tqdm import tqdm
-from cmip6util import mods,simu,emem
+from util import mods,simu,emem
 from glade_utils import grid
 # from metpy.calc import saturation_mixing_ratio,specific_humidity_from_mixing_ratio
 # from metpy.units import units
@@ -20,11 +21,8 @@ from glade_utils import grid
 
 varn='shuss'
 
-# fo = 'historical' # forcing (e.g., ssp245)
-# byr=[1980,2000]
-
-fo = 'ssp370' # forcing (e.g., ssp245)
-byr=[2080,2100]
+fo = 'historical' # forcing (e.g., ssp245)
+# fo = 'ssp370' # forcing (e.g., ssp245)
 
 freq='day'
 
@@ -39,7 +37,7 @@ def saturation_mixing_ratio(p,t):
 
 def calc_shuss(md):
     ens=emem(md)
-    grd=grid(fo,cl,md)
+    grd=grid(md)
 
     odir='/project/amp02/miyawaki/data/share/cmip6/%s/%s/%s/%s/%s/%s' % (fo,freq,varn,md,ens,grd)
     if not os.path.exists(odir):
@@ -71,10 +69,8 @@ def calc_shuss(md):
             shuss=shuss.rename(varn)
             shuss.to_netcdf(ofn)
 
-# calc_shuss('CanESM5')
+# calc_shuss('CESM2')
 
-if __name__ == '__main__':
-    with ProgressBar():
-        tasks=[dask.delayed(calc_shuss)(md) for md in lmd]
-        dask.compute(*tasks,scheduler='processes')
-        # dask.compute(*tasks,scheduler='single-threaded')
+if __name__=='__main__':
+    with Pool(max_workers=len(lmd)) as p:
+        p.map(calc_shuss,lmd)

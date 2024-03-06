@@ -10,7 +10,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 from scipy.stats import linregress
 from tqdm import tqdm
-from cmip6util import mods
+from util import mods
 from utils import monname
 
 nt=7 # window size in days
@@ -20,7 +20,8 @@ fo1='historical' # forcings
 fo2='ssp370' # forcings 
 fo='%s-%s'%(fo2,fo1)
 his='1980-2000'
-fut='2080-2100'
+# fut='2080-2100'
+fut='gwl2.0'
 
 lmd=mods(fo1)
 

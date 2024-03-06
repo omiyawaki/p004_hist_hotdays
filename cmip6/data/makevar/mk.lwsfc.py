@@ -58,7 +58,7 @@ def calc_lwsfc(md):
 # calc_lwsfc('CanESM5')
 
 if __name__ == '__main__':
-    with ProgressBar():
+    with Client(n_workers=len(lmd)):
         tasks=[dask.delayed(calc_lwsfc)(md) for md in lmd]
-        dask.compute(*tasks,scheduler='processes')
+        dask.compute(*tasks)
         # dask.compute(*tasks,scheduler='single-threaded')

@@ -4,7 +4,9 @@ sys.path.append('../')
 sys.path.append('/home/miyawaki/scripts/common')
 import dask
 from dask.diagnostics import ProgressBar
+from dask.distributed import Client
 import dask.multiprocessing
+from concurrent.futures import ProcessPoolExecutor as Pool
 import logging
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -22,28 +24,23 @@ np.set_printoptions(threshold=sys.maxsize)
 
 # comdsect warmings across the ensembles
 
-# lvn=['tas','mrsos','hfls','pr','huss','hfss'] # input1
-# lvn=['huss','pr','mrsos','hfss','hfls','rsds','rsus','rlds','rlus'] # input1
-lvn=['mrsos'] # input1
-mycmip=False
+# lvn=['zg850'] # input1
+# mycmip=False
 
-# lvn=['rsfc'] # input1
-# mycmip=True
+lvn=['zg850']
+mycmip=True
 
 ty='2d'
-checkexist=False
+checkexist=True
 
-# fo = 'historical' # forcing (e.g., ssp245)
-# byr=[1980,2000]
-
-fo = 'ssp370' # forcing (e.g., ssp245)
-byr=[2080,2100]
+fo = 'historical' # forcing (e.g., ssp245)
+byr=[1980,2000]
 
 # fo = 'ssp370' # forcing (e.g., ssp245)
 # byr='gwl2.0'
 # dyr=10
 
-freq='day'
+freq='Eday'
 se='sc'
 
 # load ocean indices
@@ -93,6 +90,7 @@ def calc_lm(md):
         else:
             vn = ds[varn]
         print('\n Done.')
+
         # save grid info
         gr = {}
         gr['lon'] = ds['lon']
@@ -150,10 +148,9 @@ def calc_lm(md):
         else:
             vn.to_netcdf('%s/lm.%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se),format='NETCDF4')
 
-calc_lm('IITM-ESM')
+calc_lm('MIROC-ES2L')
+# [calc_lm(md) for md in tqdm(lmd)]
 
 # if __name__=='__main__':
-#     with ProgressBar():
-#         tasks=[dask.delayed(calc_lm)(md) for md in lmd]
-#         # dask.compute(*tasks,scheduler='processes')
-#         dask.compute(*tasks,scheduler='single-threaded')
+#     with Pool(max_workers=len(lmd)) as p:
+#         p.map(calc_lm,lmd)

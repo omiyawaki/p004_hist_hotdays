@@ -17,9 +17,10 @@ def mods(fo):
     if fo in ['historical','ssp245','ssp370']:
 
         # ALL AVAILABLE SSP370 ZG, TAS and STF
-        lmd=sorted(['ACCESS-CM2','CanESM5','CESM2', 'IITM-ESM', 'MIROC-ES2L','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'NorESM2-LM','NorESM2-MM','UKESM1-0-LL','EC-Earth3', 'KACE-1-0-G', 'MIROC6','MRI-ESM2-0','IPSL-CM6A-LR','TaiESM1'])
-        # lmd=sorted(['ACCESS-CM2', 'ACCESS-ESM1-5','CanESM5','CESM2', 'IITM-ESM', 'MIROC-ES2L','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'NorESM2-LM','NorESM2-MM','UKESM1-0-LL','EC-Earth3', 'KACE-1-0-G', 'MIROC6','MRI-ESM2-0','IPSL-CM6A-LR','TaiESM1'])
-        # lmd=sorted(['ACCESS-CM2', 'ACCESS-ESM1-5','CanESM5','CESM2', 'IITM-ESM','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'NorESM2-LM','NorESM2-MM','UKESM1-0-LL','EC-Earth3', 'KACE-1-0-G', 'MIROC6','MRI-ESM2-0'])
+        # lmd=sorted(['ACCESS-CM2','CanESM5','CESM2', 'IITM-ESM', 'MIROC-ES2L','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'NorESM2-LM','NorESM2-MM','UKESM1-0-LL','EC-Earth3', 'KACE-1-0-G', 'MIROC6','MRI-ESM2-0','IPSL-CM6A-LR','TaiESM1'])
+        lmd=sorted(['ACCESS-CM2','CanESM5','CESM2', 'MIROC-ES2L','MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'NorESM2-LM','NorESM2-MM','UKESM1-0-LL','EC-Earth3', 'KACE-1-0-G', 'MIROC6','MRI-ESM2-0','IPSL-CM6A-LR','TaiESM1'])
+        # lmd=sorted(['ACCESS-CM2','CanESM5', 'MPI-ESM1-2-HR', 'MPI-ESM1-2-LR', 'NorESM2-LM','NorESM2-MM',  'MIROC6','MRI-ESM2-0','IPSL-CM6A-LR','TaiESM1'])
+
         # lmd=sorted(['IITM-ESM'])
         # lmd=sorted(['MIROC-ES2L'])
         # lmd=['MPI-ESM1-2-HR','EC-Earth3','MRI-ESM2-0'] # HISTO
@@ -171,3 +172,8 @@ def load_raw(odir,varn,byr,se):
     print('\n Done.')
     return ds
 
+def casename(fo):
+    d={ 'historical':   'b.e21.BHIST.f09_g17.CMIP6-historical.011',
+            'ssp370':   'b.e21.BSSP370cmip6.f09_g17.CMIP6-SSP3-7.0.102',
+            }
+    return d[fo]
