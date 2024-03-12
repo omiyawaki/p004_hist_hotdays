@@ -1,0 +1,1902 @@
+/glade/u/home/miyawaki/.profile: line 2: /etc/profile.d/modules.sh: No such file or directory
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/site-packages/xarray/core/indexing.py:1374: PerformanceWarning: Slicing is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array[indexer]
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array[indexer]
+  return self.array[key]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+/glade/work/miyawaki/conda-envs/g/lib/python3.10/concurrent/futures/process.py:205: PerformanceWarning: Reshaping is producing a large chunk. To accept the large
+chunk and silence this warning, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': False}):
+    ...     array.reshape(shape)
+
+To avoid creating the large chunks, set the option
+    >>> with dask.config.set(**{'array.slicing.split_large_chunks': True}):
+    ...     array.reshape(shape)Explictly passing ``limit`` to ``reshape`` will also silence this warning
+    >>> array.reshape(shape, limit='128 MiB')
+  return [fn(*args) for args in chunk]
+=>> PBS: job killed: walltime 21618 exceeded limit 21600

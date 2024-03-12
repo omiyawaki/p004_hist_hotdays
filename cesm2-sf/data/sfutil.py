@@ -3,7 +3,7 @@
 import sys
 sys.path.append('/home/miyawaki/scripts/common/CASanalysis/CASutils')
 sys.path.append('/glade/u/home/miyawaki/scripts/common/CASanalysis/CASutils')
-from lensread_utils import lens2memnamegen
+from lensread_utils import lens2memnamegen_first50,lens2memnamegen_second50
 
 def emem(fo):
     # DESCRIPTION
@@ -99,7 +99,9 @@ def simu(fo,cl,**kwargs):
     # list of ensemble member numbers
 
     if fo=='lens':
-        sim=['LE2-%s' % (e) for e in lens2memnamegen_first50(50)]
+        sim1=['LE2-%s' % (e) for e in lens2memnamegen_first50(50)]
+        sim2=['LE2-%s' % (e) for e in lens2memnamegen_second50(50)]
+        sim=[*sim1,*sim2]
     elif fo=='xaaer':
         sim='CESM2-SF-xAER'
     else:
@@ -130,17 +132,46 @@ def sely(fo,cl):
 
     if cl=='fut':
         if fo=='lens':
-            # lyr=['20250101-20341231', '20350101-20441231', '20450101-20541231']
-            lyr=['20750101-20841231', '20850101-20941231', '20950101-21001231']
+            lyr=['20150101-20241231','20250101-20341231', '20350101-20441231', '20450101-20541231', '20550101-20641231']
+            # lyr=['20750101-20841231', '20850101-20941231', '20950101-21001231']
         else:
             lyr=['20250101-20341231', '20350101-20441231', '20450101-20501231'] # future
     elif cl=='his':
             # lyr=['19200101-19291231', '19300101-19391231', '19400101-19491231'] # past
-            # lyr=['19500101-19591231', '19600101-19691231', '19700101-19791231'] # past
-            lyr=['19800101-19891231', '19900101-19991231', '20000101-20091231'] # past
+            lyr=['19500101-19591231', '19600101-19691231', '19700101-19791231','19800101-19891231','19900101-19991231','20000101-20091231','20100101-20141231'] # past
+            # lyr=['19800101-19891231', '19900101-19991231', '20000101-20091231'] # past
             # lyr=['20000101-20091231', '20100101-20141231'] # past
     elif cl=='tseries':
         # lyr=['19500101-19591231', '19600101-19691231', '19700101-19791231','19800101-19891231','19900101-19991231','20000101-20091231','20100101-20141231','20150101-20241231']
         lyr=['19500101-19591231', '19600101-19691231', '19700101-19791231','19800101-19891231','19900101-19991231','20000101-20091231','20100101-20141231','20150101-20241231','20250101-20341231', '20350101-20441231', '20450101-20541231','20550101-20641231','20650101-20741231','20750101-20841231', '20850101-20941231', '20950101-21001231']
 
     return lyr
+
+def casename(fo):
+    d={ 
+        'historical':   'b.e21.BHIST.f09_g17.CMIP6-historical.011',
+            'ssp370':   'b.e21.BSSP370cmip6.f09_g17.CMIP6-SSP3-7.0.102',
+            }
+    return d[fo]
+
+def load_raw(odir,varn,byr,se):
+    # load raw data
+    if 'gwl' in byr:
+        fn='%s/lm.%s_%s.%s.nc' % (odir,varn,byr,se)
+    else:
+        fn='%s/lm.%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se)
+    print('\n Loading data to composite...')
+    ds = xr.open_dataset(fn)
+    print('\n Done.')
+    return ds
+
+def rename_vn(varn):
+    d={
+        'trefht':   'tas',
+        'fsm':      'snm',
+        'fsno':     'snc',
+            }
+    try:
+        return d[varn]
+    except:
+        return varn

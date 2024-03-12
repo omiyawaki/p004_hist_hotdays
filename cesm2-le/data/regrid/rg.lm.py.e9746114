@@ -1,0 +1,5 @@
+/glade/u/home/miyawaki/.profile: line 2: /etc/profile.d/modules.sh: No such file or directory
+  File "/var/spool/pbs/mom_priv/jobs/9746114.casper-pbs.SC", line 8
+    python rg.lm.py
+           ^^
+SyntaxError: invalid syntax
