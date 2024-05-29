@@ -16,6 +16,9 @@ from scipy.interpolate import interp1d
 slev=850 # in hPa
 ivar='advt'
 varn='%s%g'%(ivar,slev)
+gvar='gradt%g'%slev
+uvar='ua%g'%slev
+vvar='va%g'%slev
 
 # fo = 'historical' # forcing (e.g., ssp245)
 fo = 'ssp370' # forcing (e.g., ssp245)
@@ -34,52 +37,35 @@ def calc_adv(md):
         os.makedirs(odir)
 
     chk=0
-    idir='/project/amp02/miyawaki/data/share/cmip6/%s/%s/%s/%s/%s/%s' % (fo,freq,'ta850',md,ens,grd)
+    idir='/project/amp02/miyawaki/data/share/cmip6/%s/%s/%s/%s/%s/%s' % (fo,freq,gvar,md,ens,grd)
     for _,_,files in os.walk(idir):
         for fn in files:
-            ofn='%s/%s'%(odir,fn.replace('ta850',varn))
+            ofn='%s/%s'%(odir,fn.replace(gvar,varn))
             if checkexist and os.path.isfile(ofn):
                 continue
             try:
                 fn1='%s/%s'%(idir,fn)
                 ds = xr.open_dataset(fn1)
-                ta850=ds['ta850']
+                dx=ds['dx']
+                dy=ds['dy']
                 try:
-                    fn1=fn1.replace('ta850','ua850')
+                    fn1=fn1.replace(gvar,uvar)
                     ds = xr.open_dataset(fn1)
-                    ua850=ds['ua850']
-                    fn1=fn1.replace('ua850','va850')
+                    ua=ds[uvar]
+                    fn1=fn1.replace(uvar,vvar)
                     ds = xr.open_dataset(fn1)
-                    va850=ds['va850']
+                    va=ds[vvar]
                 except:
                     fn1=fn1.replace('day','Eday')
-                    fn1=fn1.replace('ta850','ua850')
+                    fn1=fn1.replace(gvar,uvar)
                     ds = xr.open_dataset(fn1)
-                    ua850=ds['ua850']
-                    fn1=fn1.replace('ua850','va850')
+                    ua=ds[uvar]
+                    fn1=fn1.replace(uvar,vvar)
                     ds = xr.open_dataset(fn1)
-                    va850=ds['va850']
-
-                lat=np.deg2rad(ds['lat'].data)
-                lon=np.deg2rad(ds['lon'].data)
-
-                # compute cpt flux divergence
-                adv=ua850.copy()
-                # compute cpt
-                cpt=c.cpd*ta850.data
-                clat=np.transpose(np.tile(np.cos(lat),(1,1,1)),[0,2,1])
-                cptc=clat*cpt
-                # zonal derivative
-                dx=1/(c.a*clat)*(cpt[...,2:]-cpt[...,:-2])/(lon[2:]-lon[:-2])
-                dx=np.concatenate((1/(c.a*clat)*(cpt[...,[1]]-cpt[...,[0]])/(lon[1]-lon[0]),dx),axis=-1)
-                dx=np.concatenate((dx,1/(c.a*clat)*(cpt[...,[-1]]-cpt[...,[-2]])/(lon[-1]-lon[-2])),axis=-1)
-                # meridional divergence
-                dy=1/(c.a*clat[:,1:-1,:])*(cptc[:,2:,:]-cptc[:,:-2,:])/(lat[2:]-lat[:-2]).reshape([1,len(lat)-2,1])
-                dy=np.concatenate((1/(c.a*clat[:,0,:])*(cptc[:,[1],:]-cptc[:,[0],:])/(lat[1]-lat[0]),dy),axis=1)
-                dy=np.concatenate((dy,1/(c.a*clat[:,-1,:])*(cptc[:,[-1],:]-cptc[:,[-2],:])/(lat[-1]-lat[-2])),axis=1)
+                    va=ds[vvar]
 
                 # total horizontal advection
-                adv.data=ua850.data*dx+va850.data*dy
+                adv=c.cpd*(ua*dx+va*dy)
 
                 adv=adv.rename(varn)
                 adv.to_netcdf(ofn)
@@ -88,6 +74,7 @@ def calc_adv(md):
                 print('WARNING skipping %s'%ofn)
 
 calc_adv('UKESM1-0-LL')
+# [calc_adv(md) for md in tqdm(lmd)]
 
 # if __name__=='__main__':
 #     with Pool(max_workers=len(lmd)) as p:

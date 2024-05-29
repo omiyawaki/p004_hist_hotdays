@@ -13,11 +13,11 @@ from util import mods
 from utils import corr
 
 nt=7 # window size in days
-p=97.5
-pref1='ddpc'
+p=2.5
+pref1='ddpc.md'
 varn1='tas'
-pref2='ddpc'
-varn2='gflx'
+pref2='ddpc.md'
+varn2='advt850'
 varn='%s%s+%s%s'%(pref1,varn1,pref2,varn2)
 se = 'sc'
 fo1='historical' # forcings 
@@ -37,6 +37,8 @@ for i,md in enumerate(tqdm(lmd)):
 
     i1=xr.open_dataarray('%s/%s.%s_%s_%s.%s.nc' % (idir1,pref1,varn1,his,fut,se)).sel(percentile=p).squeeze()
     i2=xr.open_dataarray('%s/%s.%s_%s_%s.%s.nc' % (idir2,pref2,varn2,his,fut,se)).sel(percentile=p).squeeze()
+    if 'advt' in varn2:
+        i2=-i2
 
     r=corr(i1,i2,0)
 

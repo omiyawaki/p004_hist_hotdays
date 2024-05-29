@@ -17,9 +17,10 @@ from tqdm import tqdm
 from util import mods
 from utils import monname,varnlb,unitlb
 
-p=95
+p=97.5
 varn='tas'
 varn1='tas'
+tr=True
 se = 'sc' # season (ann, djf, mam, jja, son)
 fo1='historical' # forcings 
 fo2='ssp370' # forcings 
@@ -160,16 +161,35 @@ gl.top_labels=False
 fig.savefig('%s/maxmon.ddp%02d%s.%s.msws.png' % (odir1,p,varn1,fo), format='png', dpi=600)
 fig.savefig('%s/maxmon.ddp%02d%s.%s.msws.pdf' % (odir1,p,varn1,fo), format='pdf', dpi=600)
 
-# plot seasonal cycle of varn1
-fig,ax=plt.subplots(subplot_kw={'projection':ccrs.Robinson(central_longitude=240)},figsize=(5,3),constrained_layout=True)
-clf=ax.pcolormesh(mlon,mlat,amddpvn,vmin=0,vmax=11,transform=ccrs.PlateCarree(),cmap=lrseasons)
-ax.fill_between([0,360],-90,90,transform=ccrs.PlateCarree(),hatch='///',alpha=0)
-clf=ax.pcolormesh(mlon,mlat,ma_amddpvn,vmin=0,vmax=12,transform=ccrs.PlateCarree(),cmap=lrseasons)
-ax.coastlines()
-cb=fig.colorbar(clf,location='bottom',aspect=50,boundaries=np.arange(-0.5,12.5))
-cb.set_ticks(np.arange(0,12,1))
-cb.set_ticklabels(['J','F','M','A','M','J','J','A','S','O','N','D'])
-fig.savefig('%s/maxmon.ddp%02d%s.%s.png' % (odir1,p,varn1,fo), format='png', dpi=600)
+# # plot seasonal cycle of varn1
+# fig,ax=plt.subplots(subplot_kw={'projection':ccrs.Robinson(central_longitude=240)},figsize=(5,3),constrained_layout=True)
+# clf=ax.pcolormesh(mlon,mlat,amddpvn,vmin=0,vmax=11,transform=ccrs.PlateCarree(),cmap=lrseasons)
+# ax.fill_between([0,360],-90,90,transform=ccrs.PlateCarree(),hatch='///',alpha=0)
+# clf=ax.pcolormesh(mlon,mlat,ma_amddpvn,vmin=0,vmax=12,transform=ccrs.PlateCarree(),cmap=lrseasons)
+# ax.coastlines()
+# cb=fig.colorbar(clf,location='bottom',aspect=50,boundaries=np.arange(-0.5,12.5))
+# cb.set_ticks(np.arange(0,12,1))
+# cb.set_ticklabels(['J','F','M','A','M','J','J','A','S','O','N','D'])
+# fig.savefig('%s/maxmon.ddp%02d%s.%s.png' % (odir1,p,varn1,fo), format='png', dpi=600)
+
+if tr:
+    # plot seasonal cycle of varn1
+    fig,ax=plt.subplots(subplot_kw={'projection':ccrs.Robinson(central_longitude=240)},figsize=(5,3),constrained_layout=True)
+    clf=ax.pcolormesh(mlon,mlat,ams,vmin=0,vmax=2,transform=ccrs.PlateCarree(),cmap=ccustom)
+    ax.coastlines()
+    ax.set_extent((-180,180,-30,30),crs=ccrs.PlateCarree())
+    gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
+    gl.ylocator=mticker.FixedLocator([-50,-30,0,30,50])
+    gl.yformatter=LatitudeFormatter()
+    gl.xlines=False
+    gl.left_labels=False
+    gl.bottom_labels=False
+    gl.right_labels=True
+    gl.top_labels=False
+    cb=fig.colorbar(clf,location='bottom',aspect=50,boundaries=np.arange(-0.5,3.5))
+    cb.set_ticks(np.arange(3))
+    cb.set_ticklabels(['Winter','Equinox','Summer'])
+    fig.savefig('%s/maxmon.ddp%02d%s.%s.seasons.tr.png' % (odir1,p,varn1,fo), format='png', dpi=600)
 
 # plot seasonal cycle of varn1
 fig,ax=plt.subplots(subplot_kw={'projection':ccrs.Robinson(central_longitude=240)},figsize=(5,3),constrained_layout=True)

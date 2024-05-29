@@ -15,10 +15,10 @@ from utils import monname,varnlb,unitlb
 
 nt=7 # window size in days
 p=95
-pref1='dp'
+pref1='ddp'
 varn1='tas'
-pref2='dp'
-varn2='swsfc'
+pref2='ddp'
+varn2='hfss'
 varn='%s%s+%s%s'%(pref1,varn1,pref2,varn2)
 se = 'sc' # season (ann, djf, mam, jja, son)
 fo1='historical' # forcings 

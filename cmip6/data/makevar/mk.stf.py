@@ -19,8 +19,8 @@ from glade_utils import grid
 
 varn='stf'
 
-# fo = 'historical' # forcing (e.g., ssp245)
-fo = 'ssp370' # forcing (e.g., ssp245)
+fo = 'historical' # forcing (e.g., ssp245)
+# fo = 'ssp370' # forcing (e.g., ssp245)
 
 freq='day'
 
@@ -54,8 +54,8 @@ def calc_stf(md):
             stf=stf.rename(varn)
             stf.to_netcdf(ofn)
 
-# calc_stf('CanESM5')
+calc_stf('KACE-1-0-G')
 
-if __name__=='__main__':
-    with Pool(max_workers=len(lmd)) as p:
-        p.map(calc_stf,lmd)
+# if __name__=='__main__':
+#     with Pool(max_workers=len(lmd)) as p:
+#         p.map(calc_stf,lmd)

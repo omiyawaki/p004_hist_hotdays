@@ -23,22 +23,17 @@ np.set_printoptions(threshold=sys.maxsize)
 
 # comdsect warmings across the ensembles
 
-# # lvn=['tas','mrsos','hfls','pr','huss','hfss'] # input1
-# # lvn=['huss','pr','mrsos','hfss','hfls','rsds','rsus','rlds','rlus'] # input1
-lvn=['tas'] # input1
-mycmip=False
+# lvn=['siconc'] # input1
+# mycmip=False
 
-# lvn=['swsfc','lwsfc'] # input1
-# mycmip=True
+lvn=['gflx'] # input1
+mycmip=True
 
 ty='2d'
 checkexist=False
 
 fo = 'historical' # forcing (e.g., ssp245)
 byr=[1980,2000]
-
-# fo = 'ssp370' # forcing (e.g., ssp245)
-# byr=[2080,2100]
 
 # fo = 'ssp370' # forcing (e.g., ssp245)
 # byr='gwl2.0'
@@ -58,6 +53,7 @@ cdat=xr.open_dataset(cfil)
 ogr=xr.Dataset({'lat': (['lat'], cdat['lat'].data)}, {'lon': (['lon'], cdat['lon'].data)})
 
 lmd=mods(fo) # create list of ensemble members
+lmd=lmd[6:]
 
 def calc_om(md):
     print(md)
@@ -69,7 +65,7 @@ def calc_om(md):
         if mycmip or (md=='IPSL-CM6A-LR' and varn=='huss'):
             idir='/project/amp02/miyawaki/data/share/cmip6/%s/%s/%s/%s/%s/%s' % (fo,freq,varn,md,ens,grd)
         else:
-            idir='/project/mojave/cmip6/%s/%s/%s/%s/%s/%s' % (fo,freq,varn,md,ens,grd)
+            idir='/project/cmip6/%s/%s/%s/%s/%s/%s' % (fo,freq,varn,md,ens,grd)
 
         odir='/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,varn)
         if not os.path.exists(odir):
@@ -77,16 +73,17 @@ def calc_om(md):
 
         if checkexist:
             if 'gwl' in byr:
-                if os.path.isfile('%s/lm.%s_%s.%s.nc' % (odir,varn,byr,se)):
+                if os.path.isfile('%s/om.%s_%s.%s.nc' % (odir,varn,byr,se)):
                     print('Output file already exists, skipping...')
                     continue
             else:
-                if os.path.isfile('%s/lm.%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se)):
+                if os.path.isfile('%s/om.%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se)):
                     print('Output file already exists, skipping...')
                     continue
 
         # load raw data
         fn = '%s/%s_%s_%s_%s_%s_%s_*.nc' % (idir,varn,freq,md,fo,ens,grd)
+        print(fn)
         print('\n Loading data to composite...')
         ds = xr.open_mfdataset(fn)
         if md=='IITM-ESM' and varn=='mrsos':
@@ -151,8 +148,8 @@ def calc_om(md):
         else:
             vn.to_netcdf('%s/om.%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se),format='NETCDF4')
 
-# calc_om('CanESM5')
-[calc_om(md) for md in tqdm(lmd)]
+calc_om('KACE-1-0-G')
+# [calc_om(md) for md in tqdm(lmd)]
 
 # if __name__=='__main__':
 #     with Client(n_workers=len(lmd)):

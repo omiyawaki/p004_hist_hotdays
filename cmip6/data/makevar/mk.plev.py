@@ -16,15 +16,15 @@ from scipy.interpolate import interp1d
 
 # collect warmings across the ensembles
 
-slev=950 # in hPa
+slev=925 # in hPa
 # livar=['zg']
-livar=['ua','va','ta','zg']
+livar=['ua','va']
 lvarn=['%s%g'%(ivar,slev) for ivar in livar]
 
-# fo = 'historical' # forcing (e.g., ssp245)
-fo = 'ssp370' # forcing (e.g., ssp245)
+fo = 'historical' # forcing (e.g., ssp245)
+# fo = 'ssp370' # forcing (e.g., ssp245)
 
-freq='day'
+freq='Eday'
 
 lmd=mods(fo) # create list of ensemble members
 
@@ -81,8 +81,8 @@ def calc_plev(md,ivar,varn):
 def loopvn(md):
     [calc_plev(md,ivar,varn) for ivar,varn in zip(livar,lvarn)]
 
-# loopvn('MIROC-ES2L')
-[loopvn(md) for md in tqdm(lmd)]
+loopvn('UKESM1-0-LL')
+# [loopvn(md) for md in tqdm(lmd)]
 
 # if __name__=='__main__':
 #     with Pool(max_workers=len(lmd)) as p:

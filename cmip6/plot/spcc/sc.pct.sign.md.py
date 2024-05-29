@@ -21,7 +21,7 @@ from mpl_toolkits.axes_grid1 import Divider,Size
 
 nbs=int(1e2) # number of bootstrap resamples
 # lre=['et','tr'] # tr=tropics, ml=midlatitudes, hl=high lat, et=extratropics
-lre=['ml'] # tr=tropics, ml=midlatitudes, hl=high lat, et=extratropics
+lre=['hl'] # tr=tropics, ml=midlatitudes, hl=high lat, et=extratropics
 bstype='bins' # bootstrap by mmm bin samples or multimodel samples of bin means
 tlat=30 # latitude bound for tropics
 plat=50 # midlatitude bound
@@ -46,8 +46,8 @@ v=[Size.Fixed(pds[1]), Size.Fixed(axs[1])]
 
 p=97.5 # percentile
 varn='tas'
-varn1='advt850'
-varnp='advt850'
+varn1='advt_850_t18'
+varnp='advt_850_t18'
 reverse=True
 se = 'sc' # season (ann, djf, mam, jja, son)
 fo1='historical' # forcings 
@@ -120,8 +120,10 @@ def cmap(vn):
         'fat850':       'RdBu_r',
         'advt850_wm2':  'RdBu_r',
         'advt850':      'RdBu_r',
+        'advt850_t18':  'RdBu_r',
         'advtx850':     'RdBu_r',
         'advty850':     'RdBu_r',
+        'advty850_t18': 'RdBu_r',
         'advm850':      'RdBu_r',
         'advmx850':     'RdBu_r',
         'advmy850':     'RdBu_r',
@@ -136,6 +138,17 @@ def cmap(vn):
         'ef3':          'RdBu_r',
         'oosf':         'RdBu_r',
         'ooef':         'RdBu_r',
+        'advt850_t':    'RdBu_r',
+        'advt850_t18_t':'RdBu_r',
+        'advty850_t18_t':'RdBu_r',
+        'advt_doy850_t':'RdBu_r',
+        'adv5t_doy850_t':'RdBu_r',
+        'advty_doy850_t':'RdBu_r',
+        'advt_mon850_t': 'RdBu_r',
+        'advt_rmean850_t':'RdBu_r',
+        'gflx_t':        'RdBu_r',
+        'advt850_t_hs':  'RdBu_r',
+        'gflx_t_hs':     'RdBu_r',
             }
     return d[vn]
 
@@ -164,8 +177,10 @@ def vmax(vn):
         'fat850':       0.01,
         'advt850_wm2':  5,
         'advt850':      0.03,
+        'advt850_t18':  0.03,
         'advtx850':     0.01,
         'advty850':     0.01,
+        'advty850_18':  0.01,
         'advm850':      0.01,
         'advmx850':     0.01,
         'advmy850':     0.01,
@@ -188,6 +203,17 @@ def vmax(vn):
         'oopef_fixbc':  0.05,
         'oopef_fixmsm': 0.05,
         'oopef_rddsm':  0.05,
+        'advt850_t':    1,
+        'advt850_t18_t':1,
+        'advty850_t18_t':1,
+        'advt_rmean850_t':    1,
+        'advt_doy850_t':    1,
+        'adv5t_doy850_t':    1,
+        'advty_doy850_t':    1,
+        'advt_mon850_t':    1,
+        'gflx_t':       1,
+        'advt850_t_hs':    1,
+        'gflx_t_hs':       1,
             }
     return d[vn]
 
@@ -223,11 +249,21 @@ def vstr(vn):
         'fat850':       r'$-\nabla\cdot(vc_pT)_{850}$',
         'advt850_wm2':  r'$-\rho z_{850}(uc_p\partial_xT+vc_p\partial_yT)_{850}$',
         'advt850':      r'$-(uc_p\partial_xT+vc_p\partial_yT)_{850}$',
+        'advt850_t18':  r'$-(uc_p\partial_xT+vc_p\partial_yT)_{850}$',
         'advtx850':     r'$-(uc_p\partial_xT)_{850}$',
         'advty850':     r'$-(vc_p\partial_yT)_{850}$',
+        'advty850_t18': r'$-(vc_p\partial_yT)_{850}$',
         'advm850':      r'$-(u\partial_xm+v\partial_ym)_{850}$',
         'advmx850':     r'$-(u\partial_xm)_{850}$',
         'advmy850':     r'$-(v\partial_ym)_{850}$',
+        'advt850_t':    r'$a(uc_p\partial_xT+vc_p\partial_yT)_{850}$',
+        'advt850_t18_t':r'$a(uc_p\partial_xT+vc_p\partial_yT)_{850}$',
+        'advty850_t18_t':r'$a(vc_p\partial_yT)_{850}$',
+        'advt_doy850_t':    r'$a(uc_p\partial_x\overline{T}+vc_p\partial_y\overline{T})_{850}$',
+        'adv5t_doy850_t':    r'$a(uc_p\partial_x\overline{T}+vc_p\partial_y\overline{T})_{850}$',
+        'advty_doy850_t':    r'$a(vc_p\partial_y\overline{T})_{850}$',
+        'advt_mon850_t':    r'$a(uc_p\partial_x\overline{T}+vc_p\partial_y\overline{T})_{850}$',
+        'advt_rmean850_t':    r'$a(uc_p\partial_x\overline{T}+vc_p\partial_y\overline{T})_{850}$',
             }
     return d[vn]
 
@@ -320,12 +356,7 @@ def plot(re):
         if '_wm2' in varn: varn=varn.replace('_wm2','')
         if '_wm2' in varnp: varnp=varnp.replace('_wm2','')
         idir = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,varn)
-        ds=xr.open_dataset('%s/dpc.%s_%s_%s.%s.nc' % (idir,varn,his,fut,se))
-        ddpvn=ds[varnp]
-        ddpvn.data=ddpvn.data-1/2*(ddpvn.sel(percentile=[47.5]).data+ddpvn.sel(percentile=[52.5]).data)
-        pct=ds['percentile']
-        gpi=ds['gpi']
-        return ddpvn
+        return xr.open_dataarray('%s/ddpc.md.%s_%s_%s.%s.nc' % (idir,varn,his,fut,se))
 
     tvn1=load_vn(varn,fo1,his,px='pc')
     ddpvn1=load_mmm(varn1,varnp)
@@ -333,7 +364,7 @@ def plot(re):
     if reverse and (varn1 in ['ti_ev','gflx','fsm','hfss','hfls','fa850','fat850','advt850_wm2','advt850','advtx850','advty850','advm850','advmx850','advmy850','rfa'] or 'ooplh' in varn1):
         ddpvn1=-ddpvn1
     if 'wap' in varn1: ddpvn1=ddpvn1*86400/100 # convert from Pa/s to hPa/d
-    if ddpvn1 is 'pr': ddpvn1=86400*ddpvn1
+    if varn1=='pr': ddpvn1=86400*ddpvn1
     if '_wm2' in varn1: ddpvn1=1.16*1500*ddpvn1 # rho*z850
 
     # variable of interest
@@ -343,8 +374,7 @@ def plot(re):
 
     def load_vn(varn,idir0):
         if '_wm2' in varn: varn=varn.replace('_wm2','')
-        ddpvne=xr.open_dataarray('%s/dpc.%s_%s_%s.%s.nc' % (idir0,varn,his,fut,se))
-        ddpvne.data=ddpvne.data-1/2*(ddpvne.sel(percentile=[47.5]).data+ddpvne.sel(percentile=[52.5]).data)
+        ddpvne=xr.open_dataarray('%s/ddpc.md.%s_%s_%s.%s.nc' % (idir0,varn,his,fut,se))
         if varn=='pr': ddpvne=86400*ddpvne
         if '_wm2' in varn: ddpvne=1.16*1500*ddpvne # rho*z850
         return ddpvne

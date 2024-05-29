@@ -2,6 +2,7 @@ import os
 import sys
 sys.path.append('../')
 sys.path.append('/home/miyawaki/scripts/common')
+import pickle
 import numpy as np
 import xarray as xr
 from concurrent.futures import ProcessPoolExecutor as Pool
@@ -15,7 +16,8 @@ from regions import masklev0,masklev1,settype,retname,regionsets
 varn='tas'
 ty='2d'
 se='ts'
-relb='sa'
+relb='tr_lnd'
+tlat=30
 
 fo1='historical' # forcing (e.g., ssp245)
 
@@ -27,12 +29,16 @@ freq='day'
 
 lmd=mods(fo1) # create list of ensemble members
 
+# land/ocean mask
+lm,om=pickle.load(open('/project/amp/miyawaki/data/share/lomask/cesm2/lomask.pickle','rb'))
+
 def calc_re(md):
     ens=emem(md)
     grd=grid(md)
-    mtype=settype(relb)
-    retn=retname(relb)
-    re=regionsets(relb)
+    if not relb=='tr_lnd':
+        mtype=settype(relb)
+        retn=retname(relb)
+        re=regionsets(relb)
 
     idir1='/project/mojave/cmip6/%s/%s/%s/%s/%s/%s' % (fo1,freq,varn,md,ens,grd)
     idir2='/project/mojave/cmip6/%s/%s/%s/%s/%s/%s' % (fo2,freq,varn,md,ens,grd)
@@ -48,6 +54,10 @@ def calc_re(md):
     # mask gridpoints outside region of interest
     if relb=='us':
         mask=masklev0(re,tas1,mtype).data
+    elif relb=='tr_lnd':
+        mask=np.ones_like(tas1.data)
+        mask[:,np.abs(tas1['lat'])>tlat,:]=np.nan
+        mask=mask[0,...]
     else:
         mask=masklev1(None,tas1,re,mtype).data
     tas1.data=mask*tas1.data

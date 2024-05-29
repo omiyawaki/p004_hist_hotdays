@@ -2,9 +2,6 @@ import os
 import sys
 sys.path.append('../../data/')
 sys.path.append('/home/miyawaki/scripts/common')
-import dask
-import dask.multiprocessing
-from dask.distributed import Client
 import pickle
 import numpy as np
 import xarray as xr
@@ -16,25 +13,30 @@ from cartopy.mpl.ticker import LatitudeFormatter
 from scipy.stats import linregress
 from tqdm import tqdm
 from util import mods
-from utils import monname,varnlb,unitlb,corr2d
+from utils import monname,varnlb,unitlb
 
 nt=7 # window size in days
-p=97.5
-vn='snc'
+p=2.5
+lvn=['advt850_t18']
+vnp= 'advt850_t18'
+tlat=30 # upper bound for low latitude
+plat=30 # lower bound for high latitude
 nhhl=True
+tropics=False
+reverse=True
+# lvn=['ooplh','ooplh_fixbc','ooplh_fixmsm','ooplh_rddsm']
+# vnp='ooplh'
 se = 'sc' # season (ann, djf, mam, jja, son)
 fo1='historical' # forcings 
 fo2='ssp370' # forcings 
 fo='%s-%s'%(fo2,fo1)
 his='1980-2000'
+# fut='2080-2100'
 fut='gwl2.0'
 dpi=600
 skip507599=True
-reverse=True
-clima=True
-tropics=False
 
-lmd=mods(fo1)
+md='UKESM1-0-LL'
 
 # load land indices
 lmi,_=pickle.load(open('/project/amp/miyawaki/data/share/lomask/cesm2/lomi.pickle','rb'))
@@ -46,221 +48,136 @@ cfil='%s/f.e11.F1850C5CNTVSST.f09_f09.002.cam.h0.PHIS.040101-050012.nc'%rgdir
 cdat=xr.open_dataset(cfil)
 gr=xr.Dataset({'lat': (['lat'], cdat['lat'].data)}, {'lon': (['lon'], cdat['lon'].data)})
 
-def loadmvn(fo,yr,vn,md):
-    idir = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,vn)
-    ds=xr.open_dataset('%s/m.%s_%s.%s.nc' % (idir,vn,yr,se))
-    gpi=ds['gpi']
-    try:
-        pvn=ds[vn]
-    except:
-        pvn=ds['__xarray_dataarray_variable__']
-    return pvn,gpi
-
-def loadpvn(fo,yr,vn,md):
-    idir = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,vn)
-    ds=xr.open_dataset('%s/pc.%s_%s.%s.nc' % (idir,vn,yr,se))
-    pct=ds['percentile']
-    gpi=ds['gpi']
-    try:
-        pvn=ds[vn]
-    except:
-        pvn=ds['__xarray_dataarray_variable__']
-    return pvn,pct,gpi
-
-def vmax1(vn):
-    lvm={   
-            'tas':          [1.5,0.1+1e-2],
-            'ta850':        [1.5,0.1],
-            'hfls':         [30,1],
-            'lhflx':        [30,1],
-            'qsum':         [30,1],
-            'qsoil':        [30,1],
-            'qvege':        [30,1],
-            'qvegt':        [30,1],
-            'ef':           [0.1,0.01],
-            'ef2':          [0.1,0.01],
-            'ef3':          [0.1,0.01],
-            'plh':          [30,1],
-            'plh_fixbc':    [30,1],
-            'ooef':         [0.1,0.01],
-            'ooef2':        [0.1,0.01],
-            'ooef3':        [0.1,0.01],
-            'ooblh':        [30,1],
-            'rfa':          [30,3],
-            'fat850':       [1,0.1],
-            'gflx':         [5,0.5],
-            'fsm':          [5,0.5],
-            'snc':          [0.3,0.03],
-            }
-    if 'ooplh' in vn:
-        return [30,1]
+def cmap(vn):
+    vbr=['td_mrsos','ti_pr','ti_ev']
+    if vn in vbr:
+        return 'BrBG'
     else:
-        return lvm[vn]
+        return 'RdBu_r'
 
 def vmaxdd(vn):
     lvm={   
-            'tas':          [1.5,0.1+1e-2],
-            'ta850':        [1.5,0.1],
-            'hfls':         [30,1],
-            'lhflx':        [30,1],
-            'qsum':         [30,1],
-            'qsoil':        [30,1],
-            'qvege':        [30,1],
-            'qvegt':        [30,1],
-            'ef':           [0.1,0.01],
-            'ef2':          [0.1,0.01],
-            'ef3':          [0.1,0.01],
-            'plh':          [30,1],
-            'plh_fixbc':    [30,1],
-            'ooef':         [0.1,0.01],
-            'ooef2':        [0.1,0.01],
-            'ooef3':        [0.1,0.01],
-            'ooblh':        [30,1],
-            'rfa':          [30,3],
-            'fat850':       [0.3,0.03],
-            'gflx':         [5,0.5],
-            'fsm':          [5,0.5],
-            'snc':          [0.3,0.03+1e-3],
+            'tas':  [2,0.2],
+            'advt850_t':  [2,0.2],
+            'advt850_t18_t':  [2,0.2],
+            'advty850_t18_t':  [2,0.2],
+            'advt850_t_hs':  [2,0.2],
+            'ta850':  [2,0.2],
+            'twas': [2,0.2],
+            'hurs': [5,0.5],
+            'ef':  [0.05,0.005],
+            'ef2':  [0.05,0.005],
+            'ef3':  [0.05,0.005],
+            'mrsos': [2,0.2],
+            'sfcWind': [0.5,0.005],
+            'rsfc': [10,1],
+            'swsfc': [10,1],
+            'lwsfc': [10,1],
+            'hfls': [10,1],
+            'hfss': [10,1],
+            'gflx': [50,5],
+            'plh': [10,1],
+            'plh_fixbc': [10,1],
+            'ooef': [0.05,0.005],
+            'ooef2': [0.05,0.005],
+            'ooef3': [0.05,0.005],
+            'oopef': [0.05,0.005],
+            'oopef2': [0.05,0.005],
+            'oopef3': [0.05,0.005],
+            'oopef_fixbc': [0.05,0.005],
+            'oopef3_fixbc': [0.05,0.005],
+            'ooplh': [10,1],
+            'ooplh_msm': [10,1],
+            'ooplh_fixmsm': [10,1],
+            'ooplh_orig': [10,1],
+            'ooplh_fixbc': [10,1],
+            'ooplh_rddsm': [10,1],
+            'td_mrsos': [2,0.1],
+            'ti_pr': [5,0.5],
+            'fa850': [0.3,0.03],
+            'fat850': [0.3,0.03],
+            'advt850_wm2': [50,5],
+            'advt850': [0.1,0.01],
+            'advt850_t18': [0.1,0.01],
+            'advtx850': [0.03,0.003],
+            'advtx850_t18': [0.03,0.003],
+            'advty850': [0.1,0.01],
+            'advm850': [0.1,0.01],
+            'advmx850': [0.03,0.003],
+            'advmy850': [0.1,0.01],
             }
-    if 'ooplh' in vn:
-        return [30,1]
-    else:
-        return lvm[vn]
+    return lvm[vn]
 
-def vmaxd(vn):
-    lvm={   
-            'tas':          [8,0.25],
-            'ta850':        [8,0.25],
-            'hfls':         [30,2],
-            'lhflx':        [30,2],
-            'qsum':         [30,2],
-            'qsoil':        [30,2],
-            'qvege':        [30,2],
-            'qvegt':        [30,2],
-            'ef':           [0.1,0.01],
-            'ef2':          [0.1,0.01],
-            'ef3':          [0.1,0.01],
-            'plh':          [30,2],
-            'plh_fixbc':    [30,2],
-            'ooef':         [0.1,0.01],
-            'ooef2':        [0.1,0.01],
-            'ooef3':        [0.1,0.01],
-            'ooblh':        [30,2],
-            'ooplh':        [30,2],
-            'ooplh300':     [30,2],
-            'ooplh_orig':   [30,2],
-            'rfa':          [30,3],
-            'fat850':       [0.3,0.03],
-            'gflx':         [5,0.5],
-            'fsm':          [5,0.5],
-            'snc':          [0.3,0.03],
-            }
-    if 'ooplh' in vn:
-        return [30,2]
-    else:
-        return lvm[vn]
-
-def plot(md):
-    if 'plh_' in vn:
-        vn0='plh'
-    else:
-        vn0=vn
-
-    vm1,dvm1=vmax1(vn)
+def plot(vn):
     vmdd,dvmdd=vmaxdd(vn)
-    vmd,dvmd=vmaxd(vn)
+    vnlb=varnlb(vn)
+    unlb=unitlb(vn)
+    odir = '/project/amp/miyawaki/plots/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,vn)
+
+    vno=vn
+    if '_wm2' in vn:
+        vn=vn.replace('_wm2','')
 
     idir = '/project/amp02/miyawaki/data/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,vn)
-    odir = '/project/amp/miyawaki/plots/p004/cmip6/%s/%s/%s/%s' % (se,fo,md,vn)
 
     if not os.path.exists(odir):
         os.makedirs(odir)
 
     # warming
-    pvn1,pct,gpi=loadpvn(fo1,his,vn0,md)
-    pvn2,_,_=loadpvn(fo2,fut,vn,md)
-    mvn1,_=loadmvn(fo1,his,vn0,md)
-    mvn2,_=loadmvn(fo2,fut,vn,md)
-    dvn=mvn2-mvn1
-    dpvn=pvn2-pvn1
-    ddpvn=dpvn-np.transpose(dvn.data[...,None],[0,2,1])
-    dpvn=dpvn.sel(percentile=p).squeeze()
-    ddpvn=ddpvn.sel(percentile=p).squeeze()
-
-    if reverse and (vn in ['gflx','fsm','hfss','hfls','fa850','fat850','rfa'] or 'ooplh' in vn):
-        dpvn=-dpvn
+    ddpvn=xr.open_dataarray('%s/ddpc.md.%s_%s_%s.%s.nc' % (idir,vn,his,fut,se))
+    pct=ddpvn['percentile']
+    gpi=ddpvn['gpi']
+    ddpvn=ddpvn.sel(percentile=pct==p).squeeze()
+    if reverse and (vn in ['gflx','hfss','hfls','fat850','fa850','advt850_wm2','advt850','advtx850','advty850','advm850','advmx850','advmy850','rfa'] or 'ooplh' in vn):
         ddpvn=-ddpvn
+    if '_wm2' in vno:
+        ddpvn=1.16*1500*ddpvn
 
     # jja and djf means
-    mvn1j =np.nanmean(dvn.data[5:8,:]  ,axis=0)
-    dvnj  =np.nanmean(dvn.data[5:8,:]  ,axis=0)
-    dpvnj =np.nanmean(dpvn.data[5:8,:] ,axis=0)
     ddpvnj=np.nanmean(ddpvn.data[5:8,:],axis=0)
-    mvn1d  =np.nanmean(np.roll(dvn.data  ,1,axis=0)[:3,:],axis=0)
-    dvnd  =np.nanmean(np.roll(dvn.data  ,1,axis=0)[:3,:],axis=0)
-    dpvnd =np.nanmean(np.roll(dpvn.data ,1,axis=0)[:3,:],axis=0)
     ddpvnd=np.nanmean(np.roll(ddpvn.data,1,axis=0)[:3,:],axis=0)
 
     # remap to lat x lon
-    llmvn1j=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    lldvnj=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    lldpvnj=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
     llddpvnj=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    llmvn1j[lmi]=mvn1j.data
-    lldvnj[lmi]=dvnj.data
-    lldpvnj[lmi]=dpvnj.data
     llddpvnj[lmi]=ddpvnj.data
-    llmvn1j=np.reshape(llmvn1j,(gr['lat'].size,gr['lon'].size))
-    lldvnj=np.reshape(lldvnj,(gr['lat'].size,gr['lon'].size))
-    lldpvnj=np.reshape(lldpvnj,(gr['lat'].size,gr['lon'].size))
     llddpvnj=np.reshape(llddpvnj,(gr['lat'].size,gr['lon'].size))
 
-    llmvn1d=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    lldvnd=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    lldpvnd=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
     llddpvnd=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    llmvn1d[lmi]=mvn1d.data
-    lldvnd[lmi]=dvnd.data
-    lldpvnd[lmi]=dpvnd.data
     llddpvnd[lmi]=ddpvnd.data
-    llmvn1d=np.reshape(llmvn1d,(gr['lat'].size,gr['lon'].size))
-    lldvnd=np.reshape(lldvnd,(gr['lat'].size,gr['lon'].size))
-    lldpvnd=np.reshape(lldpvnd,(gr['lat'].size,gr['lon'].size))
     llddpvnd=np.reshape(llddpvnd,(gr['lat'].size,gr['lon'].size))
 
     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
     gr['lon'] = np.append(gr['lon'].data,360)
-    llmvn1j = np.append(llmvn1j, llmvn1j[...,0][...,None],axis=1)
-    lldvnj = np.append(lldvnj, lldvnj[...,0][...,None],axis=1)
-    lldpvnj = np.append(lldpvnj, lldpvnj[...,0][...,None],axis=1)
     llddpvnj = np.append(llddpvnj, llddpvnj[...,0][...,None],axis=1)
-    llmvn1d = np.append(llmvn1d, llmvn1d[...,0][...,None],axis=1)
-    lldvnd = np.append(lldvnd, lldvnd[...,0][...,None],axis=1)
-    lldpvnd = np.append(lldpvnd, lldpvnd[...,0][...,None],axis=1)
     llddpvnd = np.append(llddpvnd, llddpvnd[...,0][...,None],axis=1)
 
     [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
-    # use jja for nh, djf for sh
-    llmvn1=np.copy(llmvn1j)
-    lldvn=np.copy(lldvnj)
-    lldpvn=np.copy(lldpvnj)
+    # use djf for nh, jja for sh
     llddpvn=np.copy(llddpvnj)
-    llmvn1[gr['lat']>0]=llmvn1d[gr['lat']>0]
-    lldvn[gr['lat']>0]=lldvnd[gr['lat']>0]
-    lldpvn[gr['lat']>0]=lldpvnd[gr['lat']>0]
     llddpvn[gr['lat']>0]=llddpvnd[gr['lat']>0]
 
-    # plot climatology
-    if clima:
+    if nhhl:
+        # plot NH HL ONLY
         fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
-        clf=ax.contourf(mlon, mlat, llmvn1, np.arange(-vm1,vm1+dvm1,dvm1),extend='both', vmax=vm1, vmin=-vm1, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-        ax.coastlines()
+        # ax.set_title(r'%s %s' % (md.upper(),fo.upper()),fontsize=16)
         ax.set_title(r'%s %s DJF+JJA' % (md.upper(),fo.upper()),fontsize=16)
+        clf=ax.contourf(mlon, mlat, llddpvn, np.arange(-vmdd,vmdd+dvmdd,dvmdd),extend='both', vmax=vmdd, vmin=-vmdd, transform=ccrs.PlateCarree(),cmap='RdBu_r')
+        ax.coastlines()
+        ax.set_extent((-180,180,plat,90),crs=ccrs.PlateCarree())
+        gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
+        gl.ylocator=mticker.FixedLocator([])
+        gl.yformatter=LatitudeFormatter()
+        gl.xlines=False
+        gl.left_labels=False
+        gl.bottom_labels=False
+        gl.right_labels=True
+        gl.top_labels=False
         cb=fig.colorbar(clf,location='bottom',aspect=50)
-        cb.ax.tick_params(labelsize=16)
-        cb.set_label(label=r'$%s^{%02d}$ (%s)'%(varnlb(vn),p,unitlb(vn)),size=16)
-        fig.savefig('%s/winter.%s.%s.png' % (odir,vn,fo), format='png', dpi=dpi)
+        cb.ax.tick_params(labelsize=12)
+        cb.set_label(label=r'$\Delta \delta %s$ (%s)'%(vnlb,unlb),size=16)
+        fig.savefig('%s/djf+jja.ddp%02d%s.%s.%s.hl.pdf' % (odir,p,vn,fo,fut), format='pdf', dpi=dpi)
+        fig.savefig('%s/djf+jja.ddp%02d%s.%s.%s.hl.png' % (odir,p,vn,fo,fut), format='png', dpi=dpi)
 
 
     # plot TROPICS ONLY
@@ -270,7 +187,7 @@ def plot(md):
         ax.set_title(r'%s %s DJF+JJA' % (md.upper(),fo.upper()),fontsize=16)
         clf=ax.contourf(mlon, mlat, llddpvn, np.arange(-vmdd,vmdd+dvmdd,dvmdd),extend='both', vmax=vmdd, vmin=-vmdd, transform=ccrs.PlateCarree(),cmap='RdBu_r')
         ax.coastlines()
-        ax.set_extent((-180,180,-30,30),crs=ccrs.PlateCarree())
+        ax.set_extent((-180,180,-tlat,tlat),crs=ccrs.PlateCarree())
         gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
         gl.ylocator=mticker.FixedLocator([-50,-30,0,30,50])
         gl.yformatter=LatitudeFormatter()
@@ -281,44 +198,19 @@ def plot(md):
         gl.top_labels=False
         cb=fig.colorbar(clf,location='bottom',aspect=50)
         cb.ax.tick_params(labelsize=12)
-        cb.set_label(label=r'$\Delta \delta %s$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
+        cb.set_label(label=r'$\Delta \delta %s$ (%s)'%(vnlb,unlb),size=16)
         fig.savefig('%s/winter.ddp%02d%s.%s.%s.tr.pdf' % (odir,p,vn,fo,fut), format='pdf', dpi=dpi)
         fig.savefig('%s/winter.ddp%02d%s.%s.%s.tr.png' % (odir,p,vn,fo,fut), format='png', dpi=dpi)
 
     # plot pct warming - mean warming
     fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
-    clf=ax.contourf(mlon, mlat, llddpvn, np.arange(-vmdd,vmdd+dvmdd,dvmdd),extend='both', vmax=vmdd, vmin=-vmdd, transform=ccrs.PlateCarree(), cmap='RdBu_r')
+    clf=ax.contourf(mlon, mlat, llddpvn, np.arange(-vmdd,vmdd+dvmdd,dvmdd),extend='both', vmax=vmdd, vmin=-vmdd, transform=ccrs.PlateCarree(), cmap=cmap(vn))
     ax.coastlines()
     ax.set_title(r'%s %s DJF+JJA' % (md.upper(),fo.upper()),fontsize=16)
     cb=fig.colorbar(clf,location='bottom',aspect=50)
     cb.ax.tick_params(labelsize=16)
-    cb.set_label(label=r'$\Delta \delta %s^{%02d}$ (%s)'%(varnlb(vn),p,unitlb(vn)),size=16)
-    fig.savefig('%s/winter.ddp%02d%s.%s.png' % (odir,p,vn,fo), format='png', dpi=dpi)
-
-    # plot pct warming
-    fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
-    clf=ax.contourf(mlon, mlat, lldpvn, np.arange(-vmd,vmd+dvmd,dvmd),extend='both', vmax=vmd, vmin=-vmd, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-    ax.coastlines()
-    ax.set_title(r'%s %s DJF+JJA' % (md.upper(),fo.upper()),fontsize=16)
-    cb=fig.colorbar(clf,location='bottom',aspect=50)
-    cb.ax.tick_params(labelsize=12)
-    cb.set_label(label=r'$\Delta %s^{%02d}$ (%s)'%(varnlb(vn),p,unitlb(vn)),size=16)
-    fig.savefig('%s/winter.dp%02d%s.%s.png' % (odir,p,vn,fo), format='png', dpi=dpi)
-
-    # plot mean warming
-    fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
-    clf=ax.contourf(mlon, mlat, lldvn, np.arange(-vmd,vmd+dvmd,dvmd),extend='both', vmax=vmd, vmin=-vmd, transform=ccrs.PlateCarree(), cmap='RdBu_r')
-    ax.coastlines()
-    ax.set_title(r'%s %s DJF+JJA' % (md.upper(),fo.upper()),fontsize=16)
-    cb=fig.colorbar(clf,location='bottom',aspect=50)
-    cb.ax.tick_params(labelsize=12)
-    cb.set_label(label=r'$\Delta \overline{%s}$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
-    fig.savefig('%s/winter.d%s.%s.png' % (odir,vn,fo), format='png', dpi=dpi)
+    cb.set_label(label=r'$\Delta \delta %s$ (%s)'%(vnlb,unlb),size=16)
+    fig.savefig('%s/winter.ddp%02d%s.%s.%s.png' % (odir,p,vn,fo,fut), format='png', dpi=dpi)
 
 # run
-plot('CESM2')
-
-# if __name__=='__main__':
-#     with Client(n_workers=len(lmd)):
-#         tasks=[dask.delayed(plot)(md) for md in lmd]
-#         dask.compute(*tasks)
+[plot(vn) for vn in lvn]

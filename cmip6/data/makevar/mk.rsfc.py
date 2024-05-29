@@ -11,7 +11,7 @@ import xesmf as xe
 import xarray as xr
 import constants as c
 from tqdm import tqdm
-from cmip6util import mods,simu,emem
+from util import mods,simu,emem
 from glade_utils import grid
 # from metpy.calc import saturation_mixing_ratio,specific_humidity_from_mixing_ratio
 # from metpy.units import units
@@ -61,10 +61,10 @@ def calc_rsfc(md):
             rsfc=rsfc.rename(varn)
             rsfc.to_netcdf(ofn)
 
-# calc_rsfc('CanESM5')
+calc_rsfc('KACE-1-0-G')
 
-if __name__ == '__main__':
-    with ProgressBar():
-        tasks=[dask.delayed(calc_rsfc)(md) for md in lmd]
-        dask.compute(*tasks,scheduler='processes')
-        # dask.compute(*tasks,scheduler='single-threaded')
+# if __name__ == '__main__':
+#     with ProgressBar():
+#         tasks=[dask.delayed(calc_rsfc)(md) for md in lmd]
+#         dask.compute(*tasks,scheduler='processes')
+#         # dask.compute(*tasks,scheduler='single-threaded')

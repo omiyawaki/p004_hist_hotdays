@@ -14,17 +14,17 @@ from tqdm import tqdm
 from util import mods
 from utils import monname,varnlb,unitlb
 
-re='tr' # tr=tropics, ml=midlatitudes, hl=high lat, et=extratropics
+re='hl' # tr=tropics, ml=midlatitudes, hl=high lat, et=extratropics
 tlat=30 # latitude bound for tropics
 plat=50 # midlatitude bound
-filt=False # only look at gridpoints with max exceeding value below
+filt=True # only look at gridpoints with max exceeding value below
 fmax=0.5
 title=True # show title string?
 
-p=97.5 # percentile
+p=2.5 # percentile
 varn='tas'
-varn1='hfls'
-varnp='hfls'
+varn1='advty850'
+varnp='advty850'
 se = 'sc' # season (ann, djf, mam, jja, son)
 fo1='historical' # forcings 
 fo2='ssp370' # forcings 
@@ -34,8 +34,8 @@ his='1980-2000'
 fut='gwl2.0'
 skip507599=True
 
-# md='mmm'
-md='CESM2'
+md='mmm'
+# md='CESM2'
 
 # plot strings
 if re=='tr':
@@ -119,6 +119,8 @@ ddpvn1=ds[varnp]
 pct=ds['percentile']
 gpi=ds['gpi']
 ddpvn1=ddpvn1.sel(percentile=pct==p).squeeze()
+if 'advt' in varn1:
+    ddpvn1=-ddpvn1
 
 print(ddpvn.shape)
 print(ddpvn1.shape)
@@ -205,20 +207,20 @@ ax.set_ylabel('$\Delta\delta %s^{%02d}$ (%s)'%(varnlb(varn1),p,unitlb(varn1)))
 ax.set_ylim(vmin(varn1))
 fig.savefig('%s/sc.ddp%02d%s.%s%s.sh.av.%s.png' % (odir1,p,varn1,fo,fstr,re), format='png', dpi=600)
 
-# # plot seasonal cycle of varn1
-# mon=np.arange(1,13,1)
-# fig,ax=plt.subplots(figsize=(2,2),constrained_layout=True)
-# ax.fill_between(mon,ahddp1-sahddp1,ahddp1+sahddp1,color='k',alpha=0.2,edgecolor=None)
-# if title: ax.set_title(tstr)
-# ax.axhline(0,color='k',linewidth=0.5)
-# ax.plot(mon,ahddp1,'k')
-# ax.set_xticks(np.arange(2,12+2,2))
-# ax.set_xticklabels(np.arange(2,12+2,2))
-# # ax.set_xlabel('Months since winter solstice')
-# ax.set_ylabel('$\Delta\delta %s^{%02d}$ (%s)'%(varnlb(varn1),p,unitlb(varn1)))
-# ax.xaxis.set_minor_locator(MultipleLocator(1))
-# ax.yaxis.set_minor_locator(MultipleLocator(0.1))
-# # ax.set_ylim(vmin(varn1))
-# fig.savefig('%s/sc.ddp%02d%s.%s%s.ah.av.%s.png' % (odir1,p,varn1,fo,fstr,re), format='png', dpi=600)
-# fig.savefig('%s/sc.ddp%02d%s.%s%s.ah.av.%s.pdf' % (odir1,p,varn1,fo,fstr,re), format='pdf', dpi=600)
+# plot seasonal cycle of varn1
+mon=np.arange(1,13,1)
+fig,ax=plt.subplots(figsize=(3,3),constrained_layout=True)
+ax.fill_between(mon,ahddp1-sahddp1,ahddp1+sahddp1,color='k',alpha=0.2,edgecolor=None)
+if title: ax.set_title(tstr)
+ax.axhline(0,color='k',linewidth=0.5)
+ax.plot(mon,ahddp1,'k')
+ax.set_xticks(np.arange(2,12+2,2))
+ax.set_xticklabels(np.arange(2,12+2,2))
+# ax.set_xlabel('Months since winter solstice')
+ax.set_ylabel('$\Delta\delta %s^{%02d}$ (%s)'%(varnlb(varn1),p,unitlb(varn1)))
+ax.xaxis.set_minor_locator(MultipleLocator(1))
+ax.yaxis.set_minor_locator(MultipleLocator(0.1))
+# ax.set_ylim(vmin(varn1))
+fig.savefig('%s/sc.ddp%02d%s.%s%s.ah.av.%s.png' % (odir1,p,varn1,fo,fstr,re), format='png', dpi=600)
+fig.savefig('%s/sc.ddp%02d%s.%s%s.ah.av.%s.pdf' % (odir1,p,varn1,fo,fstr,re), format='pdf', dpi=600)
 

@@ -24,14 +24,14 @@ np.set_printoptions(threshold=sys.maxsize)
 
 # comdsect warmings across the ensembles
 
-# lvn=['zg850'] # input1
-# mycmip=False
+lvn=['siconc'] # input1
+mycmip=False
 
-lvn=['zg850']
-mycmip=True
+# lvn=['va925']
+# mycmip=True
 
 ty='2d'
-checkexist=True
+checkexist=False
 
 fo = 'historical' # forcing (e.g., ssp245)
 byr=[1980,2000]
@@ -40,7 +40,7 @@ byr=[1980,2000]
 # byr='gwl2.0'
 # dyr=10
 
-freq='Eday'
+freq='SIday'
 se='sc'
 
 # load ocean indices
@@ -54,6 +54,7 @@ cdat=xr.open_dataset(cfil)
 ogr=xr.Dataset({'lat': (['lat'], cdat['lat'].data)}, {'lon': (['lon'], cdat['lon'].data)})
 
 lmd=mods(fo) # create list of ensemble members
+# lmd=['CESM2','IPSL-CM6A-LR','NorESM2-LM','NorESM2-MM','TaiESM1']
 
 def calc_lm(md):
     print(md)
@@ -148,7 +149,7 @@ def calc_lm(md):
         else:
             vn.to_netcdf('%s/lm.%s_%g-%g.%s.nc' % (odir,varn,byr[0],byr[1],se),format='NETCDF4')
 
-calc_lm('MIROC-ES2L')
+calc_lm('CESM2')
 # [calc_lm(md) for md in tqdm(lmd)]
 
 # if __name__=='__main__':

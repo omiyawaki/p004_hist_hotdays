@@ -15,10 +15,22 @@ from tqdm import tqdm
 from util import mods
 from utils import monname,varnlb,unitlb
 
-nt=7 # window size in days
-p=97.5
-lvn=['wap850']
-vnp= 'wap850'
+# lp=[2.5,7.5]
+# p=lp[-1]
+
+lp=[97.5]
+p=lp[0]
+
+# lp=[82.5,87.5,92.5,97.5]
+# p=lp[0]
+
+nhmon=[11,12,1]
+shmon=[5,6,7]
+lvn=['va850']
+vnp= 'va850'
+tlat=30
+plat=30
+nhhl=True
 tropics=False
 reverse=True
 # lvn=['ooplh','ooplh_fixbc','ooplh_fixmsm','ooplh_rsm']
@@ -87,45 +99,7 @@ def vmax(vn):
             'tas':  [1,0.1],
             'ta850':  [1,0.1],
             'wap850':  [50,5],
-            'twas': [1,0.1],
-            'hurs': [5,0.5],
-            'ef':  [0.05,0.005],
-            'ef2':  [0.05,0.005],
-            'ef3':  [0.05,0.005],
-            'mrsos': [2,0.2],
-            'sfcWind': [0.5,0.005],
-            'rsfc': [10,1],
-            'swsfc': [10,1],
-            'lwsfc': [10,1],
-            'hfls': [10,1],
-            'hfss': [10,1],
-            'gflx': [5,0.5],
-            'plh': [10,1],
-            'plh_fixbc': [10,1],
-            'ooef': [0.05,0.005],
-            'ooef2': [0.05,0.005],
-            'ooef3': [0.05,0.005],
-            'oopef': [0.05,0.005],
-            'oopef2': [0.05,0.005],
-            'oopef3': [0.05,0.005],
-            'oopef_fixbc': [0.05,0.005],
-            'oopef3_fixbc': [0.05,0.005],
-            'ooplh': [10,1],
-            'ooplh_msm': [10,1],
-            'ooplh_fixmsm': [10,1],
-            'ooplh_orig': [10,1],
-            'ooplh_fixbc': [10,1],
-            'ooplh_rsm': [10,1],
-            'td_mrsos': [2,0.1],
-            'ti_pr': [5,0.5],
-            'fa850': [0.3,0.03],
-            'fat850': [0.3,0.03],
-            'advt850': [0.1,0.01],
-            'advtx850': [0.1,0.01],
-            'advty850': [0.1,0.01],
-            'advm850': [0.1,0.01],
-            'advmx850': [0.1,0.01],
-            'advmy850': [0.1,0.01],
+            'va850':  [20,2],
             }
     return lvm[vn]
 
@@ -134,45 +108,7 @@ def vmaxd(vn):
             'tas':  [4,0.25],
             'ta850':  [4,0.25],
             'wap850':  [50,5],
-            'twas': [4,0.25],
-            'hurs': [10,0.5],
-            'ef':  [0.1,0.01],
-            'ef2':  [0.1,0.01],
-            'ef3':  [0.1,0.01],
-            'mrsos': [4,0.25],
-            'sfcWind': [1,0.01+1e-5],
-            'rsfc': [20,2],
-            'swsfc': [20,2+1e-5],
-            'lwsfc': [20,2],
-            'hfls': [20,2],
-            'hfss': [20,2],
-            'gflx': [10,1],
-            'plh': [20,2],
-            'plh_fixbc': [20,2],
-            'ooef': [0.1,0.01],
-            'ooef2': [0.1,0.01],
-            'ooef3': [0.1,0.01],
-            'oopef': [0.1,0.01],
-            'oopef2': [0.1,0.01],
-            'oopef3': [0.1,0.01],
-            'oopef_fixbc': [0.1,0.01],
-            'oopef3_fixbc': [0.1,0.01],
-            'ooplh': [20,2],
-            'ooplh_msm': [20,2],
-            'ooplh_fixmsm': [20,2],
-            'ooplh_orig': [20,2],
-            'ooplh_fixbc': [20,2],
-            'ooplh_rsm': [20,2],
-            'td_mrsos': [2,0.1],
-            'ti_pr': [10,1],
-            'fa850': [0.3,0.03],
-            'fat850': [0.3,0.03],
-            'advt850': [0.1,0.01],
-            'advtx850': [0.1,0.01],
-            'advty850': [0.1,0.01],
-            'advm850': [0.1,0.01],
-            'advmx850': [0.1,0.01],
-            'advmy850': [0.1,0.01],
+            'va850':  [10,0.1],
             }
     return lvm[vn]
 
@@ -194,7 +130,7 @@ def plot(vn):
     pvn=xr.open_dataarray('%s/pc.%s_%s.%s.nc' % (idir,vn,yr,se))
     pct=pvn['percentile']
     gpi=pvn['gpi']
-    pvn=pvn.sel(percentile=pct==p).squeeze()
+    pvn=pvn.sel(percentile=pct.isin(lp)).mean('percentile')
     if reverse and (vn in ['gflx','hfss','hfls','fat850','fa850','advt850','advtx850','advty850','advm850','advmx850','advmy850','rfa'] or 'ooplh' in vn):
         mvn=-mvn
         pvn=-pvn
@@ -203,40 +139,40 @@ def plot(vn):
         pvn=pvn*86400/100
 
     # ndj and mjj means
-    mvnj=np.nanmean(mvn.data[4:7,:]  ,axis=0)
-    mvnd=np.nanmean(np.roll(mvn.data,2,axis=0)[:3,:],axis=0)
-    pvnj=np.nanmean(pvn.data[4:7,:]  ,axis=0)
-    pvnd=np.nanmean(np.roll(pvn.data,2,axis=0)[:3,:],axis=0)
+    mvnnh=mvn.sel(month=mvn['month'].isin(nhmon)).mean('month')
+    mvnsh=mvn.sel(month=mvn['month'].isin(shmon)).mean('month')
+    pvnnh=pvn.sel(month=pvn['month'].isin(nhmon)).mean('month')
+    pvnsh=pvn.sel(month=pvn['month'].isin(shmon)).mean('month')
 
     # remap to lat x lon
-    llmvnj=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    llmvnj[lmi]=mvnj.data
-    llmvnj=np.reshape(llmvnj,(gr['lat'].size,gr['lon'].size))
-    llpvnj=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    llpvnj[lmi]=pvnj.data
-    llpvnj=np.reshape(llpvnj,(gr['lat'].size,gr['lon'].size))
+    llmvnnh=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
+    llmvnnh[lmi]=mvnnh.data
+    llmvnnh=np.reshape(llmvnnh,(gr['lat'].size,gr['lon'].size))
+    llpvnnh=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
+    llpvnnh[lmi]=pvnnh.data
+    llpvnnh=np.reshape(llpvnnh,(gr['lat'].size,gr['lon'].size))
 
-    llmvnd=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    llmvnd[lmi]=mvnd.data
-    llmvnd=np.reshape(llmvnd,(gr['lat'].size,gr['lon'].size))
-    llpvnd=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
-    llpvnd[lmi]=pvnd.data
-    llpvnd=np.reshape(llpvnd,(gr['lat'].size,gr['lon'].size))
+    llmvnsh=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
+    llmvnsh[lmi]=mvnsh.data
+    llmvnsh=np.reshape(llmvnsh,(gr['lat'].size,gr['lon'].size))
+    llpvnsh=np.nan*np.ones([gr['lat'].size*gr['lon'].size])
+    llpvnsh[lmi]=pvnsh.data
+    llpvnsh=np.reshape(llpvnsh,(gr['lat'].size,gr['lon'].size))
 
     # repeat 0 deg lon info to 360 deg to prevent a blank line in contour
     gr['lon'] = np.append(gr['lon'].data,360)
-    llmvnj = np.append(llmvnj, llmvnj[...,0][...,None],axis=1)
-    llmvnd = np.append(llmvnd, llmvnd[...,0][...,None],axis=1)
-    llpvnj = np.append(llpvnj, llpvnj[...,0][...,None],axis=1)
-    llpvnd = np.append(llpvnd, llpvnd[...,0][...,None],axis=1)
+    llmvnnh = np.append(llmvnnh, llmvnnh[...,0][...,None],axis=1)
+    llmvnsh = np.append(llmvnsh, llmvnsh[...,0][...,None],axis=1)
+    llpvnnh = np.append(llpvnnh, llpvnnh[...,0][...,None],axis=1)
+    llpvnsh = np.append(llpvnsh, llpvnsh[...,0][...,None],axis=1)
 
     [mlat,mlon] = np.meshgrid(gr['lat'], gr['lon'], indexing='ij')
 
     # use djf for nh, jja for sh
-    llmvn=np.copy(llmvnj)
-    llmvn[gr['lat']>0]=llmvnd[gr['lat']>0]
-    llpvn=np.copy(llpvnj)
-    llpvn[gr['lat']>0]=llpvnd[gr['lat']>0]
+    llmvn=np.copy(llmvnsh)
+    llmvn[gr['lat']>0]=llmvnnh[gr['lat']>0]
+    llpvn=np.copy(llpvnsh)
+    llpvn[gr['lat']>0]=llpvnnh[gr['lat']>0]
 
     if tropics:
         # plot TROPICS ONLY
@@ -245,9 +181,9 @@ def plot(vn):
         ax.set_title(r'%s %s NDJ+MJJ' % (md.upper(),fo.upper()),fontsize=16)
         clf=ax.contourf(mlon, mlat, llmvn, np.arange(-vm,vm+dvm,dvm),extend='both', vmax=vm, vmin=-vm, transform=ccrs.PlateCarree(),cmap='RdBu_r')
         ax.coastlines()
-        ax.set_extent((-180,180,-30,30),crs=ccrs.PlateCarree())
+        ax.set_extent((-180,180,-tlat,tlat),crs=ccrs.PlateCarree())
         gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
-        gl.ylocator=mticker.FixedLocator([-50,-30,0,30,50])
+        gl.ylocator=mticker.FixedLocator([])
         gl.yformatter=LatitudeFormatter()
         gl.xlines=False
         gl.left_labels=False
@@ -256,9 +192,8 @@ def plot(vn):
         gl.top_labels=False
         cb=fig.colorbar(clf,location='bottom',aspect=50)
         cb.ax.tick_params(labelsize=12)
-        cb.set_label(label=r'$%s$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
-        fig.savefig('%s/ndj+mjj.m%02d%s.%s.%s.tr.pdf' % (odir,p,vn,fo,yr), format='pdf', dpi=dpi)
-        fig.savefig('%s/ndj+mjj.m%02d%s.%s.%s.tr.png' % (odir,p,vn,fo,yr), format='png', dpi=dpi)
+        cb.set_label(label=r'$\overline{%s}$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
+        fig.savefig('%s/ndj+mjj.m%s.%s.%s.tr.png' % (odir,vn,fo,yr), format='png', dpi=dpi)
 
         # plot TROPICS ONLY
         fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
@@ -266,9 +201,9 @@ def plot(vn):
         ax.set_title(r'%s %s NDJ+MJJ' % (md.upper(),fo.upper()),fontsize=16)
         clf=ax.contourf(mlon, mlat, llpvn, np.arange(-vm,vm+dvm,dvm),extend='both', vmax=vm, vmin=-vm, transform=ccrs.PlateCarree(),cmap='RdBu_r')
         ax.coastlines()
-        ax.set_extent((-180,180,-30,30),crs=ccrs.PlateCarree())
+        ax.set_extent((-180,180,-tlat,tlat),crs=ccrs.PlateCarree())
         gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
-        gl.ylocator=mticker.FixedLocator([-50,-30,0,30,50])
+        gl.ylocator=mticker.FixedLocator([])
         gl.yformatter=LatitudeFormatter()
         gl.xlines=False
         gl.left_labels=False
@@ -277,9 +212,48 @@ def plot(vn):
         gl.top_labels=False
         cb=fig.colorbar(clf,location='bottom',aspect=50)
         cb.ax.tick_params(labelsize=12)
-        cb.set_label(label=r'$%s$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
-        fig.savefig('%s/ndj+mjj.p%02d%s.%s.%s.tr.pdf' % (odir,p,vn,fo,yr), format='pdf', dpi=dpi)
+        cb.set_label(label=r'$%s^{%g}$ (%s)'%(varnlb(vn),p,unitlb(vn)),size=16)
         fig.savefig('%s/ndj+mjj.p%02d%s.%s.%s.tr.png' % (odir,p,vn,fo,yr), format='png', dpi=dpi)
+
+    if nhhl:
+        fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
+        # ax.set_title(r'%s %s' % (md.upper(),fo.upper()),fontsize=16)
+        ax.set_title(r'%s %s NDJ+MJJ' % (md.upper(),fo.upper()),fontsize=16)
+        clf=ax.contourf(mlon, mlat, llmvn, np.arange(-vm,vm+dvm,dvm),extend='both', vmax=vm, vmin=-vm, transform=ccrs.PlateCarree(),cmap='RdBu_r')
+        ax.coastlines()
+        ax.set_extent((-180,180,plat,90),crs=ccrs.PlateCarree())
+        gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
+        gl.yformatter=LatitudeFormatter()
+        gl.ylocator=mticker.FixedLocator([])
+        gl.xlines=False
+        gl.left_labels=False
+        gl.bottom_labels=False
+        gl.right_labels=True
+        gl.top_labels=False
+        cb=fig.colorbar(clf,location='bottom',aspect=50)
+        cb.ax.tick_params(labelsize=12)
+        cb.set_label(label=r'$\overline{%s}$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
+        fig.savefig('%s/ndj+mjj.m%s.%s.%s.nhhl.png' % (odir,vn,fo,yr), format='png', dpi=dpi)
+
+        fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
+        # ax.set_title(r'%s %s' % (md.upper(),fo.upper()),fontsize=16)
+        ax.set_title(r'%s %s NDJ+MJJ' % (md.upper(),fo.upper()),fontsize=16)
+        clf=ax.contourf(mlon, mlat, llpvn, np.arange(-vm,vm+dvm,dvm),extend='both', vmax=vm, vmin=-vm, transform=ccrs.PlateCarree(),cmap='RdBu_r')
+        ax.coastlines()
+        ax.set_extent((-180,180,plat,90),crs=ccrs.PlateCarree())
+        gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
+        gl.ylocator=mticker.FixedLocator([])
+        gl.yformatter=LatitudeFormatter()
+        gl.xlines=False
+        gl.left_labels=False
+        gl.bottom_labels=False
+        gl.right_labels=True
+        gl.top_labels=False
+        cb=fig.colorbar(clf,location='bottom',aspect=50)
+        cb.ax.tick_params(labelsize=12)
+        cb.set_label(label=r'$%s^{%g}$ (%s)'%(varnlb(vn),p,unitlb(vn)),size=16)
+        fig.savefig('%s/ndj+mjj.p%02d%s.%s.%s.nhhl.png' % (odir,p,vn,fo,yr), format='png', dpi=dpi)
+
 
     # plot pct
     fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
@@ -288,8 +262,8 @@ def plot(vn):
     ax.set_title(r'%s %s NDJ+MJJ' % (md.upper(),fo.upper()),fontsize=16)
     cb=fig.colorbar(clf,location='bottom',aspect=50)
     cb.ax.tick_params(labelsize=16)
-    cb.set_label(label=r'$%s$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
-    fig.savefig('%s/ndj+mjj.m%02d%s.%s.%s.png' % (odir,p,vn,fo,yr), format='png', dpi=dpi)
+    cb.set_label(label=r'$\overline{%s}$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
+    fig.savefig('%s/ndj+mjj.m%s.%s.%s.png' % (odir,vn,fo,yr), format='png', dpi=dpi)
 
     # plot pct
     fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
@@ -298,8 +272,18 @@ def plot(vn):
     ax.set_title(r'%s %s NDJ+MJJ' % (md.upper(),fo.upper()),fontsize=16)
     cb=fig.colorbar(clf,location='bottom',aspect=50)
     cb.ax.tick_params(labelsize=16)
-    cb.set_label(label=r'$%s$ (%s)'%(varnlb(vn),unitlb(vn)),size=16)
+    cb.set_label(label=r'$%s^{%g}$ (%s)'%(varnlb(vn),p,unitlb(vn)),size=16)
     fig.savefig('%s/ndj+mjj.p%02d%s.%s.%s.png' % (odir,p,vn,fo,yr), format='png', dpi=dpi)
+
+    # plot pct
+    fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
+    clf=ax.contourf(mlon, mlat, llpvn-llmvn, np.arange(-vmd,vmd+dvmd,dvmd),extend='both', vmax=vmd, vmin=-vmd, transform=ccrs.PlateCarree(), cmap=cmap(vn))
+    ax.coastlines()
+    ax.set_title(r'%s %s NDJ+MJJ' % (md.upper(),fo.upper()),fontsize=16)
+    cb=fig.colorbar(clf,location='bottom',aspect=50)
+    cb.ax.tick_params(labelsize=16)
+    cb.set_label(label=r'$\delta %s^{%g}$ (%s)'%(varnlb(vn),p,unitlb(vn)),size=16)
+    fig.savefig('%s/ndj+mjj.dp%02d%s.%s.%s.png' % (odir,p,vn,fo,yr), format='png', dpi=dpi)
 
 # run
 [plot(vn) for vn in lvn]

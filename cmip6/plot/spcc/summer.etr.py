@@ -12,10 +12,13 @@ from scipy.stats import linregress
 from tqdm import tqdm
 from util import mods
 from utils import monname,varnlb,unitlb
+import matplotlib.ticker as mticker
+from cartopy.mpl.ticker import LatitudeFormatter
 
 nt=7 # window size in days
 p=97.5
 vn='mrsos'
+tr=True
 se = 'sc' # season (ann, djf, mam, jja, son)
 fo1='historical' # forcings 
 fo2='ssp370' # forcings 
@@ -212,6 +215,65 @@ def plot(vn):
     mwhw=np.logical_and(dmsm1<0,dpsm1<0)
     # mean and hot elim
     mehe=np.logical_and(dmsm1>0,dpsm1>0)
+
+    if tr:
+        # plot dpsm1
+        fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
+        clf=ax.contourf(mlon, mlat, mehw, [0,1], vmin=0,vmax=0.999, extend='both', transform=ccrs.PlateCarree(), cmap='Purples')
+        ax.coastlines()
+        ax.set_extent((-180,180,-30,30),crs=ccrs.PlateCarree())
+        gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
+        gl.ylocator=mticker.FixedLocator([-50,-30,0,30,50])
+        gl.yformatter=LatitudeFormatter()
+        gl.xlines=False
+        gl.left_labels=False
+        gl.bottom_labels=False
+        gl.right_labels=True
+        gl.top_labels=False
+        ax.set_title(r'%s %s JJA+DJF' % (md.upper(),fo1.upper()),fontsize=16)
+        cb=fig.colorbar(clf,location='bottom',aspect=50)
+        cb.ax.tick_params(labelsize=16)
+        cb.set_label(label=r'$\delta \overline{%s}>0$ and $\delta %s^{%02d}<0$ (%s)'%(varnlb(vn),varnlb(vn),p,'Boolean'),size=16)
+        fig.savefig('%s/summer.%s.%s.%s.tr.png' % (odir1,'mehw',fo1,his), format='png', dpi=dpi)
+
+        # plot dpsm1
+        fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
+        clf=ax.contourf(mlon, mlat, mwhw, [0,1],vmin=0,vmax=0.999, extend='both', transform=ccrs.PlateCarree(), cmap='Reds')
+        ax.coastlines()
+        ax.set_extent((-180,180,-30,30),crs=ccrs.PlateCarree())
+        gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
+        gl.ylocator=mticker.FixedLocator([-50,-30,0,30,50])
+        gl.yformatter=LatitudeFormatter()
+        gl.xlines=False
+        gl.left_labels=False
+        gl.bottom_labels=False
+        gl.right_labels=True
+        gl.top_labels=False
+        ax.set_title(r'%s %s JJA+DJF' % (md.upper(),fo1.upper()),fontsize=16)
+        cb=fig.colorbar(clf,location='bottom',aspect=50)
+        cb.ax.tick_params(labelsize=16)
+        cb.set_label(label=r'$\delta \overline{%s}<0$ and $\delta %s^{%02d}<0$ (%s)'%(varnlb(vn),varnlb(vn),p,'Boolean'),size=16)
+        fig.savefig('%s/summer.%s.%s.%s.tr.png' % (odir1,'mwhw',fo1,his), format='png', dpi=dpi)
+
+        # plot dpsm1
+        fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)
+        clf=ax.contourf(mlon, mlat, mehw, [0,1], vmin=0,vmax=0.999, extend='both', transform=ccrs.PlateCarree(), cmap='Purples')
+        clf=ax.contourf(mlon, mlat, mwhw, [0,1],vmin=0,vmax=0.999, extend='both', transform=ccrs.PlateCarree(), cmap='Reds')
+        ax.coastlines()
+        ax.set_extent((-180,180,-30,30),crs=ccrs.PlateCarree())
+        gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
+        gl.ylocator=mticker.FixedLocator([-50,-30,0,30,50])
+        gl.yformatter=LatitudeFormatter()
+        gl.xlines=False
+        gl.left_labels=False
+        gl.bottom_labels=False
+        gl.right_labels=True
+        gl.top_labels=False
+        ax.set_title(r'%s %s JJA+DJF' % (md.upper(),fo1.upper()),fontsize=16)
+        cb=fig.colorbar(clf,location='bottom',aspect=50)
+        cb.ax.tick_params(labelsize=16)
+        cb.set_label(label=r'$\delta \overline{%s}<0$ and $\delta %s^{%02d}<0$ (%s)'%(varnlb(vn),varnlb(vn),p,'Boolean'),size=16)
+        fig.savefig('%s/summer.%s.%s.%s.tr.png' % (odir1,'mehw+mwhw',fo1,his), format='png', dpi=dpi)
 
     # plot dpsm1
     fig,ax=plt.subplots(subplot_kw={'projection': ccrs.Robinson(central_longitude=240)},figsize=(5,4),constrained_layout=True)

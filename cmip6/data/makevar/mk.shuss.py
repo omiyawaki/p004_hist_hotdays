@@ -69,8 +69,8 @@ def calc_shuss(md):
             shuss=shuss.rename(varn)
             shuss.to_netcdf(ofn)
 
-# calc_shuss('CESM2')
+calc_shuss('KACE-1-0-G')
 
-if __name__=='__main__':
-    with Pool(max_workers=len(lmd)) as p:
-        p.map(calc_shuss,lmd)
+# if __name__=='__main__':
+#     with Pool(max_workers=len(lmd)) as p:
+#         p.map(calc_shuss,lmd)

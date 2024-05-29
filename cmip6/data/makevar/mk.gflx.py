@@ -50,8 +50,8 @@ def calc_gflx(md):
             gflx=gflx.rename(varn)
             gflx.to_netcdf(ofn)
 
-# calc_gflx('CanESM5')
+calc_gflx('KACE-1-0-G')
 
-if __name__=='__main__':
-    with Pool(max_workers=len(lmd)) as p:
-        p.map(calc_gflx,lmd)
+# if __name__=='__main__':
+#     with Pool(max_workers=len(lmd)) as p:
+#         p.map(calc_gflx,lmd)

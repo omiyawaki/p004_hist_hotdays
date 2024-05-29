@@ -15,26 +15,25 @@ import constants as c
 from tqdm import tqdm
 from util import mods,simu,emem
 from glade_utils import grid
-from etregimes import bestfit
 
 # collect warmings across the ensembles
 
 nd=3 # number of days to integrate
 budget='energy'
-varn0='fsm'
+varn0='advt_doy850'
 varn='ti_ev' if varn0=='hfls' and budget=='water' else 'ti_%s'%varn0
 se='sc'
 doy=False
-only95=True
+anom=False
 
 fo0 = 'historical' # forcing (e.g., ssp245)
 byr0=[1980,2000]
 
-fo = 'historical' # forcing (e.g., ssp245)
-byr=[1980,2000]
+# fo = 'historical' # forcing (e.g., ssp245)
+# byr=[1980,2000]
 
-# fo = 'ssp370' # forcing (e.g., ssp245)
-# byr='gwl2.0'
+fo = 'ssp370' # forcing (e.g., ssp245)
+byr='gwl2.0'
 
 freq='day'
 
@@ -60,12 +59,13 @@ def calc_tint(md):
 
     print('\n Loading data...')
     vn=xr.open_dataarray(get_fn0(varn0,md,fo,byr))
-    vn0=xr.open_dataarray(get_fn0(varn0,md,fo0,byr0)) # historical
     print('\n Done.')
 
-    print('\n Computing anomaly from historical climatology...')
-    vn=vn.groupby('time.dayofyear')-vn0.groupby('time.dayofyear').mean('time')
-    print('\n Done.')
+    if anom:
+        print('\n Computing anomaly from historical climatology...')
+        vn0=xr.open_dataarray(get_fn0(varn0,md,fo0,byr0)) # historical
+        vn=vn.groupby('time.dayofyear')-vn0.groupby('time.dayofyear').mean('time')
+        print('\n Done.')
 
     print('\n Computing time integral...')
     nvn=vn.data # numpy array
@@ -82,8 +82,8 @@ def calc_tint(md):
     vn.to_netcdf(get_fn0(varn,md,fo,byr),format='NETCDF4')
 
 if __name__=='__main__':
-    calc_tint('CESM2')
-    # [calc_tint(md) for md in tqdm(lmd)]
+    # calc_tint('CESM2')
+    [calc_tint(md) for md in tqdm(lmd)]
 
 # if __name__=='__main__':
 #     with Pool(max_workers=len(lmd)) as p:
