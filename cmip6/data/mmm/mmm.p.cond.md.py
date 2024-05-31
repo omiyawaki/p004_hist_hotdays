@@ -20,7 +20,7 @@ from tqdm import tqdm
 from util import mods
 from utils import monname
 
-lvn=['psl'] # input1
+lvn=['advt_mon850'] # input1
 se = 'sc' # season (ann, djf, mam, jja, son)
 fo1='historical' # forcings 
 fo2='ssp370' # forcings 

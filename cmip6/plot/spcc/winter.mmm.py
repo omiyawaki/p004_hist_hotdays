@@ -16,9 +16,9 @@ from util import mods
 from utils import monname,varnlb,unitlb
 
 nt=7 # window size in days
-p=97.5
-lvn=['ta850']
-vnp= 'ta850'
+p=2.5
+lvn=['advt_mon850']
+vnp= 'advt_mon850'
 domp=True
 nhmon=[12,1,2]
 shmon=[6,7,8]
@@ -39,7 +39,7 @@ fut='gwl2.0'
 dpi=600
 skip507599=True
 
-md='CESM2'
+md='mmm'
 
 # load land indices
 lmi,_=pickle.load(open('/project/amp/miyawaki/data/share/lomask/cesm2/lomi.pickle','rb'))
@@ -330,6 +330,26 @@ def plot(vn):
         cb.set_label(label=r'$\Delta \delta %s$ (%s)'%(vnlb,unlb),size=16)
         fig.savefig('%s/djf+jja.ddp%02d%s.%s.%s.hl.pdf' % (odir,p,vn,fo,fut), format='pdf', dpi=dpi)
         fig.savefig('%s/djf+jja.ddp%02d%s.%s.%s.hl.png' % (odir,p,vn,fo,fut), format='png', dpi=dpi)
+
+        # plot NH HL ONLY
+        fig,ax=plt.subplots(subplot_kw={'projection': ccrs.PlateCarree(central_longitude=0)},figsize=(5,4),constrained_layout=True)
+        # ax.set_title(r'%s %s' % (md.upper(),fo.upper()),fontsize=16)
+        ax.set_title(r'%s %s DJF+JJA' % (md.upper(),fo.upper()),fontsize=16)
+        clf=ax.contourf(mlon, mlat, llddpvn, np.arange(-vmdd,vmdd+dvmdd,dvmdd),extend='both', vmax=vmdd, vmin=-vmdd, transform=ccrs.PlateCarree(),cmap='RdBu_r')
+        ax.coastlines()
+        ax.set_extent((-180,180,plat,90),crs=ccrs.PlateCarree())
+        gl=ax.gridlines(crs=ccrs.PlateCarree(),draw_labels=True,linewidth=0.5,color='gray',y_inline=False)
+        gl.ylocator=mticker.FixedLocator([])
+        gl.yformatter=LatitudeFormatter()
+        gl.xlines=False
+        gl.left_labels=False
+        gl.bottom_labels=False
+        gl.right_labels=True
+        gl.top_labels=False
+        cb=fig.colorbar(clf,location='bottom',aspect=50)
+        cb.ax.tick_params(labelsize=12)
+        cb.set_label(label=r'$\Delta \delta %s$ (%s)'%(vnlb,unlb),size=16)
+        fig.savefig('%s/djf+jja.ddp%02d%s.%s.%s.hl.lon0.png' % (odir,p,vn,fo,fut), format='png', dpi=dpi)
 
 
     # plot TROPICS ONLY
